@@ -11,7 +11,7 @@ module.exports = function(config) {
       '../www/lib/ionic/js/ionic.bundle.js',
       '../www/lib/angular-mocks/angular-mocks.js',
       '../www/js/**/*.js',
-      'specs/**/*.js'
+      'specs/**/*.spec.js'
     ],
 
     // list of files to exclude
@@ -44,7 +44,10 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
-
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine'
+    ],
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
