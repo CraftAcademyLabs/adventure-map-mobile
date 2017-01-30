@@ -10,7 +10,7 @@ module.exports = function(config) {
     files: [
       '../www/lib/ionic/js/ionic.bundle.js',
       '../www/js/**/*.js',
-      'unit-tests/**/*.js'
+      'specs/**/*.js'
     ],
 
     // list of files to exclude
