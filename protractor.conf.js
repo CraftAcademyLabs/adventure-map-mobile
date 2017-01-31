@@ -12,13 +12,13 @@ exports.config = {
   frameworkPath: require.resolve('protractor-cucumber-framework'),
   cucumberOpts: {
     require: [
-      'features/step_definitions/*_steps.js',
-      'features/support/*.js'
+      './features/**/*_steps.js',
+      './features/support/*.js'
     ],
     format: 'pretty'
   },
   useAllAngular2AppRoots: true,
   beforeLaunch: function () {
-    require('connect')().use(require('serve-static')('www')).listen(8100);
+    // require('connect')().use(require('serve-static')('www')).listen(8100);
   }
 };
