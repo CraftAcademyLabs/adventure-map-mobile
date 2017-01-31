@@ -2,6 +2,9 @@
   "name": "adventure-map-mobile",
   "version": "1.1.1",
   "description": "adventure-map-mobile: An Ionic project",
+  "scripts": {
+    "test": "karma start tests/karma.conf.js --single-run"
+  },
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
