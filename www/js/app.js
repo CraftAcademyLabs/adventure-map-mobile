@@ -2,6 +2,13 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token-auth'])
+  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+
+  .config(function ($authProvider) {
+    $authProvider.configure({
+      apiUrl: 'https://adventuremap-dev.herokuapp.com/api/v1'
+    });
+  })
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -13,11 +20,5 @@ angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
-    });
-  })
-
-  .config(function ($authProvider) {
-    $authProvider.configure({
-      apiUrl: 'http://adventuremap-dev.herokuapp.com'
     });
   });

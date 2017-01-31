@@ -45,6 +45,9 @@
   <ion-content>
     <div ng-controller="UserSession">
       {{string}}
+      <input type="text" ng-model="loginData.email" placeholder='Email'>
+      <input type="text" ng-model="loginData.password" placeholder='Password'>
+      <button ng-click="userSignIn()">Login</button>
     </div>
   </ion-content>
 </ion-pane>
