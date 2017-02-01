@@ -3,7 +3,8 @@
   "version": "1.1.1",
   "description": "adventure-map-mobile: An Ionic project",
   "scripts": {
-    "test": "karma start tests/karma.conf.js --single-run"
+    "test": "karma start tests/karma.conf.js --single-run",
+    "cucumber": "protractor tests/protractor.conf.js"
   },
   "dependencies": {
     "gulp": "^3.5.6",

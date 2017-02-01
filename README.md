@@ -27,7 +27,7 @@ $ ionic serve
 
 then open another tab on your terminal and to run the test you must run the following command:
 ```
-$ protractor tests/protractor.conf.js 
+$ npm run cucumber
 ```
 
 _
