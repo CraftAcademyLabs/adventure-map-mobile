@@ -4,9 +4,9 @@
 angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token-auth'])
   .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
 
-  .config(function ($authProvider) {
+  .config(function ($authProvider, API_URL) {
     $authProvider.configure({
-      apiUrl: 'https://adventuremap-dev.herokuapp.com/api/v1'
+      apiUrl: API_URL
     });
   })
 
