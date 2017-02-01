@@ -12,6 +12,7 @@ Feature: User can log in using email and password
     And I fill in "Password" with "password"
     And I click "Log in"
     Then I should be on the "activities" page
+    And I should see "This is the Activities View"
 
 
   Scenario: User logs in with invalid credentials

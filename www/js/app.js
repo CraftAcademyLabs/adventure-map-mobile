@@ -1,7 +1,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token-auth'])
+angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'ng-token-auth'])
   .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
 
   .config(function ($authProvider) {

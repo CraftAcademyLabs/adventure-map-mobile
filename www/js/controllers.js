@@ -1,5 +1,5 @@
 angular
-  .module('adventure-map.controllers', [])
+  .module('adventureMap.controllers', [])
   .controller('userSessionController', userSessionController)
   .controller('activitiesController', activitiesController);
 

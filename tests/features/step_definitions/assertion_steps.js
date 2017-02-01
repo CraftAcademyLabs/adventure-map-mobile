@@ -22,7 +22,7 @@ var assertionStepDefinitionsWrapper = function () {
   });
 
   this.Then(/^I should see "([^"]*)"$/, function (content, callback) {
-    this.expect(element(by.css('ion-content')).getText()).to.eventually.contain(content)
+    this.expect(element(by.css('body')).getText()).to.eventually.contain(content)
       .and.notify(callback);
   });
 };
