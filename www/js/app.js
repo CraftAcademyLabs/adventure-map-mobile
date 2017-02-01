@@ -28,7 +28,8 @@ angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token
       .state('activity_feed', {
         url: "/activity_feed",
         templateUrl: "templates/activity_feed.html",
-        controller: "ActivitiesController"
+        controller: 'ActivitiesController',
+        cache: false
       });
-    // $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
   });

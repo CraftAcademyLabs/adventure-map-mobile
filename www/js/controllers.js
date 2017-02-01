@@ -19,7 +19,11 @@ angular.module('adventure-map.controllers', [])
             .then(function () {
               console.log('wtf?');
               // debugger;
-              $state.go('activity_feed');
+              // $state.go('activity_feed');
+              $ionicModal.fromTemplateUrl('templates/activity_feed.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+              })
             })
         })
         .catch(function (response) {
@@ -29,6 +33,6 @@ angular.module('adventure-map.controllers', [])
     }
   })
 
-.controller('ActivitiesController', function() {
-
-});
+  .controller('ActivitiesController', function () {
+    console.log('activities controller')
+  });
