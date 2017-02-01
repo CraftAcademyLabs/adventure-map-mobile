@@ -21,4 +21,19 @@ angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token
         StatusBar.styleDefault();
       }
     });
+  })
+
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: 'templates/login.html',
+        controller: 'userSessionController'
+      })
+      .state('activities', {
+        url: '/activities',
+        templateUrl: 'templates/activities.html',
+        controller: 'activitiesController'
+      });
+    $urlRouterProvider.otherwise('home');
   });

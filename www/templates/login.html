@@ -1,0 +1,14 @@
+<ion-view>
+  <ion-content>
+    <div ng-if="errorMessage">
+      <strong ng-bind="errorMessage"></strong>
+    </div>
+    <div>
+      <input type="text" ng-model="loginData.email" placeholder='Email'>
+      <input type="password" ng-model="loginData.password" placeholder='Password'>
+      <button ng-click="userSignIn()">Login</button>
+    </div>
+  </ion-content>
+</ion-view>
+
+

@@ -1,23 +1,27 @@
-angular.module('adventure-map.controllers', [])
-
-  .controller('UserSession', function ($scope, $auth, $ionicLoading) {
-    $scope.string = 'this is a variable';
-
-    $scope.userSignIn = function () {
-      $ionicLoading.show({
-        template: 'Logging in...'
-      });
-      $auth.submitLogin($scope.loginData)
-        .then(function (response) {
-          console.log(response);
-          $scope.user = response;
-          $ionicLoading.hide();
-        })
-        .catch(function (response) {
-          $ionicLoading.hide();
-          console.dir(response);
-        })
-    }
+angular
+  .module('adventure-map.controllers', [])
+  .controller('userSessionController', userSessionController)
+  .controller('activitiesController', activitiesController);
 
 
-  })
+function userSessionController($scope, $auth, $ionicLoading, $state) {
+  $scope.userSignIn = function () {
+    $ionicLoading.show({
+      template: 'Logging in...'
+    });
+    $auth.submitLogin($scope.loginData)
+      .then(function (response) {
+        $scope.user = response;
+        $state.go('activities');
+        $ionicLoading.hide();
+      })
+      .catch(function (response) {
+        $ionicLoading.hide();
+        $scope.errorMessage = response.errors.toString();
+      })
+  }
+}
+
+function activitiesController($scope){
+  $scope.message = 'This is the Activities View'
+}
