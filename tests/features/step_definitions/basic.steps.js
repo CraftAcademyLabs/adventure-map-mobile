@@ -1,8 +1,13 @@
-module.exports = function() {
+var myStepDefinitionsWrapper = function () {
+
+  this.Then(/^start the debugger$/, function () {
+    //browser.pause();
+    browser.enterRepl();
+  });
 
   this.World = require("../support/world.js").World;
 
-  this.Given(/^I go to "([^"]*)"$/, function(site) {
+  this.Given(/^I go to "([^"]*)"$/, function (site) {
     browser.get(site);
   });
 
@@ -26,3 +31,4 @@ module.exports = function() {
       .and.notify(callback);
   });
 };
+module.exports = myStepDefinitionsWrapper;

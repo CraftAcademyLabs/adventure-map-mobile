@@ -8,15 +8,15 @@ exports.config = {
 
   // Spec patterns are relative to this directory.
   specs: [
-    '*.feature'
+    'features/*.feature'
   ],
 
   baseURL: 'http://localhost:8080/',
 
   cucumberOpts: {
     require:  [
-      'step_definitions/*.steps.js',
-      'support/*.js'
+      'features/step_definitions/*.steps.js',
+      'features/support/*.js'
     ],
     tags: false,
     format: 'pretty',
