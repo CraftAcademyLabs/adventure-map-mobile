@@ -12,7 +12,7 @@ Step definitions are placed in `/features/step_definitions`
 
 In order to run features, an instance of the `ionic serve` must be running and you must execute:
 ```
-$ protractor protractor.conf.js
+$ protractor features/protractor.conf.js 
 ```
 
 _
