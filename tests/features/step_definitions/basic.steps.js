@@ -1,7 +1,6 @@
-var myStepDefinitionsWrapper = function () {
+var basicStepDefinitionsWrapper = function () {
 
   this.Then(/^start the debugger$/, function () {
-    //browser.pause();
     browser.enterRepl();
   });
 
@@ -31,4 +30,5 @@ var myStepDefinitionsWrapper = function () {
       .and.notify(callback);
   });
 };
-module.exports = myStepDefinitionsWrapper;
+
+module.exports = basicStepDefinitionsWrapper;
