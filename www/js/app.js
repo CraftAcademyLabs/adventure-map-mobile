@@ -21,4 +21,14 @@ angular.module('adventure-map', ['ionic', 'adventure-map.controllers', 'ng-token
         StatusBar.styleDefault();
       }
     });
+  })
+
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('activity_feed', {
+        url: "/activity_feed",
+        templateUrl: "templates/activity_feed.html",
+        controller: "ActivitiesController"
+      });
+    // $urlRouterProvider.otherwise('/');
   });

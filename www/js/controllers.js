@@ -1,7 +1,11 @@
 angular.module('adventure-map.controllers', [])
 
-  .controller('UserSession', function ($scope, $auth, $ionicLoading) {
-    $scope.string = 'this is a variable';
+  .controller('UserSession', function ($scope,
+                                       $auth,
+                                       $ionicLoading,
+                                       $ionicModal,
+                                       $state,
+                                       $location) {
 
     $scope.userSignIn = function () {
       $ionicLoading.show({
@@ -11,13 +15,20 @@ angular.module('adventure-map.controllers', [])
         .then(function (response) {
           console.log(response);
           $scope.user = response;
-          $ionicLoading.hide();
+          $ionicLoading.hide()
+            .then(function () {
+              console.log('wtf?');
+              // debugger;
+              $state.go('activity_feed');
+            })
         })
         .catch(function (response) {
           $ionicLoading.hide();
           console.dir(response);
         })
     }
-
-
   })
+
+.controller('ActivitiesController', function() {
+
+});
