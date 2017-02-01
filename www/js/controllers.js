@@ -5,13 +5,13 @@ angular
 
 
 function userSessionController($scope, $auth, $ionicLoading, $state) {
+  $scope.loginData = {};
   $scope.userSignIn = function () {
     $ionicLoading.show({
       template: 'Logging in...'
     });
     $auth.submitLogin($scope.loginData)
-      .then(function (response) {
-        $scope.user = response;
+      .then(function () {
         $state.go('activities');
         $ionicLoading.hide();
       })
@@ -22,6 +22,6 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
   }
 }
 
-function activitiesController($scope){
+function activitiesController($scope) {
   $scope.message = 'This is the Activities View'
 }
