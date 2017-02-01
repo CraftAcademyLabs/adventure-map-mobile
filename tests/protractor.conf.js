@@ -3,7 +3,10 @@ exports.config = {
   // path relative to the current config file
   frameworkPath: require.resolve('protractor-cucumber-framework'),
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'chromeOptions': {
+        args: ['--disable-web-security']
+    }
   },
 
   // Spec patterns are relative to this directory.
@@ -11,7 +14,7 @@ exports.config = {
     'features/*.feature'
   ],
 
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:8100/',
 
   cucumberOpts: {
     require:  [

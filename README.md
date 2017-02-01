@@ -7,10 +7,25 @@ AdventureMap Mobile application - Ionic v1 😞
 
 #### Features
 This project uses Protractor and CucumberJS for acceptance tests
-Feature files are placed in `/features` folder. 
-Step definitions are placed in `/features/step_definitions`
+Feature files are placed in `tests/features` folder. 
+Step definitions are placed in `tests/features/step_definitions`
 
-In order to run features, an instance of the `ionic serve` must be running and you must execute:
+##### Dependencies
+Install `protractor` and update the webdriver
+
+```shell
+$ npm install -g protractor
+$ webdriver-manager update
+```
+
+##### Running the tests
+In order to run features, an instance of the application must be running:
+
+```shell
+$ ionic serve
+```
+
+then open another tab on your terminal and to run the test you must run the following command:
 ```
 $ protractor tests/protractor.conf.js 
 ```
