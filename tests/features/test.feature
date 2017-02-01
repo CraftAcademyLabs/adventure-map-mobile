@@ -9,4 +9,3 @@ Feature: Running Cucumber with Protractor
     And the navigation bar should be "AdventureMap"
     And the title should be "AdventureMap"
     And I should see "HelloWorld"
-    Then start the debugger
