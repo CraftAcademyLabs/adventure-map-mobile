@@ -1,7 +1,8 @@
 angular
   .module('adventureMap.controllers', [])
   .controller('userSessionController', userSessionController)
-  .controller('activitiesController', activitiesController);
+  .controller('activitiesController', activitiesController)
+  .controller('createActivitiesController', createActivitiesController);
 
 
 function userSessionController($scope, $auth, $ionicLoading, $state) {
@@ -25,10 +26,18 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
 
 function activitiesController($scope, $state) {
   $scope.message = 'This is the Activities View';
-  $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging']
-  console.log($scope.user);
-
   $scope.addActivity = function () {
     $state.go('create_activity');
+  }
+}
+
+function createActivitiesController($scope) {
+  $scope.activityData = {};
+  $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
+
+  $scope.createActivity = function() {
+    $scope.activityData.user_id = $scope.user.id;
+    $scope.activityData.difficulty = parseInt($scope.activityData.difficulty);
+    console.log($scope.activityData);
   }
 }
