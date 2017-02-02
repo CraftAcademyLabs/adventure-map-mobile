@@ -4,9 +4,9 @@
 angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'ng-token-auth'])
   .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
 
-  .config(function ($authProvider) {
+  .config(function ($authProvider, API_URL) {
     $authProvider.configure({
-      apiUrl: 'https://adventuremap-dev.herokuapp.com/api/v1'
+      apiUrl: API_URL
     });
   })
 
@@ -33,6 +33,11 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'ng-token-a
       .state('activities', {
         url: '/activities',
         templateUrl: 'templates/activities.html',
+        controller: 'activitiesController'
+      })
+      .state('create_activity', {
+        url: '/create_activity',
+        templateUrl: 'templates/create_activity.html',
         controller: 'activitiesController'
       });
     $urlRouterProvider.otherwise('home');

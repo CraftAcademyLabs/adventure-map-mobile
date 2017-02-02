@@ -11,7 +11,8 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
       template: 'Logging in...'
     });
     $auth.submitLogin($scope.loginData)
-      .then(function () {
+      .then(function (response) {
+        $scope.user = response;
         $state.go('activities');
         $ionicLoading.hide();
       })
@@ -22,6 +23,11 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
   }
 }
 
-function activitiesController($scope) {
-  $scope.message = 'This is the Activities View'
+function activitiesController($scope, $state) {
+  $scope.message = 'This is the Activities View';
+  console.log($scope.user);
+
+  $scope.addActivity = function () {
+    $state.go('create_activity');
+  }
 }
