@@ -31,13 +31,13 @@ function activitiesController($scope, $state) {
   }
 }
 
-function createActivitiesController($scope) {
+function createActivitiesController($scope, createActivityService) {
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
   $scope.createActivity = function() {
     $scope.activityData.user_id = $scope.user.id;
-    $scope.activityData.difficulty = parseInt($scope.activityData.difficulty);
     console.log($scope.activityData);
+    createActivityService.save({'title': $scope.activityData.title});
   }
 }
