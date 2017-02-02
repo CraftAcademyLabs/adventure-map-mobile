@@ -9,3 +9,8 @@ www/lib
 
 coverage
 npm-debug.log
+
+
+# Adds resources/ during dev process
+
+resources/*

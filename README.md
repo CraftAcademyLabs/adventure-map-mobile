@@ -20,7 +20,7 @@ $ webdriver-manager update
 
 This line may be necessary:
 ```
-node_modules/protractor/bin/webdriver-manager update
+$ node_modules/protractor/bin/webdriver-manager update
 ```
 
 ##### Running the tests
@@ -35,3 +35,14 @@ then open another tab on your terminal and to run the test you must run the foll
 $ npm run cucumber
 ```
 
+### Running the App
+You can choose to run the app on your phone or in an emulator.
+
+### iOs Simulator
+Run the following commands
+```
+$ ionic platform remove ios (optional)
+$ ionic platform add ios
+$ ionic emulate ios
+```
+_
