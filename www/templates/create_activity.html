@@ -2,11 +2,34 @@
   <ion-content class="padding">
     <div class="list list-inset">
       <label class="item item-input">
-        <input type="text" placeholder="Email" ng-model="loginData.email">
+        <input type="text" placeholder="Pick a headline for your activity" ng-model="activityData.title">
       </label>
-      <label class="item item-input">
-        <input type="password" placeholder="Password" ng-model="loginData.password">
+      <label class="item item-input textarea">
+        <textarea placeholder="Describe the activity" ng-model="activityData.body"></textarea>
       </label>
+      <label class="item item-input">Difficulty</label>
+      <div class="item range">
+        <input type="range" id="difficulty" ng-model="activityData.difficulty" min="1" max="3" value="1">
+      </div>
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Category
+          </div>
+          <select>
+            <option ng-repeat="category in categories">{{category}}</option>
+          </select>
+        </label>
+
+      </div>
     </div>
   </ion-content>
 </ion-view>
+
+<script>
+  // I thought it would be a nice touch if the selector here started green, then went yellow, then red, depending on which value was selected but I can't seem to add the event listener and maybe Angular wants you to do that in a directive and it all just seems like too much work right now.
+  difficulty = angular.element(document.querySelector('#difficulty'));
+  difficulty.addEventListener('change', function () {
+    console.log('thing');
+  })
+</script>

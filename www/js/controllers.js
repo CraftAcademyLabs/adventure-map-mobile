@@ -25,6 +25,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
 
 function activitiesController($scope, $state) {
   $scope.message = 'This is the Activities View';
+  $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging']
   console.log($scope.user);
 
   $scope.addActivity = function () {
