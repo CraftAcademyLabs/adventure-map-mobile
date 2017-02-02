@@ -38,6 +38,7 @@ function createActivitiesController($scope, createActivityService) {
   $scope.createActivity = function() {
     $scope.activityData.user_id = $scope.user.id;
     console.log($scope.activityData);
-    createActivityService.save({'title': $scope.activityData.title});
+    console.log($scope.user);
+    createActivityService.save({'title': $scope.activityData.title, 'body': $scope.activityData.body, 'category': $scope.activityData.category, 'difficulty': $scope.activityData.difficulty});
   }
 }

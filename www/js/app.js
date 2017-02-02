@@ -2,8 +2,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureMap.services', 'ng-token-auth', 'ngResource'])
-  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
-  // .constant('API_URL', 'http://localhost:3000')
+  // .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .config(function ($authProvider, API_URL) {
     $authProvider.configure({
