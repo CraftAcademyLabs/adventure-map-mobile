@@ -1,7 +1,7 @@
 var assertionStepDefinitionsWrapper = function () {
 
   this.Then(/^I should be on the "([^"]*)" page$/, function (page, callback) {
-    //browser.enterRepl();
+    // browser.enterRepl();
     this.expect(browser.getCurrentUrl()).to.eventually.equal(browser.baseUrl + "#/" + page)
       .and.notify(callback);
   });
