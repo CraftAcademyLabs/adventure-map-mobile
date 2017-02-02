@@ -27,24 +27,18 @@ function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state)
     });
     $auth.authenticate('facebook')
       .then(function(response) {
-        console.log(response);
-        debugger;
         $state.go('activities');
         $ionicLoading.hide();
       })
       .catch(function(ev, response) {
-        console.log(response);
-        debugger;
+        // handle errors
         $ionicLoading.hide();
-        $scope.errorMessage = response.errors.toString();
       });
   }
 
-  $rootScope.$on('auth:login-error', function(ev, reason) {
-    console.log('auth failed because', reason.errors[0]);
-  });
 }
 
-function activitiesController($scope) {
-  $scope.message = 'This is the Activities View'
+function activitiesController($scope, $rootScope) {
+  $scope.user = $rootScope.user;
+  $scope.message = 'This is the Activities View for ' + $scope.user.email;
 }

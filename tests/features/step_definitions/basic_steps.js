@@ -23,10 +23,35 @@ var basicStepDefinitionsWrapper = function () {
   });
 
   this.Then(/^I click "([^"]*)"$/, function (element, callback) {
-    var button = browser.element(by.buttonText("Login"));
+    var button = browser.element(by.buttonText(element));
     button.click();
     callback();
   });
+
+  this.Given(/^I login using Facebook$/, function (callback) {
+    var button = browser.element(by.buttonText("Login with Facebook"));
+    button.click()
+      .then(function () {
+        browser.ignoreSynchronization = true;
+        browser.getAllWindowHandles()
+          .then(function (handles) {
+            browser.switchTo().window(handles[1])
+              .then(function () {
+                //do your stuff on the pop up window
+                browser.element(by.id('email')).sendKeys('academy@craftacademy.se');
+                browser.element(by.id('pass')).sendKeys('Cr@ft2017');
+                browser.element(by.id('loginbutton')).click();
+              })
+              .then(function () {
+                // back to app
+                browser.switchTo().window(handles[0]);
+                browser.ignoreSynchronization = false;
+              });
+          });
+      });
+    callback();
+  })
+
 };
 
 module.exports = basicStepDefinitionsWrapper;

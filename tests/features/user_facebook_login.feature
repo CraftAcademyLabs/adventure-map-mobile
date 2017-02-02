@@ -5,5 +5,6 @@ Feature: Enable OAuth on client
 
   Scenario: Facebook login
     Given I open the app
-    And I click "Login with Facebook"
+    And I login using Facebook
     Then I should be on the "activities" page
+    And I should see "This is the Activities View for academy@craftacademy.se"
