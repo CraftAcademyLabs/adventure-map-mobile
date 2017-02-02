@@ -28,7 +28,7 @@ var basicStepDefinitionsWrapper = function () {
     callback();
   });
 
-  this.Given(/^I login using Facebook$/, function (callback) {
+  this.Given(/^I login using Facebook as "([^"]*)" and password "([^"]*)"$/, function (username, password, callback) {
     var button = browser.element(by.buttonText("Login with Facebook"));
     button.click()
       .then(function () {
@@ -38,8 +38,8 @@ var basicStepDefinitionsWrapper = function () {
             browser.switchTo().window(handles[1])
               .then(function () {
                 //do your stuff on the pop up window
-                browser.element(by.id('email')).sendKeys('academy@craftacademy.se');
-                browser.element(by.id('pass')).sendKeys('Cr@ft2017');
+                browser.element(by.id('email')).sendKeys(username);
+                browser.element(by.id('pass')).sendKeys(password);
                 browser.element(by.id('loginbutton')).click();
               })
               .then(function () {
@@ -50,8 +50,7 @@ var basicStepDefinitionsWrapper = function () {
           });
       });
     callback();
-  })
-
+  });
 };
 
 module.exports = basicStepDefinitionsWrapper;

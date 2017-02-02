@@ -8,8 +8,7 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'ng-token-a
     $authProvider.configure({
       apiUrl: 'http://adventuremap-dev.herokuapp.com/api/v1',
       //apiUrl: 'http://localhost:3000/api/v1',
-      omniauthWindowType: window.cordova == undefined ? 'newWindow' : 'inAppBrowser',
-      storage: 'localStorage'
+      omniauthWindowType: window.cordova == undefined ? 'newWindow' : 'inAppBrowser'
     });
   })
 
