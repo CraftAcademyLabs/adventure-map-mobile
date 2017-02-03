@@ -9,7 +9,10 @@ Feature: User can create an Activity
     Given I open the app
     And I am logged in as "thomas@random.se" with password "password"
     And I click "Create an Activity"
-    And I set the Activity "Title" to "Skiing in Aspen"
-    And I set the Activity "Body" to "Had a great time in Aspen and so can you!"
-    And I slide "Difficulty" to "1"
-    Then start the debugger
+    And I set the Activity "Title" to "Hiking in Vättlefjäll"
+    And I set the Activity "Body" to "Had a great time in Angered and so can you!"
+    And I slide "Difficulty" to "3"
+    And I select Activity "Category" to "Back country skiing"
+    And I click "Create"
+    Then I should be on the "activities" page
+

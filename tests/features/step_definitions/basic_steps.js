@@ -6,6 +6,11 @@ var basicStepDefinitionsWrapper = function () {
     browser.enterRepl();
   });
 
+  this.Then(/^pause the browser$/, function (callback) {
+    browser.pause();
+    callback();
+  });
+
   this.Given(/^I go to "([^"]*)"$/, function (site, callback) {
     browser.get(site);
     callback();
@@ -37,6 +42,8 @@ var basicStepDefinitionsWrapper = function () {
     loginButton.click();
     callback();
   });
+
+
 };
 
 module.exports = basicStepDefinitionsWrapper;

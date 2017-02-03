@@ -31,15 +31,19 @@ function activitiesController($scope, $state) {
   }
 }
 
-function createActivitiesController($scope, createActivityService) {
-  console.log('User: ' + $scope.user.email);
+function createActivitiesController($scope, $ionicLoading, $state, Activity) {
+  console.log('User: ' + $scope.user.id);
 
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
-  $scope.createActivity = function() {
-    $scope.activityData.user_id = $scope.user.id;
-    console.log($scope.activityData);
-    createActivityService.save({'title': $scope.activityData.title, 'body': $scope.activityData.body, 'category': $scope.activityData.category, 'difficulty': $scope.activityData.difficulty});
+  $scope.createActivity = function () {
+    $ionicLoading.show({
+      template: 'Saving...'
+    });
+    Activity.save($scope.activityData, function(){
+      $state.go('activities');
+      $ionicLoading.hide();
+    });
   }
 }
