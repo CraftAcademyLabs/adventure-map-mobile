@@ -31,7 +31,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   });
   Activity.query(function(response) {
     $scope.activities = response.activities.reverse();
-    console.log(response.activities);
     $ionicLoading.hide();
   });
   $scope.addActivity = function () {
