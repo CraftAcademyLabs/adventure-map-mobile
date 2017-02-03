@@ -29,7 +29,7 @@ var myStepDefinitionsWrapper = function () {
     var select = browser.element(by.css('body')).element(by.model('activityData.' + 'category'.toLowerCase()));
     select.sendKeys('Hiking');
     var button = browser.element(by.buttonText('Create'));
-    button.click().then(function(){
+    button.click().then(function () {
       callback();
     });
   });

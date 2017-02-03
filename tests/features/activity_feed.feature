@@ -9,6 +9,6 @@ Feature: As a User
     And I am logged in as "thomas@random.se" with password "password"
     And I have created an activity "Hiking in Vättlefjäll"
 
-    Scenario: I view my activity feed
-      Given I should be on the "activities" page
-      Then I should see "Hiking in Vättlefjäll"
+  Scenario: I view my activity feed
+    Given I should be on the "activities" page
+    Then I should see "Hiking in Vättlefjäll"

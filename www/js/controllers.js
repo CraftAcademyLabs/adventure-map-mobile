@@ -29,7 +29,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $ionicLoading.show({
     template: 'Getting activities...'
   });
-  Activity.query(function(response) {
+  Activity.query(function (response) {
     $scope.activities = response.activities.reverse();
     $ionicLoading.hide();
   });
@@ -46,7 +46,7 @@ function createActivitiesController($scope, $ionicLoading, $state, Activity) {
     $ionicLoading.show({
       template: 'Saving...'
     });
-    Activity.save($scope.activityData, function(){
+    Activity.save($scope.activityData, function () {
       $state.go('activities');
       $ionicLoading.hide();
     });
