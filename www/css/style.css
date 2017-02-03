@@ -8,3 +8,18 @@
 .textarea {
   height: 100px;
 }
+
+.item h2 {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.item h3 {
+  font-size: 110%;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.gray {
+  background-color: #cccccc;
+}
