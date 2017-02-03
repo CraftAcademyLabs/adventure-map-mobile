@@ -29,8 +29,10 @@ var basicStepDefinitionsWrapper = function () {
 
   this.Given(/^I click "([^"]*)"$/, function (element, callback) {
     var button = browser.element(by.buttonText(element));
-    button.click();
-    callback();
+    button.click().then(function(){
+      callback();
+    });
+
   });
 
   this.Given(/^I am logged in as "([^"]*)" with password "([^"]*)"$/, function (username, password, callback) {

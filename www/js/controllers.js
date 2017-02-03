@@ -32,8 +32,6 @@ function activitiesController($scope, $state) {
 }
 
 function createActivitiesController($scope, $ionicLoading, $state, Activity) {
-  console.log('User: ' + $scope.user.id);
-
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
