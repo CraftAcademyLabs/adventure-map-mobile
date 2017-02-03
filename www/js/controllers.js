@@ -19,7 +19,7 @@ function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state)
         $ionicLoading.hide();
         $scope.errorMessage = response.errors.toString();
       })
-  }
+  };
 
   $scope.facebookSignIn = function() {
     $ionicLoading.show({
@@ -35,10 +35,8 @@ function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state)
         $ionicLoading.hide();
       });
   }
-
 }
 
-function activitiesController($scope, $rootScope) {
-  $scope.user = $rootScope.user;
+function activitiesController($scope) {
   $scope.message = 'This is the Activities View for ' + $scope.user.email;
 }
