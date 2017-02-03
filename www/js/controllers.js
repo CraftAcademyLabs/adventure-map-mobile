@@ -24,8 +24,16 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
   }
 }
 
-function activitiesController($scope, $state) {
+function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.message = 'This is the Activities View';
+  $ionicLoading.show({
+    template: 'Getting activities...'
+  });
+  Activity.query(function(response) {
+    $scope.activities = response.activities;
+    console.log(response.activities);
+    $ionicLoading.hide();
+  });
   $scope.addActivity = function () {
     $state.go('create_activity');
   }

@@ -1,10 +1,32 @@
 <ion-view>
   <ion-content class="padding">
     <div class="list list-inset">
-      {{message}}
       <div>
         <button class='button button-block button-positive' ng-click="addActivity()">Create an Activity</button>
       </div>
     </div>
+
+    <div class="list card" ng-repeat="activity in activities">
+
+      <div class="item item-avatar">
+        <img src="activity.image">
+        <h2>{{activity.title}}</h2>
+        <!--<p>November 05, 1955</p>-->
+      </div>
+
+      <div class="item item-body">
+        <img class="full-image" src="delorean.jpg">
+        <p>
+          {{activity.body}}
+        </p>
+        <p>
+          <!--<a href="#" class="subdued">1 Like</a>-->
+          <!--<a href="#" class="subdued">5 Comments</a>-->
+        </p>
+      </div>
+
+    </div>
+
+
   </ion-content>
 </ion-view>
