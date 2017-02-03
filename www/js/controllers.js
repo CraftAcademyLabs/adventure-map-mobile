@@ -30,7 +30,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
     template: 'Getting activities...'
   });
   Activity.query(function(response) {
-    $scope.activities = response.activities;
+    $scope.activities = response.activities.reverse();
     console.log(response.activities);
     $ionicLoading.hide();
   });
