@@ -6,6 +6,11 @@ var basicStepDefinitionsWrapper = function () {
     browser.enterRepl();
   });
 
+  this.Then(/^pause the browser$/, function (callback) {
+    browser.pause();
+    callback();
+  });
+
   this.Given(/^I go to "([^"]*)"$/, function (site, callback) {
     browser.get(site);
     callback();
@@ -22,9 +27,21 @@ var basicStepDefinitionsWrapper = function () {
     callback();
   });
 
-  this.Then(/^I click "([^"]*)"$/, function (element, callback) {
+  this.Given(/^I click "([^"]*)"$/, function (element, callback) {
     var button = browser.element(by.buttonText(element));
-    button.click();
+    button.click().then(function(){
+      callback();
+    });
+
+  });
+
+  this.Given(/^I am logged in as "([^"]*)" with password "([^"]*)"$/, function (username, password, callback) {
+    var emailField = browser.element(by.css('body')).element(by.css('input[placeholder="Email"]'));
+    var passwordField = browser.element(by.css('body')).element(by.css('input[placeholder="Password"]'));
+    var loginButton = browser.element(by.buttonText("Login"));
+    emailField.sendKeys(username);
+    passwordField.sendKeys(password);
+    loginButton.click();
     callback();
   });
 
