@@ -1,7 +1,5 @@
 var myHooks = function () {
   this.Before('@network', function (scenario, callback) {
-    console.log("Before hook");
-    //browser.setDefaultTimeout(60 * 1000);
     callback();
   });
 
