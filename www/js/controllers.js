@@ -21,18 +21,37 @@ function userSessionController($scope, $auth, $ionicLoading, $state) {
         $ionicLoading.hide();
         $scope.errorMessage = response.errors.toString();
       })
+  };
+
+  $scope.facebookSignIn = function () {
+    $ionicLoading.show({
+      template: 'Logging in with Facebook...'
+    });
+    $auth.authenticate('facebook')
+      .then(function (response) {
+        $state.go('activities');
+        $ionicLoading.hide();
+      })
+      .catch(function (ev, response) {
+        // handle errors
+        $ionicLoading.hide();
+      });
   }
 }
 
 function activitiesController($scope, $state, $ionicLoading, Activity) {
-  $scope.message = 'This is the Activities View';
-  $ionicLoading.show({
-    template: 'Getting activities...'
+  $scope.message = 'This is the Activities View for ' + $scope.user.email;
+
+  $scope.$on("$ionicView.enter", function () {
+    $ionicLoading.show({
+      template: 'Getting activities...'
+    });
+    Activity.query(function (response) {
+      $scope.activities = response.activities.reverse();
+      $ionicLoading.hide();
+    });
   });
-  Activity.query(function (response) {
-    $scope.activities = response.activities.reverse();
-    $ionicLoading.hide();
-  });
+
   $scope.addActivity = function () {
     $state.go('create_activity');
   }

@@ -5,7 +5,6 @@ Feature: User can log in using email and password
 
   PT Story: https://www.pivotaltracker.com/story/show/136350367
 
-
   Scenario: User logs in with valid credentials
     Given I open the app
     And I fill in "Email" with "thomas2@random.se"
