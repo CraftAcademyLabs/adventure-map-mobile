@@ -23,9 +23,10 @@ var basicStepDefinitionsWrapper = function () {
   });
 
   this.Then(/^I click "([^"]*)"$/, function (element, callback) {
-    var button = browser.element(by.buttonText("Login"));
-    button.click();
-    callback();
+    var button = browser.element(by.buttonText(element));
+    button.click().then(function(){
+      callback();
+    });
   });
 };
 
