@@ -7,9 +7,8 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
 
   .config(function ($authProvider, API_URL) {
     $authProvider.configure({
-      apiUrl: 'http://adventuremap-dev.herokuapp.com/api/v1',
-      //apiUrl: API_URL,
-      omniauthWindowType: window.cordova == undefined ? 'newWindow' : 'inAppBrowser'
+      apiUrl: API_URL,
+      omniauthWindowType: window.cordova == undefined ? 'newWindow' : 'newWindow'
     });
   })
 
