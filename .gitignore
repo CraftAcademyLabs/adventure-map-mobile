@@ -12,6 +12,6 @@ www/lib
 coverage
 npm-debug.log
 
-
-# Adds resources/ during dev process
+.io-config.json
+screenlog.0
 
