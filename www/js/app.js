@@ -16,7 +16,7 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
     function widowType() {
       var IONIC_APP_ID = '7e351a02';
       if (window.location.href.indexOf('com.ionic.viewapp') > -1 || window.location.href.indexOf(IONIC_APP_ID) > -1) {
-        return 'sameWindow'
+        return 'newWindow'
       }
       if (window.cordova == undefined) {
         return 'newWindow'
