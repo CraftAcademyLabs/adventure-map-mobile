@@ -6,13 +6,24 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
   .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .config(function ($authProvider, API_URL) {
-    var isMob = window.cordova !== undefined;
     $authProvider.configure({
       apiUrl: API_URL,
-      omniauthWindowType: isMob ? 'inAppBrowser' : 'newWindow',
+      omniauthWindowType: widowType(),
       storage: 'localStorage',
       forceHardRedirect: true
     });
+
+    function widowType() {
+      var IONIC_APP_ID = '7e351a02';
+      if (window.location.href.indexOf('com.ionic.viewapp') > -1 || window.location.href.indexOf(IONIC_APP_ID) > -1) {
+        return 'sameWindow'
+      }
+      if (window.cordova == undefined) {
+        return 'newWindow'
+      } else {
+        return 'inAppBrowser'
+      }
+    }
   })
 
   .run(function ($ionicPlatform) {
@@ -28,7 +39,7 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
         url: '/home',

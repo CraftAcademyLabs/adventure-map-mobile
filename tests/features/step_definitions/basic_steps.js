@@ -19,7 +19,7 @@ var basicStepDefinitionsWrapper = function () {
   });
 
   this.Given(/^I open the app$/, function (callback) {
-    browser.get('');
+    browser.get('#/');
     callback();
 
   });
