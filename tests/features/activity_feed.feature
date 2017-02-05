@@ -5,7 +5,6 @@ Feature: View activity feed
 
   https://www.pivotaltracker.com/story/show/136351621
 
-
   Scenario: I view my activity feed
     Given I open the app
     And I am logged in as "thomas@random.se" with password "password"

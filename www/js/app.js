@@ -1,14 +1,17 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureMap.services', 'ng-token-auth', 'ngResource'])
-  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
-  //.constant('API_URL', 'http://localhost:3000/api/v1')
+angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureMap.services', 'ngCordova', 'ng-token-auth', 'ngResource'])
+  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .config(function ($authProvider, API_URL) {
+    var isMob = window.cordova !== undefined;
     $authProvider.configure({
       apiUrl: API_URL,
-      omniauthWindowType: window.cordova == undefined ? 'newWindow' : 'newWindow'
+      omniauthWindowType: isMob ? 'inAppBrowser' : 'newWindow',
+      storage: 'localStorage',
+      forceHardRedirect: true
     });
   })
 
