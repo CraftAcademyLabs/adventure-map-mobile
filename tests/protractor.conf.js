@@ -29,7 +29,8 @@ exports.config = {
   chromeOnly: true,
   directConnect: true,
   onPrepare: function() {
-    // Override the timeout for webdriver.
-    browser.driver.manage().timeouts().setScriptTimeout(60000);
+    browser.manage().timeouts().pageLoadTimeout(40000);
+    browser.manage().timeouts().implicitlyWait(40000);
+    browser.manage().window().setSize(260, 900);
   }
 };
