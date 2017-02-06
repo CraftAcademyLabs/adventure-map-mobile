@@ -27,5 +27,9 @@ exports.config = {
     'no-source': true
   },
   chromeOnly: true,
-  directConnect: true
+  directConnect: true,
+  onPrepare: function() {
+    // Override the timeout for webdriver.
+    browser.driver.manage().timeouts().setScriptTimeout(60000);
+  }
 };

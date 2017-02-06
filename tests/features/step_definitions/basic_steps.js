@@ -19,9 +19,9 @@ var basicStepDefinitionsWrapper = function () {
   });
 
   this.Given(/^I open the app$/, function (callback) {
-    browser.get('#/', 3000);
+    browser.ignoreSynchronization = true;
+    browser.get('http://localhost:8100/#/');
     callback();
-
   });
 
   this.Given(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, value, callback) {

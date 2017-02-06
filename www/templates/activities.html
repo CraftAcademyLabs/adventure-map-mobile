@@ -1,4 +1,13 @@
+
 <ion-view>
+  <ion-nav-title>
+    <img src="logo.svg">
+  </ion-nav-title>
+  <ion-nav-buttons side="primary">
+    <button class="button" ng-click="addActivity()">
+      Create
+    </button>
+  </ion-nav-buttons>
   <ion-content class="padding">
     <div class="list list-inset">
       <div>
@@ -17,7 +26,7 @@
       </div>
 
       <div class="item item-body gray">
-          <span>{{activity.category}}</span>, <span>{{activity.difficulty}}</span>
+        <span>{{activity.category}}</span>, <span>{{activity.difficulty}}</span>
         <!--<img class="full-image" src={{activity.images[0]}}>-->
         <div class="item gray card item-inner">
           <img class="full-image" src="img/dummy_images/snow.jpg">
