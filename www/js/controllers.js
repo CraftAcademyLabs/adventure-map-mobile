@@ -2,10 +2,12 @@ angular
   .module('adventureMap.controllers', [])
   .controller('userSessionController', userSessionController)
   .controller('activitiesController', activitiesController)
-  .controller('createActivitiesController', createActivitiesController);
+  .controller('createActivitiesController', createActivitiesController)
+  .controller('userController', userController);
 
 
-function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state, API_URL) {
+function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
+  console.log($scope.user);
   $scope.loginData = {};
   $scope.userSignIn = function () {
     $auth.getConfig().apiUrl = API_URL;
@@ -61,6 +63,10 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.addActivity = function () {
     $state.go('create_activity');
   }
+
+  $scope.viewProfile = function () {
+    $state.go('profile');
+  }
 }
 
 function createActivitiesController($scope, $ionicLoading, $state, Activity) {
@@ -80,3 +86,10 @@ function createActivitiesController($scope, $ionicLoading, $state, Activity) {
     });
   }
 }
+
+function userController($scope, $state) {
+
+
+}
+
+

@@ -1,0 +1,19 @@
+<ion-view>
+  <ion-nav-back-button class="button-clear">
+    <i class="ion-arrow-left-c"></i> Back
+  </ion-nav-back-button>
+  <ion-nav-title>
+    Profile
+  </ion-nav-title>
+  <ion-content>
+    <div class="list card">
+      <ion-item class="profile-item">
+        <div class="profile-picture big-profile-picture">
+          <img src="{{user.image}}">
+        </div>
+        <h2 class="profile-name dark">{{user.name}}</h2>
+        <div class="profile-info">{{user.interests}}</div>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>

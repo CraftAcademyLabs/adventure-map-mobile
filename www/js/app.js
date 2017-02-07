@@ -55,6 +55,11 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
         url: '/create_activity',
         templateUrl: 'templates/create_activity.html',
         controller: 'createActivitiesController'
+      })
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'templates/profile.html',
+        controller: 'userController'
       });
     $urlRouterProvider.otherwise('home');
   });
