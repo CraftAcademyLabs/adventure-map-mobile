@@ -46,3 +46,7 @@
 .row {
   margin-top: 10px;
 }
+
+.filters {
+  transition: all .05s ease-in-out;
+}
