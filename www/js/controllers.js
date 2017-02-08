@@ -47,6 +47,7 @@ function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state,
 
 function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionicSideMenuDelegate, Activity) {
   // $scope.message = 'This is the Activities View for ' + $scope.user.email;
+  $scope.filters = {};
   $scope.showFilters = false;
 
   $scope.$on("$ionicView.enter", function () {
@@ -80,6 +81,12 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
     $scope.openModal = function() {
       $scope.modal.show();
     }
+  }
+
+  $scope.setFilters = function() {
+    console.log($scope.filters);
+    $ionicSideMenuDelegate.toggleLeft();
+    $scope.showFilters = !$scope.showFilters;
   }
 }
 
