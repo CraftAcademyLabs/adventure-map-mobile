@@ -17,7 +17,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
     $auth.submitLogin($scope.loginData)
       .then(function (response) {
         $scope.user = response;
-        $state.go('activities');
+        $state.go('app.activities');
         $ionicLoading.hide();
       })
       .catch(function (response) {
@@ -33,9 +33,8 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
     });
     $auth.authenticate('facebook')
       .then(function (response) {
-        debugger;
         console.log(response);
-        $state.go('activities');
+        $state.go('app.activities');
         $ionicLoading.hide();
       })
       .catch(function (ev, response) {
@@ -44,10 +43,31 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
       });
   }
 
+  $scope.signOut = function () {
+    ;
+    $ionicLoading.show({
+      template: 'Signing out...'
+    });
+    $auth.signOut()
+      .then(function (response) {
+        $state.go('app.activities');
+        $ionicLoading.hide();
+      })
+  };
+
 
 }
 
-function activitiesController($scope, $state, $ionicLoading, Activity) {
+function activitiesController($scope, $auth,  $state, $ionicLoading, Activity) {
+  //$scope.$on('$ionicView.enter', function () {
+  //  $auth.validateUser().then(function(resp){
+  //    console.log(resp)
+  //  }).catch(function(resp){
+  //    console.log(resp);
+  //    $state.go('home')
+  //  });
+  //});
+
   $scope.message = 'This is the Activities View for ' + $scope.user.email;
 
   $scope.$on("$ionicView.enter", function () {
@@ -61,15 +81,16 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   });
 
   $scope.addActivity = function () {
-    $state.go('create_activity');
+    $state.go('app.create_activity');
   }
 
   $scope.viewProfile = function () {
-    $state.go('profile');
+    $state.go('app.profile');
   }
 }
 
 function createActivitiesController($scope, $ionicLoading, $state, Activity) {
+  debugger;
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
@@ -78,7 +99,7 @@ function createActivitiesController($scope, $ionicLoading, $state, Activity) {
       template: 'Saving...'
     });
     Activity.save($scope.activityData, function (resp) {
-      $state.go('activities');
+      $state.go('app.activities');
       $ionicLoading.hide();
       console.log(resp);
     }, function (resp) {

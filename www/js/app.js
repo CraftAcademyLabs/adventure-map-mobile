@@ -1,9 +1,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureMap.services', 'ngCordova', 'ng-token-auth', 'ngResource'])
-  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
-  //.constant('API_URL', 'http://localhost:3000/api/v1')
+angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers', 'adventureMap.services', 'ngCordova', 'ng-token-auth', 'ngResource'])
+  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .config(function ($authProvider, API_URL) {
     $authProvider.configure({
@@ -46,20 +46,32 @@ angular.module('adventureMap', ['ionic', 'adventureMap.controllers', 'adventureM
         templateUrl: 'templates/login.html',
         controller: 'userSessionController'
       })
-      .state('activities', {
+      .state('app', {
+        url: '/app',
+        abstract: true,
+        template: '<ion-nav-view>',
+        resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
+        }
+      })
+      .state('app.activities', {
         url: '/activities',
         templateUrl: 'templates/activities.html',
         controller: 'activitiesController'
       })
-      .state('create_activity', {
-        url: '/create_activity',
+      .state('app.create_activity', {
+        url: 'create_activity',
+        authenticate: true,
         templateUrl: 'templates/create_activity.html',
         controller: 'createActivitiesController'
       })
-      .state('profile', {
-        url: '/profile',
+      .state('app.profile', {
+        url: 'profile',
         templateUrl: 'templates/profile.html',
         controller: 'userController'
+
       });
-    $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('/home');
   });

@@ -1,10 +1,15 @@
 <ion-view>
-  <ion-nav-back-button class="button-clear">
-    <i class="ion-arrow-left-c"></i> Back
-  </ion-nav-back-button>
   <ion-nav-title>
     Profile
   </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+    <a class="button button-clear" nav-transition="none" href="#/activities">close</a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-if="user.email" ng-controller="userSessionController" ng-click="signOut()">
+      <!--<i class="icon ion-ios-person"></i>-->Logout
+    </button>  </ion-nav-buttons>
   <ion-content>
     <div class="list card">
       <ion-item class="profile-item">
