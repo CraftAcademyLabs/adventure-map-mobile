@@ -56,6 +56,7 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
     });
     Activity.query(function (response) {
       $scope.activities = response.activities.reverse();
+      $scope.cachedActivities = $scope.activities; // This keeps the entire activity list so users can un-filter.
       $ionicLoading.hide();
     });
 
@@ -87,6 +88,28 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
     console.log($scope.filters);
     $ionicSideMenuDelegate.toggleLeft();
     $scope.showFilters = !$scope.showFilters;
+    $scope.activities = $scope.activities.filter(function(activity) {
+      if ($scope.filters.difficulty1) {
+        if (activity.difficulty == 1) {
+          console.log(activity);
+          return activity;
+        }
+      }
+      if ($scope.filters.difficulty2) {
+        if (activity.difficulty == 2) {
+          console.log(activity);
+          return activity;
+
+        }
+      }
+      if ($scope.filters.difficulty3) {
+        if (activity.difficulty == 3) {
+          console.log(activity);
+          return activity;
+
+        }
+      }
+    })
   }
 }
 
