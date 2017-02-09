@@ -1,4 +1,4 @@
-function activitiesController($scope, $auth,  $state, $ionicLoading, Activity) {
+function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.message = 'This is the Activities View for ' + $scope.user.email;
 
   $scope.$on("$ionicView.enter", function () {

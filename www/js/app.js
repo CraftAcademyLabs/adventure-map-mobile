@@ -26,6 +26,10 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
     }
   })
 
+  .config(function($ionicConfigProvider) {
+    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+  })
+
   .run(function ($ionicPlatform, $rootScope, $state) {
     $rootScope.$state = $state;
     $ionicPlatform.ready(function () {
@@ -97,9 +101,12 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
       })
       .state('app.create_activity', {
         url: '/create_activity',
-        authenticate: true,
-        templateUrl: 'templates/create_activity.html',
-        controller: 'createActivityController'
+        views: {
+          'menuContent' :{
+            templateUrl: 'templates/create_activity.html',
+            controller: 'createActivityController'
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/home');
