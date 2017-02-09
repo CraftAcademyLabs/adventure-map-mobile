@@ -9,12 +9,13 @@
   <ion-nav-buttons side="left">
     <button class="button button-clear" ng-if="user.email" ng-controller="userSessionController" ng-click="signOut()">
       <!--<i class="icon ion-ios-person"></i>-->Logout
-    </button>  </ion-nav-buttons>
+    </button>
+  </ion-nav-buttons>
   <ion-content>
     <div class="list card">
       <ion-item class="profile-item">
         <div class="profile-picture big-profile-picture">
-          <img src="{{user.image}}">
+          <img ng-src="{{user.image ? user.image : 'img/dummy_images/empty_image.svg'}}">
         </div>
         <h2 class="profile-name dark">{{user.name}}</h2>
         <div class="profile-info">{{user.interests}}</div>

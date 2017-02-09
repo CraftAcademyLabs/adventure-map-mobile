@@ -2,8 +2,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers', 'adventureMap.services', 'ngCordova', 'ng-token-auth', 'ngResource'])
-  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
-  .constant('API_URL', 'http://localhost:3000/api/v1')
+  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  //.constant('API_URL', 'http://localhost:3000/api/v1')
 
   .config(function ($authProvider, API_URL) {
     $authProvider.configure({
@@ -26,7 +26,7 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
     }
   })
 
-  .run(function ($ionicPlatform) {
+  .run(function ($ionicPlatform, $rootScope, $state, $auth) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -37,22 +37,46 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
         StatusBar.styleDefault();
       }
     });
+
+    $rootScope.$on('$stateChangeStart', function (event, toState) {
+      var requireLogin = toState.data.requireLogin;
+      if (requireLogin && isLoggedIn($rootScope)) {
+        event.preventDefault();
+        $state.go('home');
+      }
+    });
+
+    function isLoggedIn(scope){
+      if (typeof $rootScope.user === 'undefined' || Object.getOwnPropertyNames($rootScope.user).length == 0){
+        return true;
+      }
+    }
   })
+
 
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('home', {
         url: '/home',
         templateUrl: 'templates/login.html',
-        controller: 'userSessionController'
+        controller: 'userSessionController',
+        data: {
+          requireLogin: false
+        },
+        cache: false
       })
       .state('app', {
         url: '/app',
         abstract: true,
         template: '<ion-nav-view>',
+        data: {
+          requireLogin: true // this property will apply to all children of 'app'
+        },
         resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
+          auth: function ($auth, $state) {
+            return $auth.validateUser().catch(function () {
+              $state.go('home');
+            });
           }
         }
       })
@@ -62,13 +86,13 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
         controller: 'activitiesController'
       })
       .state('app.create_activity', {
-        url: 'create_activity',
+        url: '/create_activity',
         authenticate: true,
         templateUrl: 'templates/create_activity.html',
         controller: 'createActivitiesController'
       })
       .state('app.profile', {
-        url: 'profile',
+        url: '/profile',
         templateUrl: 'templates/profile.html',
         controller: 'userController'
 
