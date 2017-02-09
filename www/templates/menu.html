@@ -12,10 +12,10 @@
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item menu-close ng-if="user.email" ng-controller="activitiesController" ng-click="viewProfile()">
+        <ion-item ng-show="!$state.includes('app.profile')" menu-close ng-if="user.email" ng-controller="activitiesController" ng-click="viewProfile()">
           Profile
         </ion-item>
-        <ion-item menu-close href="#/app/activities">
+        <ion-item  ng-show="!$state.includes('app.activities')" menu-close href="#/app/activities">
           Activity Feed
         </ion-item>
       </ion-list>
