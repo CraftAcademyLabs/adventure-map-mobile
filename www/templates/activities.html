@@ -22,7 +22,6 @@
 
       <div class="item item-body gray">
         <span>{{activity.category}}</span>, <span>{{activity.difficulty}}</span>
-        <!--<img class="full-image" src={{activity.images[0]}}>-->
         <div class="item gray card item-inner">
           <img class="full-image" src="img/dummy_images/snow.jpg">
           <div class="padding">
@@ -56,61 +55,4 @@
 
 
   </ion-content>
-
-
-  <ion-side-menus ng-show="showFilters" enable-menu-with-back-views="false" has-navbar="true" title="Filters">
-    <ion-side-menu-content>
-    </ion-side-menu-content>
-
-    <ion-side-menu side="left">
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Left</h1>
-      </ion-header-bar>
-      <ion-content>
-
-        <ul class="list">
-
-          <li class="item item-toggle">
-            Only users I follow
-            <label class="toggle toggle-positive">
-              <input type="checkbox" ng-model="filters.follow">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </li>
-          <div class="list list-inset">
-            <label class="item item-input">
-              <i class="icon ion-search placeholder-icon"></i>
-              <input type="text" placeholder="Change Location" ng-model="filters.location">
-            </label>
-          </div>
-          <div class="list list-inset">
-            <label class="item item-input">Difficulty</label>
-            <ion-list>
-              <ion-checkbox ng-model="filters.difficulty1">1</ion-checkbox>
-              <ion-checkbox ng-model="filters.difficulty2">2</ion-checkbox>
-              <ion-checkbox ng-model="filters.difficulty3">3</ion-checkbox>
-            </ion-list>
-          </div>
-          <div class="list list-inset">
-            <label class="item item-input">Sport</label>
-            <ion-list>
-              <ion-checkbox ng-model="filters.sports1">Hiking</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports2">Cross-country skiing</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports3">Back country skiing</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports4">Paddling</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports5">Mountain biking</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports6">Horse riding</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports7">Climbing</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports8">Snow mobiling</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports9">Cross country ice skating</ion-checkbox>
-              <ion-checkbox ng-model="filters.sports10">Foraging</ion-checkbox>
-            </ion-list>
-          </div>
-        </ul>
-        <button class="button button-block button-positive" ng-click="setFilters()">Filter</button>
-      </ion-content>
-    </ion-side-menu>
-  </ion-side-menus>
 </ion-view>
