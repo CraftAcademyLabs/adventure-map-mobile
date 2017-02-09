@@ -12,22 +12,25 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, Activi
 
   });
 
-  $ionicModal.fromTemplateUrl('templates/activity.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+
 
 
   $scope.openModal = function(activity) {
-    $scope.activity = activity;
-    $scope.modal.show();
+    $ionicModal.fromTemplateUrl('templates/activity.html', {
+      scope: $scope,
+      animation: 'zoom-from-center'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.activity = activity;
+      $scope.modal.show();
+    });
+
   };
 
   $scope.closeModal = function(){
-    $scope.modal.close();
-  }
+    $scope.modal.hide();
+    $scope.modal.remove();
+  };
 
   $scope.addActivity = function () {
     $state.go('app.create_activity');
