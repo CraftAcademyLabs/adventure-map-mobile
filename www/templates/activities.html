@@ -4,9 +4,11 @@
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button" ng-click="addActivity()">
-      New
-    </button>
+    <div>
+      <a class="button" href="#/app/create_activity">
+        New
+      </a>
+    </div>
   </ion-nav-buttons>
   <ion-content class="padding has-header">
     <div class="list card" ng-repeat="activity in activities">
@@ -20,7 +22,6 @@
         </div>
         <div class="item item-body gray">
           <span>{{activity.category}}</span>, <span>{{activity.difficulty}}</span>
-          <!--<img class="full-image" src={{activity.images[0]}}>-->
           <div class="item gray card item-inner">
             <img class="full-image" src="img/dummy_images/snow.jpg">
             <div class="padding">
@@ -51,8 +52,5 @@
         </div>
       </div>
     </div>
-
-
   </ion-content>
-
 </ion-view>

@@ -75,6 +75,10 @@
   font-weight: normal !important;
 }
 
+.filters {
+  transition: all .05s ease-in-out;
+}
+
 /*modal animation*/
 .zoom-from-center {
   -webkit-transform: translate3d(0, 0, 0) scale(0);
