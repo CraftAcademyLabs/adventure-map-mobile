@@ -2,54 +2,12 @@ angular
   .module('adventureMap.controllers', [])
   .controller('userSessionController', userSessionController)
   .controller('activitiesController', activitiesController)
-  .controller('createActivitiesController', createActivitiesController);
-
-
-function userSessionController($scope, $rootScope, $auth, $ionicLoading, $state, API_URL) {
-  $scope.loginData = {};
-  $scope.userSignIn = function () {
-    $auth.getConfig().apiUrl = API_URL;
-    $ionicLoading.show({
-      template: 'Logging in...'
-    });
-    $auth.submitLogin($scope.loginData)
-      .then(function (response) {
-        $scope.user = response;
-        $state.go('activities');
-        $ionicLoading.hide();
-      })
-      .catch(function (response) {
-        $ionicLoading.hide();
-        $scope.errorMessage = response.errors.toString();
-      })
-  };
-
-  $scope.facebookSignIn = function () {
-    $auth.getConfig().apiUrl = API_URL.replace(/^https:\/\//i, 'http://');
-    $ionicLoading.show({
-      template: 'Logging in with Facebook...'
-    });
-    $auth.authenticate('facebook')
-      .then(function (response) {
-        debugger;
-        console.log(response);
-        $state.go('activities');
-        $ionicLoading.hide();
-      })
-      .catch(function (ev, response) {
-        // handle errors
-        $ionicLoading.hide();
-      });
-  }
-
-
-}
+  .controller('createActivityController', createActivityController)
+  .controller('userController', userController);
 
 function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionicSideMenuDelegate, Activity) {
-  // $scope.message = 'This is the Activities View for ' + $scope.user.email;
   $scope.filters = {};
   $scope.showFilters = false;
-
   $scope.$on("$ionicView.enter", function () {
     $ionicLoading.show({
       template: 'Getting activities...'
@@ -62,11 +20,21 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
 
   });
 
+  $scope.$on("$ionicView.enter", function () {
+    $ionicLoading.show({
+      template: 'Getting activities...'
+    });
+    Activity.query(function (response) {
+      $scope.activities = response.activities.reverse();
+      $ionicLoading.hide();
+    });
+  });
+
   $scope.addActivity = function () {
     $state.go('create_activity');
   };
 
-  $scope.toggleFilters = function() {
+  $scope.toggleFilters = function () {
     $scope.showFilters = !$scope.showFilters;
     console.dir(Object);
     // debugger;
@@ -79,16 +47,16 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
     //   $scope.openModal();
     // });
 
-    $scope.openModal = function() {
+    $scope.openModal = function () {
       $scope.modal.show();
     }
-  }
+  };
 
-  $scope.setFilters = function() {
+  $scope.setFilters = function () {
     console.log($scope.filters);
     $ionicSideMenuDelegate.toggleLeft();
     $scope.showFilters = !$scope.showFilters;
-    $scope.activities = $scope.activities.filter(function(activity) {
+    $scope.activities = $scope.activities.filter(function (activity) {
       if ($scope.filters.difficulty1) {
         if (activity.difficulty == 1) {
           console.log(activity);
@@ -110,23 +78,16 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
         }
       }
     })
-  }
+  };
+
+  $scope.addActivity = function () {
+    $state.go('create_activity');
+  };
 }
 
-function createActivitiesController($scope, $ionicLoading, $state, Activity) {
-  $scope.activityData = {};
-  $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
-  $scope.createActivity = function () {
-    $ionicLoading.show({
-      template: 'Saving...'
-    });
-    Activity.save($scope.activityData, function (resp) {
-      $state.go('activities');
-      $ionicLoading.hide();
-      console.log(resp);
-    }, function (resp) {
-      console.log(resp);
-    });
-  }
+function userController($scope, $state) {
+
 }
+
+

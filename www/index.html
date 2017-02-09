@@ -36,21 +36,23 @@
 
   <!-- your app's js -->
   <script src="js/app.js"></script>
+  <script src="js/controllers/activities_controller.js"></script>
+  <script src="js/controllers/user_session_controller.js"></script>
+  <script src="js/controllers/create_activity_controller.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
 </head>
 <body ng-app="adventureMap">
 
-<!--<ion-pane>-->
+<ion-pane>
+  <ion-nav-bar class="bar-positive">
 
+  </ion-nav-bar>
 
-  <ion-nav-view>
-    <ion-nav-bar class="bar-positive">
-
-    </ion-nav-bar>
+  <ion-nav-view animation="slide-left-right" hide-nav-bar="true">
 
   </ion-nav-view>
 
-<!--</ion-pane>-->
+</ion-pane>
 </body>
 </html>
