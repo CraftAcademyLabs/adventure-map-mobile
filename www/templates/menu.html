@@ -42,25 +42,8 @@
               </label>
             </div>
             <div class="list">
-              <button class="button-icon" ng-click="toggleStars(1)">
-                <i id="star1"
-                   ng-class="stars[0] ? 'icon ion-android-star': 'icon ion-android-star-outline'"></i>
-              </button>
-              <button class="button-icon" ng-click="toggleStars(2)">
-                <i id="star2"
-                   ng-class="stars[1] ? 'icon ion-android-star': 'icon ion-android-star-outline'"></i>
-              </button>
-              <button class="button-icon" ng-click="toggleStars(3)">
-                <i id="star3"
-                   ng-class="stars[2] ? 'icon ion-android-star': 'icon ion-android-star-outline'"></i>
-              </button>
-              <button class="button-icon" ng-click="toggleStars(4)">
-                <i id="star4"
-                   ng-class="stars[3] ? 'icon ion-android-star': 'icon ion-android-star-outline'"></i>
-              </button>
-              <button class="button-icon" ng-click="toggleStars(5)">
-                <i id="star5"
-                   ng-class="stars[4] ? 'icon ion-android-star': 'icon ion-android-star-outline'"></i>
+              <button class="button-icon" ng-repeat="star in stars track by $index" ng-click="toggleStars($index+1)">
+                <i class="icon" ng-class="star ? 'ion-android-star': 'ion-android-star-outline'"></i>
               </button>
             </div>
             <div class="list">

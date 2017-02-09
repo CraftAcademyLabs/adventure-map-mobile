@@ -24,7 +24,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
 
   $scope.viewProfile = function () {
     $state.go('app.profile');
-  }
+  };
 
   $scope.setFilters = function () {
     var rating = 1;
@@ -40,8 +40,8 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
       rating = 1
     }
     $scope.filters.rating = rating;
-    console.log($scope.filters);
 
+    console.log($scope.filters);
   };
 
   $scope.toggleStars = function (star_id) {
