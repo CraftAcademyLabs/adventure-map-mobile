@@ -7,7 +7,6 @@ angular
 
 function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.filters = {};
-  $scope.showFilters = false;
   $scope.star1 = false;
   $scope.star2 = false;
   $scope.star3 = false;
@@ -29,46 +28,23 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.toggleStars = function (star_id) {
     switch (star_id) {
       case 1:
-        $scope.star1 = true;
-        $scope.star2 = false;
-        $scope.star3 = false;
-        $scope.star4 = false;
-        $scope.star5 = false;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, false, false, false, false];
         break;
       case 2:
-        $scope.star1 = true;
-        $scope.star2 = true;
-        $scope.star3 = false;
-        $scope.star4 = false;
-        $scope.star5 = false;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, true, false, false, false];
         break;
       case 3:
-        $scope.star1 = true;
-        $scope.star2 = true;
-        $scope.star3 = true;
-        $scope.star4 = false;
-        $scope.star5 = false;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, true, true, false, false];
         break;
       case 4:
-        $scope.star1 = true;
-        $scope.star2 = true;
-        $scope.star3 = true;
-        $scope.star4 = true;
-        $scope.star5 = false;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, true, true, true, false];
         break;
       case 5:
-        $scope.star1 = true;
-        $scope.star2 = true;
-        $scope.star3 = true;
-        $scope.star4 = true;
-        $scope.star5 = true;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, true, true, true, true];
         break;
       default:
-        $scope.star1 = false;
-        $scope.star2 = false;
-        $scope.star3 = false;
-        $scope.star4 = false;
-        $scope.star5 = false;
+        [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [false, false, false, false, false];
+
     }
   };
 
