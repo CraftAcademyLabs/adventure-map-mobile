@@ -6,9 +6,13 @@ angular
   .controller('userController', userController);
 
 function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionicSideMenuDelegate, Activity) {
-  $scope.message = 'info from activitiesController';
   $scope.filters = {};
   $scope.showFilters = false;
+  $scope.star1 = false;
+  $scope.star2 = false;
+  $scope.star3 = false;
+  $scope.star4 = false;
+  $scope.star5 = false;
   $scope.$on("$ionicView.enter", function () {
     $ionicLoading.show({
       template: 'Getting activities...'
@@ -22,6 +26,51 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
 
   });
 
+  $scope.toggleStars = function (star_id) {
+    switch (star_id) {
+      case 1:
+        $scope.star1 = true;
+        $scope.star2 = false;
+        $scope.star3 = false;
+        $scope.star4 = false;
+        $scope.star5 = false;
+        break;
+      case 2:
+        $scope.star1 = true;
+        $scope.star2 = true;
+        $scope.star3 = false;
+        $scope.star4 = false;
+        $scope.star5 = false;
+        break;
+      case 3:
+        $scope.star1 = true;
+        $scope.star2 = true;
+        $scope.star3 = true;
+        $scope.star4 = false;
+        $scope.star5 = false;
+        break;
+      case 4:
+        $scope.star1 = true;
+        $scope.star2 = true;
+        $scope.star3 = true;
+        $scope.star4 = true;
+        $scope.star5 = false;
+        break;
+      case 5:
+        $scope.star1 = true;
+        $scope.star2 = true;
+        $scope.star3 = true;
+        $scope.star4 = true;
+        $scope.star5 = true;
+        break;
+      default:
+        $scope.star1 = false;
+        $scope.star2 = false;
+        $scope.star3 = false;
+        $scope.star4 = false;
+        $scope.star5 = false;
+    }
+  }
   $scope.$on("$ionicView.enter", function () {
     $ionicLoading.show({
       template: 'Getting activities...'
