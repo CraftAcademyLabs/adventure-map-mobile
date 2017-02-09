@@ -4,11 +4,7 @@ angular
 
 function displayFirstImage() {
   return {
-    scope: false,
-    link: function ($scope, element, attrs) {
-      $scope.message = attrs.message;
-    },
-    template: "<img> {{[message, user.firstName, user.lastName].join(' ')}}!</img>"
+    template: '<img class="full-image" ng-src="{{getImage(activity)}}">'
   };
 }
 

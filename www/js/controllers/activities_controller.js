@@ -1,4 +1,4 @@
-function activitiesController($scope, $state, $ionicLoading, $ionicModal, Activity) {
+function activitiesController($scope, $state, $filter, $ionicLoading, $ionicModal, Activity) {
   $scope.filters = {};
   $scope.stars = [true, false, false, false, false];
 
@@ -16,19 +16,32 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, Activi
     }
   });
 
-  $scope.openModal = function(activity) {
+  $scope.openModal = function (activity) {
     $ionicModal.fromTemplateUrl('templates/activity.html', {
       scope: $scope,
       animation: 'zoom-from-center'
-    }).then(function(modal) {
+    }).then(function (modal) {
       $scope.modal = modal;
-      $scope.activity = activity;
-      $scope.modal.show();
+      Activity.get({id: activity.id}, function (response) {
+        $scope.activity = response.data;
+        $scope.modal.show();
+        console.log($scope.activity)
+      });
+
     });
 
   };
 
-  $scope.closeModal = function(){
+  $scope.getImage = function (collection) {
+    var found = $filter('filter')(collection.images, {attachment_type: 'Image'}, true);
+    if (found.length) {
+      return found[0].file_attachment;
+    } else {
+      return "img/dummy_images/snow.jpg";
+    }
+  }
+
+  $scope.closeModal = function () {
     $scope.modal.hide();
     $scope.modal.remove();
   };
