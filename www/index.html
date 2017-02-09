@@ -36,6 +36,8 @@
 
   <!-- your app's js -->
   <script src="js/app.js"></script>
+  <script src="js/controllers/activities_controller.js"></script>
+  <script src="js/controllers/user_session_controller.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
 </head>
@@ -43,12 +45,7 @@
 
 <ion-pane>
   <ion-nav-bar class="bar-positive">
-    <ion-nav-buttons side="left">
-      <!--a class="button button-clear" nav-transition="none" href="#/activities">Home</a-->
-      <button class="button button-clear" ng-if="user.email" ng-controller="activitiesController" ng-click="viewProfile()">
-        <i class="icon ion-ios-person"></i>
-      </button>
-    </ion-nav-buttons>
+
   </ion-nav-bar>
 
   <ion-nav-view animation="slide-left-right" hide-nav-bar="true">

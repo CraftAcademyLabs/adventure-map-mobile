@@ -1,5 +1,9 @@
 <ion-view>
-  <ion-content class="padding">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+
+  <ion-content class="padding has-header">
     <div class="list list-inset">
       <label class="item item-input">
         <input type="text" placeholder="Pick a headline for your activity" ng-model="activityData.title">

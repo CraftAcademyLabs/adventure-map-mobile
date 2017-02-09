@@ -1,17 +1,9 @@
-<ion-view>
-  <ion-nav-title>
-    Profile
-  </ion-nav-title>
-
-  <ion-nav-buttons side="right">
-    <a class="button button-clear" nav-transition="none" href="#/activities">close</a>
-  </ion-nav-buttons>
+<ion-view title="Profile">
   <ion-nav-buttons side="left">
-    <button class="button button-clear" ng-if="user.email" ng-controller="userSessionController" ng-click="signOut()">
-      <!--<i class="icon ion-ios-person"></i>-->Logout
-    </button>
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content>
+
+  <ion-content class="padding">
     <div class="list card">
       <ion-item class="profile-item">
         <div class="profile-picture big-profile-picture">
@@ -20,6 +12,8 @@
         <h2 class="profile-name dark">{{user.name}}</h2>
         <div class="profile-info">{{user.interests}}</div>
       </ion-item>
+
     </div>
+    <button class="button button-block button-positive" ng-controller="userSessionController" ng-click="performSignOut()">Log out</button>
   </ion-content>
 </ion-view>

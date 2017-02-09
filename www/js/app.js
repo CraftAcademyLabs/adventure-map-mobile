@@ -40,13 +40,14 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
 
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       var requireLogin = toState.data.requireLogin;
-      if (requireLogin && isLoggedIn($rootScope)) {
+      //debugger;
+      if (requireLogin && isLoggedIn()) {
         event.preventDefault();
         $state.go('home');
       }
     });
 
-    function isLoggedIn(scope){
+    function isLoggedIn(){
       if (typeof $rootScope.user === 'undefined' || Object.getOwnPropertyNames($rootScope.user).length == 0){
         return true;
       }
@@ -65,37 +66,40 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
         },
         cache: false
       })
+
       .state('app', {
         url: '/app',
         abstract: true,
-        template: '<ion-nav-view>',
+        templateUrl: "templates/menu.html",
         data: {
           requireLogin: true // this property will apply to all children of 'app'
-        },
-        resolve: {
-          auth: function ($auth, $state) {
-            return $auth.validateUser().catch(function () {
-              $state.go('home');
-            });
-          }
         }
       })
       .state('app.activities', {
         url: '/activities',
-        templateUrl: 'templates/activities.html',
-        controller: 'activitiesController'
+        views: {
+          'menuContent' :{
+            templateUrl: 'templates/activities.html',
+            controller: 'activitiesController'
+          }
+        }
+      })
+      .state('app.profile', {
+        url: '/profile',
+        views: {
+          'menuContent' :{
+            templateUrl: 'templates/profile.html',
+            controller: 'userController'
+          }
+        }
+
       })
       .state('app.create_activity', {
         url: '/create_activity',
         authenticate: true,
         templateUrl: 'templates/create_activity.html',
-        controller: 'createActivitiesController'
-      })
-      .state('app.profile', {
-        url: '/profile',
-        templateUrl: 'templates/profile.html',
-        controller: 'userController'
-
+        controller: 'createActivityController'
       });
+
     $urlRouterProvider.otherwise('/home');
   });
