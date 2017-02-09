@@ -5,7 +5,7 @@ angular
   .controller('createActivityController', createActivityController)
   .controller('userController', userController);
 
-function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionicSideMenuDelegate, Activity) {
+function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.filters = {};
   $scope.showFilters = false;
   $scope.star1 = false;
@@ -70,7 +70,8 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
         $scope.star4 = false;
         $scope.star5 = false;
     }
-  }
+  };
+
   $scope.$on("$ionicView.enter", function () {
     $ionicLoading.show({
       template: 'Getting activities...'
@@ -86,6 +87,19 @@ function activitiesController($scope, $state, $ionicLoading, $ionicModal, $ionic
   };
 
   $scope.setFilters = function () {
+    var rating = 1;
+    if ($scope.star5) {
+      rating = 5
+    } else if ($scope.star4) {
+      rating = 4
+    } else if ($scope.star3) {
+      rating = 3
+    } else if ($scope.star2) {
+      rating = 2
+    } else {
+      rating = 1
+    }
+    $scope.filters.rating = rating;
     console.log($scope.filters);
 
   };
