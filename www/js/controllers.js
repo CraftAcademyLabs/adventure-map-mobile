@@ -1,5 +1,3 @@
-
-
 angular
   .module('adventureMap.controllers', [])
   .controller('userSessionController', userSessionController)
@@ -7,16 +5,7 @@ angular
   .controller('createActivityController', createActivityController)
   .controller('userController', userController);
 
-
-
-
-
-
-
-
 function userController($scope, $state) {
 
-
 }
-
 

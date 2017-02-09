@@ -6,11 +6,11 @@
     "angular-mocks": "^1.6.1"
   },
   "resolutions": {
-    "angular": "1.6.1"
+    "angular": "1.5.3"
   },
   "dependencies": {
     "ng-token-auth": "^0.0.29",
-    "angular-resource": "^1.6.1",
+    "angular-resource": "1.5.3",
     "ngCordova": "^0.1.27-alpha"
   }
 }
