@@ -17,5 +17,11 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
 
   $scope.viewProfile = function () {
     $state.go('app.profile');
+  };
+
+  $scope.showActivity = function(resource) {
+    Activity.get({id: resource.id}, function(response){
+      console.log(response);
+    })
   }
 }
