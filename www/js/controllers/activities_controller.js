@@ -1,18 +1,18 @@
 function activitiesController($scope, $state, $ionicLoading, Activity) {
-  $scope.message = 'This is the Activities View for ' + $scope.user.email;
   $scope.filters = {};
-  [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [false, false, false, false, false];
+  [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, false, false, false, false];
 
-
-  $scope.$on("$ionicView.enter", function () {
-    $ionicLoading.show({
-      template: 'Getting activities...'
-    });
-    Activity.query(function (response) {
-      $scope.activities = response.activities.reverse();
-      $scope.cachedActivities = $scope.activities; // This keeps the entire activity list so users can un-filter.
-      $ionicLoading.hide();
-    });
+  $scope.$on("$ionicView.enter", function (scopes, states) {
+    if (states.stateName == "app.activities") {
+      $ionicLoading.show({
+        template: 'Getting activities...'
+      });
+      Activity.query(function (response) {
+        $scope.activities = response.activities.reverse();
+        $scope.cachedActivities = $scope.activities; // This keeps the entire activity list so users can un-filter.
+        $ionicLoading.hide();
+      });
+    }
   });
 
   $scope.addActivity = function () {
