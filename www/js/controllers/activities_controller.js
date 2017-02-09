@@ -1,6 +1,5 @@
 function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.filters = {};
-  // [$scope.star1, $scope.star2, $scope.star3, $scope.star4, $scope.star5] = [true, false, false, false, false];
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
