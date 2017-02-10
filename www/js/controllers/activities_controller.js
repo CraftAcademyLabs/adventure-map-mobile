@@ -3,6 +3,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
+    $scope.message = 'test message';
     console.log(states.stateName == "app.activities");
     if (states.stateName == "app.activities") {
       $ionicLoading.show({
@@ -41,6 +42,8 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
     $scope.filters.rating = rating;
 
     console.log($scope.filters);
+
+    applyFilters()
   };
 
   $scope.toggleStars = function (star_id) {
@@ -64,4 +67,34 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
         $scope.stars = [false, false, false, false, false];
     }
   };
+
+  function applyFilters() {
+    $scope.message = 'new message';
+    $scope.activities = $scope.cachedActivities.filter(function (activity) {
+      if ($scope.filters.difficulty1) {
+        if (activity.difficulty == 1) {
+          return activity;
+        }
+      }
+      if ($scope.filters.difficulty2) {
+        if (activity.difficulty == 2) {
+          return activity;
+
+        }
+      }
+      if ($scope.filters.difficulty3) {
+        if (activity.difficulty == 3) {
+          return activity;
+        }
+      }
+    });
+
+    console.log('activities: ' + $scope.activities.length);
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      console.log("State changed: ", toState);
+
+
+    });
+
+  }
 }
