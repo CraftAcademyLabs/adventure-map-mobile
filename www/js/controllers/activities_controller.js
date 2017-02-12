@@ -33,13 +33,15 @@ function activitiesController($scope, $state, $filter, $ionicLoading, $ionicModa
   };
 
   $scope.getImage = function (collection) {
-    var found = $filter('filter')(collection.images, {attachment_type: 'Image'}, true);
-    if (found.length) {
-      return found[0].file_attachment;
+    if (collection.images.length) {
+      var found = $filter('filter')(collection.images, {attachment_type: 'Image'}, true);
+      if (found.length) {
+        return found[0].file_attachment;
+      }
     } else {
       return "img/dummy_images/snow.jpg";
     }
-  }
+  };
 
   $scope.closeModal = function () {
     $scope.modal.hide();
