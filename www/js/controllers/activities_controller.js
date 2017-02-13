@@ -1,19 +1,22 @@
 function activitiesController($scope, $state, $ionicLoading, Activity) {
-  $scope.filters = {};
+  $scope.activityData = $scope.activityData || {activityData: {}};
+  $scope.activityData.filters = {};
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     $scope.message = {data: 'test message'};
     console.log($scope.$id);
-    console.dir(scopes);
+    $scope.activityData.message = 'comes from view?';
+    console.log($scope.activityData);
+    // console.dir(scopes);
     if (states.stateName == "app.activities") {
       $ionicLoading.show({
         template: 'Getting activities...'
       });
       Activity.query(function (response) {
         console.log(response);
-        $scope.activities = {activityList : response.data.reverse() };
-        $scope.cachedActivities = {activityList: $scope.activities.activityList }; // This keeps the entire activity list so users can un-filter.
+        $scope.activityData.activityList = response.data.reverse();
+        $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
         $ionicLoading.hide();
       });
     }
@@ -40,9 +43,9 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
     } else {
       rating = 1
     }
-    $scope.filters.rating = rating;
+    $scope.activityData.filters.rating = rating;
 
-    console.log($scope.filters);
+    console.log($scope.activityData.filters);
 
     applyFilters()
   };
@@ -70,32 +73,29 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   };
 
   function applyFilters() {
-    console.log($scope.message.data);
+    $scope.activityData.message = 'comes from menu?';
+    console.log($scope.activityData.message);
     console.dir($scope.$id);
-    $scope.message.data = 'new message';
-    console.dir($scope.$id);
-    console.log($scope.message.data);
-    // console.dir($scope.cachedActivities.activityList);
-    $scope.activities.activityList = $scope.cachedActivities.activityList.filter(function (activity) {
-      if ($scope.filters.difficulty1) {
+    $scope.activityData.activityList = $scope.activityData.cachedActivities.filter(function (activity) {
+      if ($scope.activityData.filters.difficulty1) {
         if (activity.difficulty == 1) {
           return activity;
         }
       }
-      if ($scope.filters.difficulty2) {
+      if ($scope.activityData.filters.difficulty2) {
         if (activity.difficulty == 2) {
           return activity;
 
         }
       }
-      if ($scope.filters.difficulty3) {
+      if ($scope.activityData.filters.difficulty3) {
         if (activity.difficulty == 3) {
           return activity;
         }
       }
     });
 
-    console.log('activities: ' + $scope.activities.activityList.length);
+    console.log('activities: ' + $scope.activityData.activityList.length);
 
   }
 }
