@@ -3,16 +3,17 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
-    $scope.message = 'test message';
-    console.log(states.stateName == "app.activities");
+    $scope.message = {data: 'test message'};
+    console.log($scope.$id);
+    console.dir(scopes);
     if (states.stateName == "app.activities") {
       $ionicLoading.show({
         template: 'Getting activities...'
       });
       Activity.query(function (response) {
         console.log(response);
-        $scope.activities = response.data.reverse();
-        $scope.cachedActivities = $scope.activities; // This keeps the entire activity list so users can un-filter.
+        $scope.activities = {activityList : response.data.reverse() };
+        $scope.cachedActivities = {activityList: $scope.activities.activityList }; // This keeps the entire activity list so users can un-filter.
         $ionicLoading.hide();
       });
     }
@@ -69,8 +70,13 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   };
 
   function applyFilters() {
-    $scope.message = 'new message';
-    $scope.activities = $scope.cachedActivities.filter(function (activity) {
+    console.log($scope.message.data);
+    console.dir($scope.$id);
+    $scope.message.data = 'new message';
+    console.dir($scope.$id);
+    console.log($scope.message.data);
+    // console.dir($scope.cachedActivities.activityList);
+    $scope.activities.activityList = $scope.cachedActivities.activityList.filter(function (activity) {
       if ($scope.filters.difficulty1) {
         if (activity.difficulty == 1) {
           return activity;
@@ -89,12 +95,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
       }
     });
 
-    console.log('activities: ' + $scope.activities.length);
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      console.log("State changed: ", toState);
-
-
-    });
+    console.log('activities: ' + $scope.activities.activityList.length);
 
   }
 }
