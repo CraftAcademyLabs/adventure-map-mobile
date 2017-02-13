@@ -4,11 +4,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
-    $scope.message = {data: 'test message'};
-    console.log($scope.$id);
-    $scope.activityData.message = 'comes from view?';
-    console.log($scope.activityData);
-    // console.dir(scopes);
     if (states.stateName == "app.activities") {
       $ionicLoading.show({
         template: 'Getting activities...'
@@ -73,9 +68,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   };
 
   function applyFilters() {
-    $scope.activityData.message = 'comes from menu?';
-    console.log($scope.activityData.message);
-    console.dir($scope.$id);
     $scope.activityData.activityList = $scope.activityData.cachedActivities.filter(function (activity) {
       if ($scope.activityData.filters.difficulty1) {
         if (activity.difficulty == 1) {
