@@ -93,7 +93,6 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
       })
       .state('app.map', {
         url: '/map',
-        cache: false,
         views: {
           'menuContent' :{
             templateUrl: 'templates/map.html',

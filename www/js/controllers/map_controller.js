@@ -1,5 +1,19 @@
-function mapController() {
-  var mymap = L.map('mapid', {
+
+function mapController($cordovaGeolocation) {
+
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      var lat  = position.coords.latitude;
+      var long = position.coords.longitude;
+      console.log(lat + ', ' + long);
+    }, function(err) {
+      // error
+    });
+
+
+  var mymap = L.map('mapContainer', {
     zoomControl: false
   })
     .setView([57.7, 11.97], 10);
