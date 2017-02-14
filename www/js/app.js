@@ -78,7 +78,7 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
         templateUrl: "templates/menu.html",
         controller: 'activitiesController',
         data: {
-          requireLogin: true // this property will apply to all children of 'app'
+          // requireLogin: true // this property will apply to all children of 'app'
         }
       })
       .state('app.activities', {
@@ -88,6 +88,16 @@ angular.module('adventureMap', ['ionic', 'ui.router', 'adventureMap.controllers'
           'menuContent' :{
             templateUrl: 'templates/activities.html',
             controller: 'activitiesController'
+          }
+        }
+      })
+      .state('app.map', {
+        url: '/map',
+        cache: false,
+        views: {
+          'menuContent' :{
+            templateUrl: 'templates/map.html',
+            controller: 'mapController'
           }
         }
       })
