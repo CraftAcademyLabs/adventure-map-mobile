@@ -17,34 +17,6 @@ function activitiesController($scope, $rootScope, $state, $ionicLoading, $ionicM
     }
   });
 
-  $scope.openModal = function (activity) {
-    $ionicModal.fromTemplateUrl('templates/activity.html', {
-      scope: $scope,
-      animation: 'zoom-from-center'
-    }).then(function (modal) {
-      $scope.modal = modal;
-      Activity.get({id: activity.id}, function (response) {
-        $scope.activity = response.data;
-        $scope.modal.show();
-      });
-
-    });
-
-  };
-
-  //$scope.getImage = function (resource) {
-  //  if (resource.images.length) {
-  //    return resource.images[0].file_attachment;
-  //  } else {
-  //    return "img/dummy_images/snow.jpg";
-  //  }
-  //};
-
-  $scope.closeModal = function () {
-    $scope.modal.hide();
-    $scope.modal.remove();
-  };
-
   $scope.addActivity = function () {
     $state.go('app.create_activity');
   };
