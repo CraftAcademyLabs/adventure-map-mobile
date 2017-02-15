@@ -1,4 +1,4 @@
-function activitiesController($scope, $rootScope, $state, $ionicLoading, $ionicModal, $filter, Activity) {
+function activitiesController($scope, $rootScope, $state, $ionicLoading, Activity) {
   $scope.activityData = $scope.activityData || {activityData: {}};
   $scope.activityData.filters = {};
   $scope.stars = [true, false, false, false, false];
