@@ -1,4 +1,4 @@
-<ion-view class="walkthrough-view" cache-view="false">
+<ion-view class="walkthrough-view" cache-view="false" hide-nav-bar="true">
   <ion-header-bar class="intro-header">
     <div class="buttons">
       <button class="button button-clear skip-button" ng-click="skipIntro()">Skip Login</button>
@@ -81,7 +81,7 @@
         </a>
       </div>
       <div class="col">
-        <a class="button button-block auth-button" ui-sref="intro.login">
+        <a class="button button-block auth-button" ng-click="goToLogin()">
           LOGIN
         </a>
       </div>

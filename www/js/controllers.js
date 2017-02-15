@@ -7,7 +7,7 @@ angular
   .controller('mapController', mapController)
   .controller('userController', userController)
 
-  .controller('WalkthroughController', function($scope, $state, $ionicLoading, $auth, API_URL) {
+  .controller('walkthroughController', function($scope, $state, $ionicLoading, $auth, API_URL) {
     $scope.skipIntro = function(){
       console.log('wtf??');
       $state.go('intro.login');
@@ -28,6 +28,11 @@ angular
           // handle errors
           $ionicLoading.hide();
         });
+    }
+
+    $scope.goToLogin = function(){
+      debugger;
+      $state.go('intro.login');
     }
   });
 function userController($scope, $state) {

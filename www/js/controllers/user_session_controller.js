@@ -33,7 +33,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
         // handle errors
         $ionicLoading.hide();
       });
-  }
+  };
 
   $scope.performSignOut = function () {
     // debugger;
