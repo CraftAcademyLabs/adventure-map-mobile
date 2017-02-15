@@ -39,6 +39,9 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   };
 
   $scope.setFilters = function () {
+    // reset no-results-found message
+    $scope.activityData.message = undefined;
+
     var rating = 1;
     if ($scope.stars[4]) {
       rating = 5
@@ -101,7 +104,8 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
       });
     }
 
-    let temp2 = tempList.filter(function (activity) {
+    // Category filters
+    tempList.filter(function (activity) {
       const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
       array.forEach(num => {
@@ -114,8 +118,10 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
 
     $scope.activityData.activityList = categoryArray;
 
+    console.log($scope.activityData.activityList);
+
     // Show users a message instead of a blank screen if there are no activities that match their search.
-    if ($scope.activityData.activityList == []) {
+    if ($scope.activityData.activityList.length == 0) {
       $scope.activityData.message = 'Your search returned no results. Try adding some categories, difficulties or looking for activities from strangers.'
     }
 
