@@ -2,6 +2,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.activityData = $scope.activityData || {activityData: {}};
   $scope.activityData.filters = {};
   $scope.activityData.filters.category = [];
+  $scope.activityData.message = undefined;
   $scope.stars = [true, false, false, false, false];
   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
 
@@ -82,18 +83,12 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   function applyFilters() {
     let categoryArray = [];
 
-    // options = {
-    //   difficulty: 3
-    // };
-    // console.log(new List('activity-list', options, values));
-    // $scope.activityData.activityList = [...(new List('activity-list', values).activityList)];
-    // console.log($scope.activityData.activityList);
     var tempList = $scope.activityData.cachedActivities;
 
+    // Difficulty filters
     // We could get rid of this outer 'if' if we figure out how to auto-check the difficulty boxes.
-    if ($scope.activityData.filters.difficulty1 || $scope.activityData.filters.difficulty2 || $scope.activityData.filters.difficulty3){
+    if ($scope.activityData.filters.difficulty1 || $scope.activityData.filters.difficulty2 || $scope.activityData.filters.difficulty3) {
       tempList = tempList.filter(function (activity) {
-        // Difficulty filters
         if ($scope.activityData.filters.difficulty1 && activity.difficulty == 1) {
           return activity;
         }
@@ -106,44 +101,45 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
       });
     }
 
+    let temp2 = tempList.filter(function (activity) {
+      const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-      let temp2 = tempList.filter(function (activity) {
-        const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        array.forEach(num => {
-          // console.log($scope.activityData.filters.category[num]);
-          if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
-            // console.log(activity);
-            categoryArray.push(activity);
-          }
-        });
-        console.log(categoryArray);
-        categoryArray.forEach(activity => activity);
+      array.forEach(num => {
+        if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
+          categoryArray.push(activity);
+        }
       });
-      console.log(temp2);
+      categoryArray.forEach(activity => activity);
+    });
 
-      $scope.activityData.activityList = categoryArray;
+    $scope.activityData.activityList = categoryArray;
 
-      //   // Category filters
-      //   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      //   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
-      //
-      //   array.forEach(num => {
-      //     console.log($scope.activityData.filters.category[num]);
-      //     if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
-      //       console.log(activity);
-      //       return activity;
-      //     }
-      //   });
-      //   // $scope.activityData.filters.forEach(filter => {
-      //   //   console.log(filter);
-      //   // });
-      //   // if ($scope.activityData.filters.category1 && activity.category == 1){
-      //   //   return activity;
-      //   // }
-      // });
-
-      console.log('activities: ' + $scope.activityData.activityList.length);
-
+    // Show users a message instead of a blank screen if there are no activities that match their search.
+    if ($scope.activityData.activityList = []) {
+      $scope.activityData.message = 'Your search returned no results. Try adding some categories, difficulties or looking for activities from strangers.'
+      console.log($scope.activityData.message);
     }
+
+    //   // Category filters
+    //   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    //   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
+    //
+    //   array.forEach(num => {
+    //     console.log($scope.activityData.filters.category[num]);
+    //     if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
+    //       console.log(activity);
+    //       return activity;
+    //     }
+    //   });
+    //   // $scope.activityData.filters.forEach(filter => {
+    //   //   console.log(filter);
+    //   // });
+    //   // if ($scope.activityData.filters.category1 && activity.category == 1){
+    //   //   return activity;
+    //   // }
+    // });
+
+    console.log('activities: ' + $scope.activityData.activityList.length);
+
   }
+}
