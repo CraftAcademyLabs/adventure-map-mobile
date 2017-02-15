@@ -125,13 +125,14 @@
   font-size: 14px;
   line-height: 16px;
   -webkit-box-flex: 0;
-  -webkit-flex: 0 ;
+  -webkit-flex: 0;
   -moz-box-flex: 0;
   -moz-flex: 0;
   -ms-flex: 0;
   flex: 0;
   display: block;
   min-width: 24px;
+}
 /*******************
 MAP
  *******************/
