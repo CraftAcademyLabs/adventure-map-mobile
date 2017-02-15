@@ -6,9 +6,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.stars = [true, false, false, false, false];
   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
 
-  let values;
-  let options;
-
   $scope.$on("$ionicView.enter", function (scopes, states) {
     if (states.stateName == "app.activities") {
       $ionicLoading.show({
@@ -18,12 +15,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
         console.log(response);
         $scope.activityData.activityList = response.data.reverse();
         $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
-
-
-        // values = {
-        //   activityList: response.data.reverse()
-        // };
-        // $scope.activityData.activityList = [...(new List('activity-list', values).activityList)];
 
         $ionicLoading.hide();
       });
@@ -117,8 +108,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
     });
 
     $scope.activityData.activityList = categoryArray;
-
-    console.log($scope.activityData.activityList);
 
     // Show users a message instead of a blank screen if there are no activities that match their search.
     if ($scope.activityData.activityList.length == 0) {
