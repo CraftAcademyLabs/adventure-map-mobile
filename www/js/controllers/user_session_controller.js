@@ -36,7 +36,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
   }
 
   $scope.performSignOut = function () {
-    debugger;
+    // debugger;
     $ionicLoading.show({
       template: 'Signing out...'
     });
