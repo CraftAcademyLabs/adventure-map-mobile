@@ -115,29 +115,9 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
     $scope.activityData.activityList = categoryArray;
 
     // Show users a message instead of a blank screen if there are no activities that match their search.
-    if ($scope.activityData.activityList = []) {
+    if ($scope.activityData.activityList == []) {
       $scope.activityData.message = 'Your search returned no results. Try adding some categories, difficulties or looking for activities from strangers.'
-      console.log($scope.activityData.message);
     }
-
-    //   // Category filters
-    //   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    //   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
-    //
-    //   array.forEach(num => {
-    //     console.log($scope.activityData.filters.category[num]);
-    //     if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
-    //       console.log(activity);
-    //       return activity;
-    //     }
-    //   });
-    //   // $scope.activityData.filters.forEach(filter => {
-    //   //   console.log(filter);
-    //   // });
-    //   // if ($scope.activityData.filters.category1 && activity.category == 1){
-    //   //   return activity;
-    //   // }
-    // });
 
     console.log('activities: ' + $scope.activityData.activityList.length);
 
