@@ -1,6 +1,7 @@
 function activitiesController($scope, $state, $ionicLoading, Activity) {
   $scope.activityData = $scope.activityData || {activityData: {}};
   $scope.activityData.filters = {};
+  $scope.activityData.filters.category = [];
   $scope.stars = [true, false, false, false, false];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
@@ -69,22 +70,34 @@ function activitiesController($scope, $state, $ionicLoading, Activity) {
 
   function applyFilters() {
     $scope.activityData.activityList = $scope.activityData.cachedActivities.filter(function (activity) {
-      if ($scope.activityData.filters.difficulty1) {
-        if (activity.difficulty == 1) {
+      // Difficulty filters
+      if ($scope.activityData.filters.difficulty1 && activity.difficulty == 1) {
           return activity;
-        }
       }
-      if ($scope.activityData.filters.difficulty2) {
-        if (activity.difficulty == 2) {
+      if ($scope.activityData.filters.difficulty2 && activity.difficulty == 2) {
           return activity;
+      }
+      if ($scope.activityData.filters.difficulty3 && activity.difficulty == 3) {
+          return activity;
+      }
 
-        }
-      }
-      if ($scope.activityData.filters.difficulty3) {
-        if (activity.difficulty == 3) {
+      // Category filters
+      const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
+
+      array.forEach(num => {
+        console.log($scope.activityData.filters.category[num]);
+        if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
+          console.log(activity);
           return activity;
         }
-      }
+      });
+      // $scope.activityData.filters.forEach(filter => {
+      //   console.log(filter);
+      // });
+      // if ($scope.activityData.filters.category1 && activity.category == 1){
+      //   return activity;
+      // }
     });
 
     console.log('activities: ' + $scope.activityData.activityList.length);
