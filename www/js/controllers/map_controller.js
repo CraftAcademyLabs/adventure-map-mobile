@@ -15,7 +15,7 @@ function mapController($cordovaGeolocation) {
 
 
   // Create a map, center it on Gothenburg.
-  var mymap = L.map('mapContainer', {
+  const mymap = L.map('mapContainer', {
     zoomControl: false
   })
     .setView([57.7, 11.97], 10);
