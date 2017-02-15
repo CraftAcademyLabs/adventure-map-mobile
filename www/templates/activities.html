@@ -16,7 +16,7 @@
     </div>
     <div class="list card" ng-repeat="activity in activityData.activityList">
 
-      <div class="item item-avatar gray activity-list">
+      <div class="item item-avatar gray">
         <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
         <h2 class="activity_title">{{activity.user.name}}</h2>
         <p ng-repeat="interest in activity.user.interests">{{interest}}</p>
