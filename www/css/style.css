@@ -79,6 +79,7 @@
   transition: all .05s ease-in-out;
 }
 
+/* Don't know why I have to use !important here! */
 .filter-button {
   margin-top: 0 !important;
   min-height: 50px !important;

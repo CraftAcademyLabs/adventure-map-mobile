@@ -23,10 +23,7 @@
         <!-- This is the menu for the activities filters -->
 
         <ion-item ng-show="$state.includes('app.activities')">
-
-
           <ul class="list">
-
             <div class="item item-toggle">
               Only users I follow
               <label class="toggle toggle-positive">
@@ -76,9 +73,10 @@
         </ion-item>
       </ion-list>
     </ion-content>
-    <ion-footer-bar>
+    <ion-footer-bar ng-show="$state.includes('app.activities')">
       <div class="bar bar-footer bar-footer-filter">
-      <button class="filter-button button button-block button-positive " ng-click="setFilters()" menu-close>Filter</button>
+        <button class="filter-button button button-block button-positive " ng-click="setFilters()" menu-close>Filter
+        </button>
       </div>
 
     </ion-footer-bar>
