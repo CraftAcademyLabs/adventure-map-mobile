@@ -15,7 +15,6 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
         console.log(response);
         $scope.activityData.activityList = response.data.reverse();
         $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
-
         $ionicLoading.hide();
       });
     }
