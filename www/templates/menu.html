@@ -10,7 +10,7 @@
     <header class="bar bar-header bar-positive">
       <h1 class="title">Menu</h1>
     </header>
-    <ion-content class="has-header">
+    <ion-content class="has-header has-footer has-footer-filter">
       <ion-list>
         <ion-item ng-show="!$state.includes('app.profile')" menu-close ng-if="user.email"
                   ng-controller="activitiesController" ng-click="viewProfile()">
@@ -23,6 +23,8 @@
         <!-- This is the menu for the activities filters -->
 
         <ion-item ng-show="$state.includes('app.activities')">
+
+
           <ul class="list">
 
             <div class="item item-toggle">
@@ -70,9 +72,15 @@
               </ion-list>
             </div>
           </ul>
-          <button class="button button-block button-positive" ng-click="setFilters()" menu-close>Filter</button>
+
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer-bar>
+      <div class="bar bar-footer bar-footer-filter">
+      <button class="filter-button button button-block button-positive " ng-click="setFilters()" menu-close>Filter</button>
+      </div>
+
+    </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>
