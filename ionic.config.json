@@ -10,5 +10,10 @@
     "www/**/*",
     "!www/lib/**/*",
     "!www/**/*.map"
+  ],
+  "livereload": [
+    "www/**/*.html",
+    "www/**/*.js",
+    "www/**/*.css"
   ]
 }
