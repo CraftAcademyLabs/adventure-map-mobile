@@ -12,12 +12,9 @@
         <div class="col">
           <div class="row social-buttons-row">
             <div class="col">
-              <button class="button button-block icon-left ion-social-facebook social-button facebook-button" ng-click="doSignUp()">
+              <button class="button button-block icon-left ion-social-facebook social-button facebook-button" ng-click="facebookSignIn()">
                 <span class="inner-text">Sign up via Facebook</span>
               </button>
-              <!--<button class="button button-block icon-left ion-social-googleplus social-button google-button" ng-click="doSignUp()">
-                <span class="inner-text">Sign up via Google</span>
-              </button>-->
             </div>
           </div>
           <form class="row form-container" novalidate>
@@ -26,24 +23,27 @@
                 <div class="item item-divider">
                   <span>or sign up using email</span>
                 </div>
+                <div class="item item-divider" ng-if="errorMessage">
+                  <span class="error-message" ng-bind="errorMessage"></span>
+                </div>
                 <label class="item item-input item-stacked-label">
                   <span class="input-label">Name</span>
-                  <input type="text" placeholder="required">
+                  <input type="text" placeholder="required" ng-model="signupForm.name">
                 </label>
                 <label class="item item-input item-stacked-label">
                   <span class="input-label">Email</span>
-                  <input type="email" placeholder="required">
+                  <input type="email" placeholder="required" ng-model="signupForm.email">
                 </label>
                 <label class="item item-input item-stacked-label">
                   <span class="input-label">Password</span>
-                  <input type="password" placeholder="required">
+                  <input type="password" placeholder="required" name="password" ng-model="signupForm.password">
                 </label>
                 <label class="item item-input item-stacked-label">
                   <span class="input-label">Password Confirmation</span>
-                  <input type="password" placeholder="required">
+                  <input type="password" placeholder="required" name="password_confirmation" ng-model="signupForm.password_confirmation">
                 </label>
               </div>
-              <button class="button action-button button-block button-balanced" ng-click="doSignUp()">SIGN UP</button>
+              <button class="button action-button button-block button-balanced" ng-click="signup()">SIGN UP</button>
               <div class="col alt-actions-container">
                 <span class="pre-button-text">Already a member?</span>
                 <a class="button button-clear button-small button-stable login-button" ui-sref="intro.login">Login</a>
@@ -54,7 +54,7 @@
       </div>
       <div class="row row-no-padding legal-row">
         <div class="col">
-          <p class="legal-text">By creating an account your agree to AdventureMap's <a ui-sref="">Terms of Service</a>, <a ui-sref="">Privacy Policy</a>, <a ui-sref="">Cookie Policy</a> and <a ui-sref="">Content Policies</a></p>
+          <p class="legal-text">By creating an account your agree to AdventureMap's <a ui-sref="#">Terms of Service</a>, <a ui-sref="#">Privacy Policy</a>, <a ui-sref="#">Cookie Policy</a> and <a ui-sref="#">Content Policies</a></p>
         </div>
       </div>
     </div>

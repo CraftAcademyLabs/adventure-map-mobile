@@ -1,6 +1,9 @@
 function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
   console.log($scope.user);
   $scope.credentials = {};
+  $scope.signupForm = {};
+  $scope.errorMessage = null;
+
   $scope.login = function () {
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
@@ -14,7 +17,25 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
       })
       .catch(function (response) {
         $ionicLoading.hide();
-        $scope.errorMessage = response.errors.toString();
+        $scope.errorMessage = response.data.errors.full_messages.toString();
+      });
+  };
+
+  $scope.signup = function() {
+    $auth.getConfig().apiUrl = API_URL;
+    $ionicLoading.show({
+      template: 'Signing up...'
+    });
+
+    $auth.submitRegistration($scope.signupForm)
+      .then(function (response) {
+        $rootScope.user = response;
+        $state.go('app.activities');
+        $ionicLoading.hide();
+      })
+      .catch(function(response) {
+        $ionicLoading.hide();
+        $scope.errorMessage = response.data.errors.full_messages.toString();
       })
   };
 
@@ -41,7 +62,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
     });
     $auth.signOut()
       .then(function (response) {
-        $state.go('intro.login');
+        $state.go('intro.walkthrough');
         $ionicLoading.hide();
       })
   };

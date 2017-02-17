@@ -71,3 +71,7 @@ ion-spinner.spinner-on-load {
 	@include calc(top, "50% - #{($spinner-svg-size/2)}");
 	@include calc(left, "50% - #{($spinner-svg-size/2)}");
 }
+
+.error-message {
+  color: $assertive;
+}
