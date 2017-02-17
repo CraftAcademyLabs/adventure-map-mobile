@@ -17,7 +17,7 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
       })
       .catch(function (response) {
         $ionicLoading.hide();
-        $scope.errorMessage = response.data.errors.full_messages.toString();
+        $scope.errorMessage = response.errors.toString();
       });
   };
 

@@ -24,6 +24,9 @@
                 <div class="item item-divider">
                   <span>or log in using email</span>
                 </div>
+                <div class="item item-divider" ng-if="errorMessage">
+                  <span class="error-message" ng-bind="errorMessage"></span>
+                </div>
                 <label class="item item-input item-stacked-label">
                   <span class="input-label">Email</span>
                   <input type="email" placeholder="required" ng-model="credentials.email">
