@@ -1,12 +1,12 @@
 function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
   console.log($scope.user);
-  $scope.loginData = {};
-  $scope.userSignIn = function () {
+  $scope.credentials = {};
+  $scope.login = function () {
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
       template: 'Logging in...'
     });
-    $auth.submitLogin($scope.loginData)
+    $auth.submitLogin($scope.credentials)
       .then(function (response) {
         $scope.user = response;
         $state.go('app.activities');
@@ -36,14 +36,17 @@ function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
   };
 
   $scope.performSignOut = function () {
-    // debugger;
     $ionicLoading.show({
       template: 'Signing out...'
     });
     $auth.signOut()
       .then(function (response) {
-        $state.go('app.activities');
+        $state.go('intro.login');
         $ionicLoading.hide();
       })
+  };
+
+  $scope.cancelAuth = function(){
+    $state.go('intro.walkthrough');
   };
 }

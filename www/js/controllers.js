@@ -9,7 +9,6 @@ angular
 
   .controller('walkthroughController', function($scope, $state, $ionicLoading, $auth, API_URL) {
     $scope.skipIntro = function(){
-      console.log('wtf??');
       $state.go('intro.login');
     };
 
@@ -31,7 +30,6 @@ angular
     }
 
     $scope.goToLogin = function(){
-      debugger;
       $state.go('intro.login');
     }
   });

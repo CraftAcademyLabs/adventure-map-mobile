@@ -53,8 +53,6 @@ angular.module('adventureMap', [
 
     $rootScope.$on('$stateChangeStart', function (event, toState) {
       var requireLogin = toState.data.requireLogin;
-      console.log('yeah right', requireLogin);
-      //debugger;
       if (requireLogin && isLoggedIn()) {
         event.preventDefault();
         $state.go('app.activities');
