@@ -24,12 +24,12 @@ angular.module('adventureMap', [
     function windowType() {
       var IONIC_APP_ID = '7e351a02';
       if (window.location.href.indexOf('com.ionic.viewapp') > -1 || window.location.href.indexOf(IONIC_APP_ID) > -1) {
-        return 'newWindow'
+        return 'newWindow';
       }
       if (window.cordova == undefined) {
-        return 'newWindow'
+        return 'newWindow';
       } else {
-        return 'inAppBrowser'
+        return 'inAppBrowser';
       }
     }
   })
@@ -60,7 +60,7 @@ angular.module('adventureMap', [
     });
 
     function isLoggedIn() {
-      if (typeof $rootScope.user === 'undefined' || Object.getOwnPropertyNames($rootScope.user).length == 0) {
+      if (typeof $rootScope.user === 'undefined' || Object.getOwnPropertyNames($rootScope.user).length === 0) {
         return true;
       }
     }
@@ -82,7 +82,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/walkthrough.html',
-              controller: 'walkthroughController'
+              controller: 'AuthController'
             }
           }
         })
@@ -91,7 +91,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/login.html',
-              controller: 'userSessionController'
+              controller: 'AuthController'
             }
           }
         })
@@ -100,7 +100,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/signup.html',
-              controller: 'userSessionController'
+              controller: 'AuthController'
             }
           }
         })

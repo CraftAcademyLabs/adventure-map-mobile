@@ -1,8 +1,12 @@
-function userSessionController($scope, $auth, $ionicLoading, $state, $rootScope, API_URL) {
+function AuthController($scope, $auth, $ionicLoading, $state, $rootScope, API_URL) {
   console.log($scope.user);
   $scope.credentials = {};
   $scope.signupForm = {};
   $scope.errorMessage = null;
+
+  $scope.skipIntro = function(){
+    $state.go('intro.login');
+  };
 
   $scope.login = function () {
     $auth.getConfig().apiUrl = API_URL;
