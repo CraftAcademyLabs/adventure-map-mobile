@@ -1,4 +1,4 @@
-function userSessionController($scope, $auth, $ionicLoading, $state, API_URL) {
+function userSessionController($scope, $auth, $ionicLoading, $state, $rootScope, API_URL) {
   console.log($scope.user);
   $scope.credentials = {};
   $scope.signupForm = {};
