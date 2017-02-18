@@ -147,10 +147,4 @@
   display: block;
   min-width: 24px;
 }
-/*******************
-MAP
- *******************/
-#mapContainer {
-  width: 100%;
-  height: 100%;
-}
+

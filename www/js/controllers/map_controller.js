@@ -1,4 +1,4 @@
-function mapController($cordovaGeolocation, $ionicLoading) {
+function mapController($scope, $cordovaGeolocation, $ionicLoading, $document) {
 
   var posOptions = {
     maximumAge: 3000,
@@ -21,7 +21,7 @@ function mapController($cordovaGeolocation, $ionicLoading) {
 
   var lat, long;
 
-  const map = L.map('mapContainer', {
+  const map = L.map('map-container', {
     zoomControl: false
   });
   const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
@@ -58,7 +58,7 @@ function mapController($cordovaGeolocation, $ionicLoading) {
       lat = position.coords.latitude;
       long = position.coords.longitude;
       console.log(lat + ', ' + long);
-      addMarker(lat, long, old_lat, old_long, map)
+      drawLine(lat, long, old_lat, old_long, map)
     });
 
 
@@ -84,8 +84,7 @@ function mapController($cordovaGeolocation, $ionicLoading) {
 
   }
 
-
-  function addMarker(lat, long, old_lat, old_long, map) {
+  function drawLine(lat, long, old_lat, old_long, map) {
     var pointA = new L.LatLng(old_lat, old_long);
     var pointB = new L.LatLng(lat, long);
     var pointList = [pointA, pointB];
