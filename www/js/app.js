@@ -82,7 +82,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/walkthrough.html',
-              controller: 'AuthController'
+              controller: 'authController'
             }
           }
         })
@@ -91,7 +91,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/login.html',
-              controller: 'AuthController'
+              controller: 'authController'
             }
           }
         })
@@ -100,7 +100,7 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/signup.html',
-              controller: 'AuthController'
+              controller: 'authController'
             }
           }
         })

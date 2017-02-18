@@ -1,6 +1,6 @@
 angular
   .module('adventureMap.controllers', [])
-  .controller('AuthController', AuthController)
+  .controller('authController', authController)
   .controller('activitiesController', activitiesController)
   .controller('createActivityController', createActivityController)
   .controller('showActivityController', showActivityController)
