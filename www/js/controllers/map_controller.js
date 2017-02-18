@@ -22,10 +22,12 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $document) {
   var lat, long;
 
   const map = L.map('map-container', {
-    zoomControl: false
+    zoomControl: true
   });
   const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
   const watch = $cordovaGeolocation.watchPosition(watchOptions);
+
+  $scope.watching = true;
 
 
   $ionicLoading.show({
@@ -46,23 +48,33 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $document) {
     // error
   });
 
-  watch.then(
-    null,
-    function (err) {
-      // error
-      console.log(err);
-    },
-    function (position) {
-      var old_lat = lat;
-      var old_long = long;
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      console.log(lat + ', ' + long);
-      drawLine(lat, long, old_lat, old_long, map)
-    });
+  $scope.startTracking = function () {
+    $scope.watching = true;
+  };
+
+  if ($scope.watching) {
+    watch.then(
+      null,
+      function (err) {
+        // error
+        console.log(err);
+      },
+      function (position) {
+        debugger;
+        var old_lat = lat;
+        var old_long = long;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        console.log(lat + ', ' + long);
+        drawLine(lat, long, old_lat, old_long, map)
+      });
+  }
 
 
-  // watch.clearWatch();
+  $scope.stopTracking = function () {
+    clearLines(map);
+    $cordovaGeolocation.clearWatch(watch);
+  };
 
 
   function addToMap(lat, long, map) {
@@ -93,6 +105,19 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $document) {
     polyline.addTo(map);
     map.setView([lat, long], 13);
 
+  }
+
+  function clearLines(map) {
+    for(i in map._layers) {
+      if(map._layers[i]._path != undefined) {
+        try {
+          map.removeLayer(map._layers[i]);
+        }
+        catch(e) {
+          console.log("problem with " + e + map._layers[i]);
+        }
+      }
+    }
   }
 
 }

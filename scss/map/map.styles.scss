@@ -9,5 +9,8 @@ MAP
 }
 
 #over_map {
+  position: absolute;
   z-index: 2;
+  bottom: 5px;
+  right: 50%;
 }
