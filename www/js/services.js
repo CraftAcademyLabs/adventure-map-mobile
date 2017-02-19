@@ -86,7 +86,6 @@ angular.module('adventureMap.services', [])
     };
 
     var stopTrackingFunction = function (map) {
-      debugger;
       clearLines(map);
       window.navigator.geolocation.clearWatch(watch);
     };

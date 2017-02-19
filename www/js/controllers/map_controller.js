@@ -1,5 +1,5 @@
 function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform, MapService) {
-
+  var lat, long, map;
 
   $ionicPlatform.ready(function() {
     // called when ready
@@ -9,13 +9,12 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
       enableHighAccuracy: false
     };
 
-    var lat, long;
-
-    const map = L.map('map-container', {
+    map = L.map('map-container', {
       zoomControl: false
     });
+
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
-    document.getElementById("stop-tracking").addEventListener('tap', MapService.stopTracking(map), true);
+    //document.getElementById("stop-tracking").addEventListener('click', MapService.stopTracking(map));
 
 
     $ionicLoading.show({
@@ -30,11 +29,19 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
       map.setView([lat, long], 13);
       MapService.addToMap(lat, long, map);
       $ionicLoading.hide();
-      document.getElementById("start-tracking").addEventListener('tap', MapService.startTracking(lat, long, map), true);
+      //document.getElementById("start-tracking").addEventListener('click', MapService.startTracking(lat, long, map));
     }, function (err) {
       // error
     });
   });
+
+  $scope.startTracking = function(){
+    MapService.startTracking(lat, long, map);
+  };
+
+  $scope.stopTracking =  function(){
+    MapService.stopTracking(map);
+  }
 
 
 }
