@@ -2,7 +2,7 @@ angular.module('adventureMap.s3FileUpload', [])
   .service('S3FileUpload', function($http, API_URL) {
 
     var error =  {
-      message: "An error occurred while attaching your file",
+      message: 'An error occurred while attaching your file',
       success: false
     };
 

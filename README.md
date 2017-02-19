@@ -110,7 +110,7 @@ If the file is uploaded successfully, the `upload` function returns the followin
 ```javascript
 {
   message: 'File was successfully uploaded!',
-  public_url: 'https://bucket_name.s3-region.amazonaws.com/images/file_name.png,
+  public_url: 'https://bucket_name.s3-region.amazonaws.com/images/file_name.png',
   success: true
 }
 ```
@@ -119,7 +119,7 @@ In case of failure, we get the following response:
 
 ```javascript
 {
-  message: "An error occurred while attaching your file",
+  message: 'An error occurred while attaching your file',
   success: false
 }
 ```
