@@ -65,52 +65,53 @@ angular.module('adventureMap.services', [])
     };
 
     let watch = null;
-    return {
-      startTracking: function (lat, long, map) {
-        watch = window.navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
-        console.log('Initial position: ' + lat + ', ' + long);
-        //$scope.watching = true;
 
-        function onSuccess(position) {
-          var old_lat = lat;
-          var old_long = long;
-          lat = position.coords.latitude;
-          long = position.coords.longitude;
-          console.log(lat + ', ' + long);
-          drawLine(lat, long, old_lat, old_long, map);
-          return watch;
-        }
+    // Service methods
+    var startTrackingFunction = function (lat, long, map) {
+      watch = window.navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
+      console.log('Initial position: ' + lat + ', ' + long);
+      //$scope.watching = true;
+      function onSuccess(position) {
+        var old_lat = lat;
+        var old_long = long;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        console.log(lat + ', ' + long);
+        drawLine(lat, long, old_lat, old_long, map);
+      }
 
-        function onError(err) {
-          console.log(err);
-        }
-      },
-
-      stopTracking: function (map) {
-        debugger;
-        clearLines(map);
-        window.navigator.geolocation.clearWatch(watch);
-      },
-
-      addToMap: function (lat, long, map) {
-
-        // A marker example
-        L.marker([lat, long]).addTo(map);
-
-        // The map "tile layer"
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: '',
-          maxZoom: 18,
-          id: 'mapbox.outdoors',
-          accessToken: 'pk.eyJ1IjoiYXF1YWFtYmVyIiwiYSI6ImNpejVreGVxNzAwNTEyeXBnbWc5eXNlcTYifQ.ah37yE5P2LH9LVzNelgymQ'
-        }).addTo(map);
-
-        L.control.scale({
-          imperial: false
-        }).addTo(map);
-
+      function onError(err) {
+        console.log(err);
       }
     };
+
+    var stopTrackingFunction = function (map) {
+      debugger;
+      clearLines(map);
+      window.navigator.geolocation.clearWatch(watch);
+    };
+
+    var addToMapFunction = function (lat, long, map) {
+
+      L.marker([lat, long]).addTo(map);
+
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: '',
+        maxZoom: 18,
+        id: 'mapbox.outdoors',
+        accessToken: 'pk.eyJ1IjoiYXF1YWFtYmVyIiwiYSI6ImNpejVreGVxNzAwNTEyeXBnbWc5eXNlcTYifQ.ah37yE5P2LH9LVzNelgymQ'
+      }).addTo(map);
+
+      L.control.scale({
+        imperial: false
+      }).addTo(map);
+
+    };
+
+    // Support methods
+
+
+
     function drawLine(lat, long, old_lat, old_long, map) {
       var polOptions = {
         color: 'blue',
@@ -140,4 +141,10 @@ angular.module('adventureMap.services', [])
         }
       }
     }
+
+    return {
+      startTracking: startTrackingFunction,
+      stopTracking: stopTrackingFunction,
+      addToMap: addToMapFunction,
+    };
   });
