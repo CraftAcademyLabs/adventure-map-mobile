@@ -1,6 +1,8 @@
 function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform, MapService) {
   var lat, long, map;
 
+  $scope.inProgress = false;
+
   $ionicPlatform.ready(function() {
     // called when ready
     var posOptions = {
@@ -36,10 +38,12 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
   });
 
   $scope.startTracking = function(){
+    $scope.inProgress = true;
     MapService.startTracking(lat, long, map);
   };
 
   $scope.stopTracking =  function(){
+    $scope.inProgress = false;
     MapService.stopTracking(map);
   }
 
