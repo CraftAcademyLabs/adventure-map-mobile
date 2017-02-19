@@ -1,7 +1,8 @@
-function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform, MapService) {
+function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading, $ionicPlatform, MapService) {
   var lat, long, map;
 
   $scope.inProgress = false;
+  $scope.currentRoute = [];
 
   $ionicPlatform.ready(function() {
     // called when ready
@@ -39,12 +40,33 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
 
   $scope.startTracking = function(){
     $scope.inProgress = true;
-    MapService.startTracking(lat, long, map);
+    $scope.currentRoute = MapService.startTracking(lat, long, map);
   };
 
   $scope.stopTracking =  function(){
     $scope.inProgress = false;
     MapService.stopTracking(map);
+    console.log($scope.currentRoute);
+    saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute)
+  };
+
+  function saveToFile(timestamp, route) {
+    var fileName = (timestamp + ".txt");
+    $cordovaFile.createFile(cordova.file.dataDirectory, fileName, true)
+      .then(function (success) {
+        console.log(success);
+        console.log('created file: ' + fileName);
+      }, function (error) {
+        console.log(error);
+      });
+
+    $cordovaFile.writeFile(cordova.file.dataDirectory, fileName, route, true)
+      .then(function (success) {
+        console.log(success);
+        console.log('wrote to file: ' + fileName);
+      }, function (error) {
+        console.log(error);
+      });
   }
 
 

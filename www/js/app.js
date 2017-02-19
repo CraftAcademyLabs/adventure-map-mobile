@@ -7,6 +7,7 @@ angular.module('adventureMap', [
     'adventureMap.controllers',
     'adventureMap.directives',
     'adventureMap.services',
+    'adventureMap.mapService',
     'ngCordova', 'ng-token-auth',
     'ngResource'
   ])
