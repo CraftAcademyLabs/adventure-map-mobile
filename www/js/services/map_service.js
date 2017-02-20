@@ -6,10 +6,11 @@ angular.module('adventureMap.mapService', [])
       enableHighAccuracy: false // may cause errors if true
     };
 
-    let watch = null;
+    var watch = null;
 
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
+      clearLines(map);
       var route = [];
       watch = window.navigator.geolocation.watchPosition(onSuccess, onError, watchOptions);
       console.log('Initial position: ' + lat + ', ' + long);
@@ -19,7 +20,14 @@ angular.module('adventureMap.mapService', [])
         var old_long = long;
         lat = position.coords.latitude;
         long = position.coords.longitude;
-        route.push({lat: lat, long: long, timestamp: position.timestamp});
+        route.push({
+          lat: lat,
+          long: long,
+          timestamp: position.timestamp,
+          speed: position.coords.speed,
+          heading: position.coords.heading,
+          altitude: position.coords.altitude
+        });
         drawLine(lat, long, old_lat, old_long, map);
         console.log(route);
 
@@ -32,8 +40,9 @@ angular.module('adventureMap.mapService', [])
       return route;
     };
 
-    var stopTrackingFunction = function (map) {
-      clearLines(map);
+    var stopTrackingFunction = function (map, lat, long) {
+      //clearLines(map);
+      L.marker([lat, long]).addTo(map);
       window.navigator.geolocation.clearWatch(watch);
     };
 
@@ -52,6 +61,10 @@ angular.module('adventureMap.mapService', [])
         imperial: false
       }).addTo(map);
 
+    };
+
+    var clearRouteFunction = function (map){
+      clearLines(map);
     };
 
     // Support methods
@@ -91,6 +104,7 @@ angular.module('adventureMap.mapService', [])
     return {
       startTracking: startTrackingFunction,
       stopTracking: stopTrackingFunction,
-      addToMap: addToMapFunction
+      addToMap: addToMapFunction,
+      clearRoute: clearRouteFunction
     };
   });

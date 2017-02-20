@@ -8,6 +8,7 @@
   <div id="over_map">
     <button class="button button-small button-assertive" ng-click="startTracking()" ng-disabled="inProgress">Start</button>
     <button class="button button-small button-assertive" ng-click="stopTracking()" ng-disabled="!inProgress">Stop</button>
+    <button class="button button-small button-assertive" ng-click="clearRoute()" ng-disabled="!hasRecording">Clear</button>
   </div>
 
 </ion-view>
