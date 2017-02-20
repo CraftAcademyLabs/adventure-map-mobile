@@ -49,7 +49,8 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     MapService.stopTracking(map, $scope.currentRoute[$scope.currentRoute.length - 1].lat, $scope.currentRoute[$scope.currentRoute.length - 1].long);
     $scope.hasRecording = true;
     console.log($scope.currentRoute);
-    //saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute)
+    saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute)
+    debugger;
   };
 
   $scope.clearRoute = function(){

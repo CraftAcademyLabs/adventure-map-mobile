@@ -103,7 +103,6 @@ angular.module('adventureMap.mapService', [])
       }
     }
 
-
     return {
       startTracking: startTrackingFunction,
       stopTracking: stopTrackingFunction,
