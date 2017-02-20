@@ -7,6 +7,7 @@ angular.module('adventureMap.mapService', [])
     };
 
     var watch = null;
+    var markers = [];
 
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
@@ -42,13 +43,13 @@ angular.module('adventureMap.mapService', [])
 
     var stopTrackingFunction = function (map, lat, long) {
       //clearLines(map);
-      L.marker([lat, long]).addTo(map);
+      markers.push(L.marker([lat, long]).addTo(map));
       window.navigator.geolocation.clearWatch(watch);
     };
 
     var addToMapFunction = function (lat, long, map) {
 
-      L.marker([lat, long]).addTo(map);
+      markers.push(L.marker([lat, long]).addTo(map));
 
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: '',
@@ -65,6 +66,8 @@ angular.module('adventureMap.mapService', [])
 
     var clearRouteFunction = function (map){
       clearLines(map);
+      map.removeLayer(markers[0]);
+      markers.splice(0, 1);
     };
 
     // Support methods
