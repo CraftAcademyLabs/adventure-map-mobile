@@ -49,7 +49,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
     }
     $scope.activityData.filters.rating = rating;
 
-    Filters.applyFilters($scope, categories)
+    Filters.applyFilters($scope, categories);
   };
 
   $scope.toggleStars = function (star_id) {

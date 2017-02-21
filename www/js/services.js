@@ -52,7 +52,6 @@ angular.module('adventureMap.services', [])
 
         console.log('activities: ' + $scope.activityData.activityList.length);
 
-
       }
     }
   });
