@@ -117,7 +117,7 @@ angular.module('adventureMap', [
         templateUrl: "templates/menu.html",
         controller: 'activitiesController',
         data: {
-          requireLogin: true // this property will apply to all children of 'app'
+          requireLogin: false // this property will apply to all children of 'app'
         }
       })
         .state('app.activities', {
