@@ -13,7 +13,10 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
       });
       Activity.query(function (response) {
         console.log(response);
-        $scope.activityData.activityList = response.data.reverse();
+        // Sort by date
+        $scope.activityData.activityList = response.data.sort(function(a,b) {
+          return Date.parse(b.created_at) - Date.parse(a.created_at);
+        });
         $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
         $ionicLoading.hide();
       });
