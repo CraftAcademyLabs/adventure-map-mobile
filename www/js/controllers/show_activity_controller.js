@@ -31,13 +31,13 @@ function showActivityController($scope, $rootScope, $ionicModal, $ionicLoading, 
 
   $scope.makeComment = function(activityId, userId) {
     // Why don't I have a user id saved in the $scope??
-    $scope.commentData.id = $scope.user.id;
+    $scope.commentData.id = userId;
     $scope.commentData.activity_id = activityId;
     var body = 'A fake body';
     $ionicLoading.show({
       template: 'Saving comment...'
     });
-    console.log($scope.commentData);
+    console.dir($rootScope.user);
     Comment.save({body: $scope.commentData.body, id: activityId}, function (resp) {
       // $state.go('app.activities');
       $ionicLoading.hide();
