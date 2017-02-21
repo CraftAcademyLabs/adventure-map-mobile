@@ -35,12 +35,12 @@ angular.module('adventureMap.services', [])
         tempList.filter(function (activity) {
           const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-          array.forEach(num => {
+          array.forEach(function(num) {
             if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
               categoryArray.push(activity);
             }
           });
-          categoryArray.forEach(activity => activity);
+          categoryArray.forEach(function (activity) { return activity });
         });
 
         $scope.activityData.activityList = categoryArray;

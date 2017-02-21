@@ -4,7 +4,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
   $scope.activityData.filters.category = [];
   $scope.activityData.message = undefined;
   $scope.stars = [true, false, false, false, false];
-  const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'foraging'];
+  const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     if (states.stateName == "app.activities") {

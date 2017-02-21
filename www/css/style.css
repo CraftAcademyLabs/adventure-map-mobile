@@ -86,13 +86,15 @@
   font-size: 18px !important;
 }
 
-.bar-footer-filter {
-  min-height: 60px;
-}
-
-.has-footer-filter {
+.has-footer {
   bottom: 60px;
 }
+
+.bar-footer {
+  height: 60px !important;
+}
+
+
 
 /*modal animation*/
 .zoom-from-center {
