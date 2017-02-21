@@ -7,7 +7,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="list comment">
-      <textarea class="comment" placeholder="Comment on this activity"></textarea>
+      <textarea class="comment" placeholder="Comment on this activity" ng-model="commentData.body"></textarea>
       <button class="button button-positive button-block" ng-click="makeComment(activity.id, user.id)">
         Comment
       </button>
