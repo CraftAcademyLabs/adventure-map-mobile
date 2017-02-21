@@ -50,12 +50,11 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     $scope.hasRecording = true;
     console.log($scope.currentRoute);
     saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute)
-    debugger;
   };
 
   $scope.clearRoute = function(){
     MapService.clearRoute(map);
-  }
+  };
 
   function saveToFile(timestamp, route) {
     var fileName = (timestamp + ".txt");
@@ -75,6 +74,4 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
         console.log(error);
       });
   }
-
-
 }

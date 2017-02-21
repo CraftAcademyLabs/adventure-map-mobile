@@ -31,7 +31,6 @@ angular.module('adventureMap.mapService', [])
         });
         drawLine(lat, long, old_lat, old_long, map);
         console.log(route);
-
       }
 
       function onError(err) {
@@ -61,7 +60,6 @@ angular.module('adventureMap.mapService', [])
       L.control.scale({
         imperial: false
       }).addTo(map);
-
     };
 
     var clearRouteFunction = function (map){
@@ -71,8 +69,6 @@ angular.module('adventureMap.mapService', [])
     };
 
     // Support methods
-
-
     function drawLine(lat, long, old_lat, old_long, map) {
       var polOptions = {
         color: 'blue',
