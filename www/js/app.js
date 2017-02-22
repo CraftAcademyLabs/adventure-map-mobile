@@ -117,6 +117,7 @@ angular.module('adventureMap', [
         templateUrl: "templates/menu.html",
         controller: 'activitiesController',
         data: {
+          // Should be true for production
           requireLogin: false // this property will apply to all children of 'app'
         }
       })

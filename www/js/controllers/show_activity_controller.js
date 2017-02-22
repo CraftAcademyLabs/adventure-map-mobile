@@ -1,4 +1,4 @@
-function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment){
+function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment, $ionicSlideBoxDelegate) {
   $scope.openModal = function (activity) {
     $ionicModal.fromTemplateUrl('templates/activity.html', {
       scope: $scope,
@@ -23,7 +23,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     $scope.comment_modal.remove();
   };
 
-  $scope.openCommentBox = function() {
+  $scope.openCommentBox = function () {
     $scope.commentData = {};
     $ionicModal.fromTemplateUrl('templates/comment.html', {
       scope: $scope,
@@ -34,7 +34,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     });
   };
 
-  $scope.makeComment = function(activityId) {
+  $scope.makeComment = function (activityId) {
     $ionicLoading.show({
       template: 'Saving comment...'
     });
@@ -46,6 +46,9 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       $ionicLoading.hide();
       console.log(resp);
     });
+  };
+
+  $scope.nextSlide = function (index) {
+    $ionicSlideBoxDelegate.slide(index);
   }
 }
-
