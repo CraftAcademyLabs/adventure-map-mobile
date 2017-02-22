@@ -14,9 +14,10 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
       Activity.query(function (response) {
         console.log(response);
         // Sort by date
-        $scope.activityData.activityList = response.data.sort(function(a,b) {
+        $scope.activityData.activityList = response.data.sort(function (a, b) {
           return Date.parse(b.created_at) - Date.parse(a.created_at);
         });
+        setDifficultyWords();
         $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
         $ionicLoading.hide();
       });
@@ -73,5 +74,24 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters) 
         $scope.stars = [false, false, false, false, false];
     }
   };
+
+  function setDifficultyWords() {
+    $scope.activityData.activityList = $scope.activityData.activityList.map(function (activity) {
+      switch (activity.difficulty) {
+        case 1:
+          activity.difficulty_word = 'Easy';
+          break;
+        case 2:
+          activity.difficulty_word = 'Moderate';
+          break;
+        case 3:
+          activity.difficulty_word = 'Hard';
+          break;
+        default:
+          activity.difficulty_word = '';
+      }
+      return activity;
+    })
+  }
 
 }
