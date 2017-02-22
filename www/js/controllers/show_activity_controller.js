@@ -35,13 +35,10 @@ function showActivityController($scope, $rootScope, $ionicModal, $ionicLoading, 
   };
 
   $scope.makeComment = function(activityId) {
-    $scope.commentData.activity_id = activityId;
     $ionicLoading.show({
       template: 'Saving comment...'
     });
     Comment.save({body: $scope.commentData.body, id: activityId}, function (resp) {
-      var activity = {};
-      activity.id = activityId;
       $ionicLoading.hide();
       $scope.closeCommentModal();
       // $scope.openModal(activity);
