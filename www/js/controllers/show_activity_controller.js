@@ -7,6 +7,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       $scope.modal = modal;
       Activity.get({id: activity.id}, function (response) {
         $scope.activity = response.data;
+        prepareComments();
         console.log(response);
         $scope.modal.show();
       });
@@ -50,5 +51,15 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
 
   $scope.nextSlide = function (index) {
     $ionicSlideBoxDelegate.slide(index);
+  };
+
+  function prepareComments() {
+    if($scope.activity.comments != []) {
+      $scope.activity.comments = $scope.activity.comments.map(function(comment) {
+        date = new Date(Date.parse(comment.created_at));
+        comment.created_at = date.toDateString();
+        return comment;
+      })
+    }
   }
 }

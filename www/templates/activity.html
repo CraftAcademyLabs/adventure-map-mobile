@@ -55,13 +55,14 @@
         </div>
       </div>
     </div>
-    <div class="list card comment-list">
-      <div class="item item-divider item-avatar">
+    <div class="list card comment-list" ng-repeat="comment in activity.comments">
+      <div class="item item-divider item-avatar" >
         <img class="float-left" ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
-        <h2 class="activity_title">Hard-coded Name</h2>
+        <h2 class="activity_title">{{comment.user.name}}</h2>
+        <span>{{comment.created_at}}</span>
       </div>
       <div class="item item-text-wrap">
-        Hard-coded comment text.
+        {{comment.body}}
       </div>
     </div>
 
