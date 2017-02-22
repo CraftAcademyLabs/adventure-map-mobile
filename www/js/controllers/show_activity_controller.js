@@ -54,6 +54,9 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
   };
 
   function prepareComments() {
+    $scope.activity.comments = $scope.activity.comments.sort(function(a,b) {
+      return Date.parse(b.created_at) - Date.parse(a.created_at);
+    });
     if ($scope.activity.comments != []) {
       $scope.activity.comments = $scope.activity.comments.map(function (comment) {
         date = new Date(Date.parse(comment.created_at));
@@ -61,5 +64,6 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
         return comment;
       })
     }
+
   }
 }
