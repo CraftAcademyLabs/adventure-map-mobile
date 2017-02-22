@@ -42,10 +42,20 @@
           </div>
           <div class='col' ng-click="openCommentBox(activity.id)">
             <i class="icon ion-chatboxes card-bottom"></i>
-            <p>Comments</p>
+            <p>Make a Comment</p>
           </div>
         </div>
       </div>
     </div>
+    <div class="list card comment-list">
+      <div class="item item-divider item-avatar">
+        <img class="float-left" ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
+        <h2 class="activity_title">Hard-coded Name</h2>
+      </div>
+      <div class="item item-text-wrap">
+        Hard-coded comment text.
+      </div>
+    </div>
+
   </ion-content>
 </ion-modal-view>
