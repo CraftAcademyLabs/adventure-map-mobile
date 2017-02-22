@@ -54,8 +54,8 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
   };
 
   function prepareComments() {
-    if($scope.activity.comments != []) {
-      $scope.activity.comments = $scope.activity.comments.map(function(comment) {
+    if ($scope.activity.comments != []) {
+      $scope.activity.comments = $scope.activity.comments.map(function (comment) {
         date = new Date(Date.parse(comment.created_at));
         comment.created_at = date.toDateString();
         return comment;
