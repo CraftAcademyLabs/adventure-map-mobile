@@ -7,6 +7,7 @@ function showActivityController($scope, $rootScope, $ionicModal, $ionicLoading, 
       $scope.modal = modal;
       Activity.get({id: activity.id}, function (response) {
         $scope.activity = response.data;
+        console.log(response);
         $scope.modal.show();
       });
     });
@@ -17,32 +18,35 @@ function showActivityController($scope, $rootScope, $ionicModal, $ionicLoading, 
     $scope.modal.remove();
   };
 
-  $scope.openCommentBox = function(activityId, userId) {
+  $scope.closeCommentModal = function () {
+    $scope.comment_modal.hide();
+    $scope.comment_modal.remove();
+  };
+
+  $scope.openCommentBox = function() {
     $scope.commentData = {};
     $ionicModal.fromTemplateUrl('templates/comment.html', {
       scope: $scope,
       animation: 'zoom-from-center'
     }).then(function (modal) {
-      $scope.modal = modal;
-      console.log('what up');
-      $scope.modal.show();
+      $scope.comment_modal = modal;
+      $scope.comment_modal.show();
     });
   };
 
-  $scope.makeComment = function(activityId, userId) {
-    // Why don't I have a user id saved in the $scope??
-    $scope.commentData.id = userId;
+  $scope.makeComment = function(activityId) {
     $scope.commentData.activity_id = activityId;
-    var body = 'A fake body';
     $ionicLoading.show({
       template: 'Saving comment...'
     });
-    console.dir($rootScope.user);
     Comment.save({body: $scope.commentData.body, id: activityId}, function (resp) {
-      // $state.go('app.activities');
+      var activity = {};
+      activity.id = activityId;
       $ionicLoading.hide();
+      $scope.closeCommentModal();
+      // $scope.openModal(activity);
       console.log(resp);
-      $scope.closeModal();
+      // $scope.closeModal();
     }, function (resp) {
       $ionicLoading.hide();
       console.log(resp);
