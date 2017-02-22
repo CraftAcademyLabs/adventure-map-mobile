@@ -195,6 +195,17 @@ COMMENTS
     font-weight: 500;
   }
 }
-  .float-left {
-    float: left;
-  }
+.count-icon {
+  display: inline-block;
+  position: relative;
+}
+.count-span {
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  height: 18px;
+  width: 18px;
+  background: #4ea4be;
+  border-radius: 8px;
+  text-align: center;
+}
