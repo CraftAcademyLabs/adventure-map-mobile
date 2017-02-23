@@ -213,3 +213,19 @@ COMMENTS
   border-radius: 8px;
   text-align: center;
 }
+
+.comment-user {
+  padding-top: 10px;
+  color: #4ea4be;
+  font-weight: bold;
+}
+
+.comment-body {
+  padding: 10px 5px 10px 5px;
+}
+
+.comment-date {
+  text-align: right;
+  font-size: 90%;
+  color: rgba(77, 77, 77, 0.52);
+}
