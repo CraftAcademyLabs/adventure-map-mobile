@@ -1,4 +1,4 @@
-function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment, $ionicSlideBoxDelegate, $ionicPopup) {
+function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment, Follow, $ionicSlideBoxDelegate, $ionicPopup) {
   $scope.openModal = function (activity) {
     $ionicModal.fromTemplateUrl('templates/activity.html', {
       scope: $scope,
@@ -52,6 +52,23 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     }, function (resp) {
       $ionicLoading.hide();
     });
+  };
+
+  $scope.followUser = function(userId) {
+    $ionicLoading.show({
+      template: 'Following user...'
+    });
+    Follow.save({user_id: userId}, function (response) {
+      $ionicLoading.hide();
+      if (response.status == 'success') {
+        console.log('user followed');
+      } else {
+        console.log('error: ' + response.message[0]);
+        $ionicPopup.alert({
+          title: response.message[0]
+        })
+      }
+    })
   };
 
   $scope.nextSlide = function (index) {
