@@ -62,9 +62,9 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
         console.log('user followed');
         getActivity();
       } else {
-        console.log('error: ' + response.message[0]);
+        console.log(response);
         $ionicPopup.alert({
-          title: response.message[0]
+          title: 'User could not be followed.'
         })
       }
     })
