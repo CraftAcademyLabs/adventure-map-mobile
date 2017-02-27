@@ -4,24 +4,22 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       scope: $scope,
       animation: 'zoom-from-center'
     }).then(function (modal) {
+      $scope.activity_id = activity.id;
       $scope.modal = modal;
-      Activity.get({id: activity.id}, function (response) {
-        $scope.activity = response.data;
-        prepareComments();
-        console.log(response);
-        $scope.modal.show();
-      });
+      getActivity();
     });
   };
 
   $scope.closeModal = function () {
     $scope.modal.hide();
     $scope.modal.remove();
+    window.location.reload();
   };
 
   $scope.closeCommentModal = function () {
     $scope.comment_modal.hide();
     $scope.comment_modal.remove();
+    getActivity();
   };
 
   $scope.openCommentBox = function () {
@@ -62,6 +60,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       $ionicLoading.hide();
       if (response.status == 'success') {
         console.log('user followed');
+        getActivity();
       } else {
         console.log('error: ' + response.message[0]);
         $ionicPopup.alert({
@@ -87,5 +86,14 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       })
     }
 
+  }
+
+  function getActivity() {
+    Activity.get({id: $scope.activity_id}, function (response) {
+      $scope.activity = response.data;
+      prepareComments();
+      console.log(response);
+      $scope.modal.show();
+    });
   }
 }
