@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform) {
+function userController($scope, $ionicPlatform, $cordovaImagePicker) {
   $scope.files = [];
 
   $ionicPlatform.ready(function () {
