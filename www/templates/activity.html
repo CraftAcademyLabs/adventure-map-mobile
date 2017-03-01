@@ -44,7 +44,14 @@
             <i class="icon ion-android-star-outline card-bottom"></i>
             <p>Recommend</p>
           </div>
-          <div class='col' ng-click="followUser(activity.user.id)">
+          <div class="col blue" ng-if=activity.user.following >
+              <span class="count-icon">
+              <i class="icon ion-person card-bottom"></i>
+                <span class="count-span">{{activity.user.followers_count}}</span>
+                <p>Following</p>
+              </span>
+          </div>
+          <div class='col' ng-if=!activity.user.following ng-click="followUser(activity.user.id)">
             <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
               <span class="count-span">{{activity.user.followers_count}}</span>
@@ -59,8 +66,7 @@
       </div>
     </div>
     <div class="comment-list" ng-repeat="comment in activity.comments">
-        <div class="comment-user">{{comment.user.name}}:</div>
-
+      <div class="comment-user">{{comment.user.name}}:</div>
       <div class="comment-body">
         {{comment.body}}
       </div>
