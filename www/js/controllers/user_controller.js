@@ -1,16 +1,15 @@
 function userController($scope, $ionicPlatform, md5) {
   $scope.files = [];
   $scope.profileImage = function() {
-    if($scope.user.image) {
-      return $scope.user.image;
-    } else {
-      var options = {
-        size: 128,
-        format: 'svg'
-      };
+    if($scope.user.id !== undefined) {
+      if($scope.user.image) {
+        return $scope.user.image;
+      } else {
+        var options = { size: 128, format: 'svg' };
 
-      var hashedEmail = md5.createHash($scope.user.email);
-      return 'data:image/svg+xml;base64,' + new Identicon(hashedEmail, options).toString();
+        var hashedEmail = md5.createHash($scope.user.email);
+        return 'data:image/svg+xml;base64,' + new Identicon(hashedEmail, options).toString();
+      }
     }
   };
 
