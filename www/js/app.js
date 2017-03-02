@@ -121,6 +121,33 @@ angular.module('adventureMap', [
           }
         }
       })
+    .state('intro.content', {
+        url: '/content-policies',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/policies/content.html',
+                controller: 'authController'
+            }
+        }
+    })
+    .state('intro.privacy', {
+        url: '/privacy-policies',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/policies/privacy.html',
+                controller: 'authController'
+            }
+        }
+    })
+    .state('intro.cookie', {
+        url: '/cookies-policies',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/policies/cookies.html',
+                controller: 'authController'
+            }
+        }
+    })
       .state('app', {
         url: '/app',
         abstract: true,
