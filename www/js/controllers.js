@@ -11,10 +11,14 @@ function userController($scope, $ionicPlatform) {
   $scope.files = [];
 
   $ionicPlatform.ready(function () {
-    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
-      var directoryReader = dirEntry.createReader();
-      directoryReader.readEntries(dirSuccess, dirFail);
-    });
+    try {
+      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
+        var directoryReader = dirEntry.createReader();
+        directoryReader.readEntries(dirSuccess, dirFail);
+      });
+    } catch(e) {
+      console.log("Corvova plugins aren't available in browsers.");
+    }
 
     function dirSuccess(entries) {
       console.log("INFO: Listing entries");
