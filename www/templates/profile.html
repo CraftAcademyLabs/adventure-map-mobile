@@ -14,8 +14,7 @@
       <div class="col user-col">
         <div class="user-image-container">
           <pre-img ratio="_1_1" helper-class="avatar-image">
-            <img ng-src="{{user.image ? user.image : 'img/dummy_images/empty_image.svg'}}" spinner-on-load>
-            <!--<img ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/ripplemdk/128.jpg" spinner-on-load>-->
+            <img ng-src="{{profileImage()}}" spinner-on-load>
           </pre-img>
         </div>
         <h2 class="user-name">{{user.name}}</h2>
