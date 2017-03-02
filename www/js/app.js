@@ -112,6 +112,15 @@ angular.module('adventureMap', [
             }
           }
         })
+      .state('intro.terms', {
+        url: '/terms-and-conditions',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/policies/terms-and-conditions.html',
+            controller: 'authController'
+          }
+        }
+      })
       .state('app', {
         url: '/app',
         abstract: true,
