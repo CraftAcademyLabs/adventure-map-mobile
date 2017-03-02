@@ -19,11 +19,13 @@
         </div>
         <h2 class="user-name">{{user.name}}</h2>
         <a ui-sref="main.profile">
-          <h5 class="username">@ripplemdk</h5>
+          <h5 class="username">@{{user.nickname}}</h5>
         </a>
         <p class="user-social">
           <i class="ion-heart"></i>
-          <span>74</span>
+          <span>74</span> &nbsp;
+          <i class="ion-location"></i>
+          <span>{{user.city}}</span>
         </p>
         <div class="row">
           <div class="col">
@@ -35,6 +37,16 @@
     <ion-list class="profile-list">
       <div class="item item-divider profile-divider"></div>
       <ion-item class="item item-icon-right list-item" ui-sref="main.profile.following">
+        <span class="main-text">My Threads</span>
+        <span class="badge">7</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="main.profile.following">
+        <span class="main-text">My Adventures</span>
+        <span class="badge">2</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="main.profile.following">
         <span class="main-text">Following</span>
         <span class="badge">34</span>
         <i class="icon ion-ios-arrow-right"></i>
@@ -42,16 +54,6 @@
       <ion-item class="item item-icon-right list-item" ui-sref="main.profile.following">
         <span class="main-text">Followers</span>
         <span class="badge">48</span>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-      <ion-item class="item item-icon-right list-item" ui-sref="main.profile.following">
-        <span class="main-text">Blocked</span>
-        <span class="badge">0</span>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-      <ion-item class="item item-icon-right list-item" ui-sref="main.profile.broadcasts">
-        <span class="main-text">Broadcasts</span>
-        <span class="badge">4</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
     </ion-list>
