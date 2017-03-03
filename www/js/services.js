@@ -67,9 +67,10 @@ angular.module('adventureMap.services', [])
           });
         }
 
-        // Filters out duplicates
-        tempSet = new Set(tempArray);
-        endArray = Array.from(tempSet);
+        var endArray = [];
+        $.each(tempArray, function(i, el) {
+          if($.inArray(el, endArray) === -1) endArray.push(el);
+        });
 
         $scope.activityData.activityList = endArray;
 
