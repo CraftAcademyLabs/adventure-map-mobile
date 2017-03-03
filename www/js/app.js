@@ -112,6 +112,15 @@ angular.module('adventureMap', [
             }
           }
         })
+        .state('intro.password_reset', {
+          url: '/password_reset',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/auth/password_reset.html',
+              controller: 'authController'
+            }
+          }
+        })
       .state('app', {
         url: '/app',
         abstract: true,

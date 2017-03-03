@@ -73,4 +73,21 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   $scope.cancelAuth = function(){
     $state.go('intro.walkthrough');
   };
+
+  $scope.requestPassword = function() {
+    $ionicLoading.show({
+      template: 'Requesting new password...'
+    });
+    $auth.requestPasswordReset($scope.credentials)
+      .then(function(response) {
+        console.log(response);
+        $scope.successMessage = response.data.message
+        $ionicLoading.hide();
+      })
+      .catch(function(response) {
+        console.log(response)
+        $scope.errorMessage = response.data.errors.toString();
+        $ionicLoading.hide();
+      });
+  }
 }
