@@ -23,7 +23,7 @@ angular.module('adventureMap.services', [])
   .factory('Filters', function () {
     return {
       applyFilters: function ($scope, categories) {
-        var finalArray = [];
+        var tempArray = [];
 
         var tempList = $scope.activityData.cachedActivities;
 
@@ -49,11 +49,11 @@ angular.module('adventureMap.services', [])
 
           array.forEach(function (num) {
             if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
-              finalArray.push(activity);
+              tempArray.push(activity);
             }
           });
 
-          finalArray.forEach(function (activity) {
+          tempArray.forEach(function (activity) {
             return activity;
           });
         });
@@ -62,13 +62,13 @@ angular.module('adventureMap.services', [])
         if ($scope.activityData.filters.follow) {
           $scope.activityData.cachedActivities.filter(function (activity) {
             if (activity.user.following) {
-              finalArray.push(activity);
+              tempArray.push(activity);
             }
           });
         }
 
         // Filters out duplicates
-        tempSet = new Set(finalArray);
+        tempSet = new Set(tempArray);
         endArray = Array.from(tempSet);
 
         $scope.activityData.activityList = endArray;
