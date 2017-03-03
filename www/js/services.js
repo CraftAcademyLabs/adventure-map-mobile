@@ -67,6 +67,7 @@ angular.module('adventureMap.services', [])
           });
         }
 
+        // Filter out duplicates.
         var endArray = [];
         $.each(tempArray, function(i, el) {
           if($.inArray(el, endArray) === -1) endArray.push(el);
