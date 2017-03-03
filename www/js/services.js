@@ -69,9 +69,9 @@ angular.module('adventureMap.services', [])
 
         // Filter out duplicates.
         var endArray = [];
-        $.each(tempArray, function(i, el) {
-          if($.inArray(el, endArray) === -1) endArray.push(el);
-        });
+        for (var i = 0; i < tempArray.length; i++) {
+          if (endArray.indexOf(tempArray[i]) == -1) endArray.push(tempArray[i]);
+        }
 
         $scope.activityData.activityList = endArray;
 
