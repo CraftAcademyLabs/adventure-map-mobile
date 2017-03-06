@@ -23,7 +23,7 @@ angular.module('adventureMap.services', [])
   .factory('Filters', function () {
     return {
       applyFilters: function ($scope, categories) {
-        var categoryArray = [];
+        var tempArray = [];
 
         var tempList = $scope.activityData.cachedActivities;
 
@@ -49,22 +49,37 @@ angular.module('adventureMap.services', [])
 
           array.forEach(function (num) {
             if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
-              categoryArray.push(activity);
+              tempArray.push(activity);
             }
           });
 
-          categoryArray.forEach(function (activity) {
+          tempArray.forEach(function (activity) {
             return activity;
           });
         });
 
-        $scope.activityData.activityList = categoryArray;
+        // Add all activities for users I follow if follow filter set to true
+        if ($scope.activityData.filters.follow) {
+          $scope.activityData.cachedActivities.filter(function (activity) {
+            if (activity.user.following) {
+              tempArray.push(activity);
+            }
+          });
+        }
+
+        // Filter out duplicates.
+        var endArray = [];
+        for (var i = 0; i < tempArray.length; i++) {
+          if (endArray.indexOf(tempArray[i]) == -1) endArray.push(tempArray[i]);
+        }
+
+        $scope.activityData.activityList = endArray;
 
         // Show users a message instead of a blank screen if there are no activities that match their search.
         if ($scope.activityData.activityList.length === 0) {
           $scope.activityData.message = 'Your search returned no results. Try adding some categories, difficulties or looking for activities from strangers.';
         }
-
+        console.log($scope.activityData.filters);
         console.log('activities: ' + $scope.activityData.activityList.length);
 
       }
