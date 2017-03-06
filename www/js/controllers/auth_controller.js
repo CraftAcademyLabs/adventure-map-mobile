@@ -74,7 +74,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     $state.go('intro.walkthrough');
   };
 
-    $scope.back = function(){
-        $ionicHistory.goBack();
-    };
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  };
 }

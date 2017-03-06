@@ -113,42 +113,42 @@ angular.module('adventureMap', [
             }
           }
         })
-      .state('intro.terms', {
-        url: '/terms-and-conditions',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/policies/terms-and-conditions.html',
-            controller: 'authController'
+        .state('intro.terms', {
+          url: '/terms-and-conditions',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/policies/terms-and-conditions.html',
+              controller: 'authController'
+            }
           }
-        }
-      })
-    .state('intro.disclaimer', {
-        url: '/content-policies',
-        views: {
+        })
+        .state('intro.disclaimer', {
+          url: '/content-policies',
+          views: {
             'menuContent': {
-                templateUrl: 'templates/policies/disclaimer.html',
-                controller: 'authController'
+              templateUrl: 'templates/policies/disclaimer.html',
+              controller: 'authController'
             }
-        }
-    })
-    .state('intro.privacy', {
-        url: '/privacy-policies',
-        views: {
+          }
+        })
+        .state('intro.privacy', {
+          url: '/privacy-policies',
+          views: {
             'menuContent': {
-                templateUrl: 'templates/policies/privacy.html',
-                controller: 'authController'
+              templateUrl: 'templates/policies/privacy.html',
+              controller: 'authController'
             }
-        }
-    })
-    .state('intro.cookie', {
-        url: '/cookies-policies',
-        views: {
+          }
+        })
+        .state('intro.cookie', {
+          url: '/cookies-policies',
+          views: {
             'menuContent': {
-                templateUrl: 'templates/policies/cookies.html',
-                controller: 'authController'
+              templateUrl: 'templates/policies/cookies.html',
+              controller: 'authController'
             }
-        }
-    })
+          }
+        })
       .state('app', {
         url: '/app',
         abstract: true,
