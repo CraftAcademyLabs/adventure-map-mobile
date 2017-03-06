@@ -122,11 +122,11 @@ angular.module('adventureMap', [
           }
         }
       })
-    .state('intro.content', {
+    .state('intro.disclaimer', {
         url: '/content-policies',
         views: {
             'menuContent': {
-                templateUrl: 'templates/policies/content.html',
+                templateUrl: 'templates/policies/disclaimer.html',
                 controller: 'authController'
             }
         }
