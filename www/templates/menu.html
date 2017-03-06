@@ -52,17 +52,25 @@
               <label class="item item-input">Difficulty</label>
               <ion-list>
                 <ion-checkbox ng-model="activityData.filters.difficulty1"
-                              ng-checked="activityData.filters.difficulty1">Easy</ion-checkbox>
+                              ng-checked="activityData.filters.difficulty1">
+                  {{difficulty_words[0]}}
+                </ion-checkbox>
                 <ion-checkbox ng-model="activityData.filters.difficulty2"
-                              ng-checked="activityData.filters.difficulty2">Moderate</ion-checkbox>
+                              ng-checked="activityData.filters.difficulty2">
+                  {{difficulty_words[1]}}
+                </ion-checkbox>
                 <ion-checkbox ng-model="activityData.filters.difficulty3"
-                              ng-checked="activityData.filters.difficulty2">Hard</ion-checkbox>
+                              ng-checked="activityData.filters.difficulty2">
+                  {{difficulty_words[2]}}
+                </ion-checkbox>
               </ion-list>
             </div>
             <div class="list">
               <label class="item item-input">Sport</label>
               <ion-list ng-repeat="category in categories">
-                <ion-checkbox ng-model="activityData.filters.category[$index + 1]" ng-checked="activityData.filters.category[$index + 1]">{{categories[$index]}}</ion-checkbox>
+                <ion-checkbox ng-model="activityData.filters.category[$index + 1]"
+                              ng-checked="activityData.filters.category[$index + 1]">{{categories[$index]}}
+                </ion-checkbox>
               </ion-list>
             </div>
           </ul>

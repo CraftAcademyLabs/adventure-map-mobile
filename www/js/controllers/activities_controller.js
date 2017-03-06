@@ -5,6 +5,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters, 
   $scope.activityData.message = undefined;
   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
   $scope.categories = categories;
+  $scope.difficulty_words = DIFFICULTY_WORDS;
 
   // Set default filters - these should change based on the user's default filter.
   for (var i = 1; i < 11; i++) {
