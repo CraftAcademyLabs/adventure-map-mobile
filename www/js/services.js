@@ -58,7 +58,7 @@ angular.module('adventureMap.services', [])
           var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
           array.forEach(function (num) {
-            if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
+            if ($scope.activityData.filters.category[num] && activity.category == $scope.categories[num - 1]) {
               tempArray.push(activity);
             }
           });

@@ -20,6 +20,8 @@ function activitiesController($scope, $state, $ionicLoading, $localStorage, Acti
     $scope.activityData.filters.follow = true;
     $scope.stars = [true, false, false, false, false];
   } else {
+    console.dir($localStorage.defaultFilter.category);
+    $scope.stars = $localStorage.defaultFilter.stars || [true, false, false, false, false];
     $scope.activityData.filters.category = $localStorage.defaultFilter.category;
   }
 
