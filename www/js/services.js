@@ -35,23 +35,19 @@ angular.module('adventureMap.services', [])
           $localStorage.defaultFilter = $scope.activityData.filters;
           $localStorage.defaultFilter.category = $scope.activityData.filters.category;
         }
-        console.dir($localStorage.defaultFilter);
 
         // Difficulty filters
-        // We could get rid of this outer 'if' if we figure out how to auto-check the difficulty boxes.
-        if ($scope.activityData.filters.difficulty1 || $scope.activityData.filters.difficulty2 || $scope.activityData.filters.difficulty3) {
-          tempList = tempList.filter(function (activity) {
-            if ($scope.activityData.filters.difficulty1 && activity.difficulty == 1) {
-              return activity;
-            }
-            if ($scope.activityData.filters.difficulty2 && activity.difficulty == 2) {
-              return activity;
-            }
-            if ($scope.activityData.filters.difficulty3 && activity.difficulty == 3) {
-              return activity;
-            }
-          });
-        }
+        tempList = tempList.filter(function (activity) {
+          if ($scope.activityData.filters.difficulty1 && activity.difficulty == 1) {
+            return activity;
+          }
+          if ($scope.activityData.filters.difficulty2 && activity.difficulty == 2) {
+            return activity;
+          }
+          if ($scope.activityData.filters.difficulty3 && activity.difficulty == 3) {
+            return activity;
+          }
+        });
 
         // Category filters
         tempList.filter(function (activity) {
