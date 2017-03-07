@@ -2,6 +2,7 @@ function activitiesController($scope, $state, $ionicLoading, Activity, Filters, 
   $scope.activityData = $scope.activityData || {activityData: {}};
   $scope.activityData.filters = {};
   $scope.activityData.filters.category = [];
+  $scope.activityData.filters.default = false;
   $scope.activityData.message = undefined;
   const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
   $scope.categories = categories;
