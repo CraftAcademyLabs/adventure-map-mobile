@@ -20,9 +20,9 @@ angular.module('adventureMap.services', [])
     });
   })
 
-  .factory('Filters', function () {
+  .factory('Filters', function ($localStorage) {
     return {
-      applyFilters: function ($scope, $localStorage, categories) {
+      applyFilters: function ($scope, categories) {
         console.log($scope.activityData.filters);
 
         var tempArray = [];
@@ -30,12 +30,12 @@ angular.module('adventureMap.services', [])
         var tempList = $scope.activityData.cachedActivities;
 
         // Set default filter
-        // if ($scope.activityData.filters.default) {
-        //   $scope.activityData.filters.default = false;
-        //   $localStorage.defaultFilter = $scope.activityData.filters;
-        //   $localStorage.defaultFilter.category = $scope.activityData.filters.category;
-        // }
-        // console.dir($localStorage.defaultFilter);
+        if ($scope.activityData.filters.default) {
+          $scope.activityData.filters.default = false;
+          $localStorage.defaultFilter = $scope.activityData.filters;
+          $localStorage.defaultFilter.category = $scope.activityData.filters.category;
+        }
+        console.dir($localStorage.defaultFilter);
 
         // Difficulty filters
         // We could get rid of this outer 'if' if we figure out how to auto-check the difficulty boxes.
@@ -54,12 +54,10 @@ angular.module('adventureMap.services', [])
         }
 
         // Category filters
-        tempList.filter(function (activity, categories) {
+        tempList.filter(function (activity) {
           var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
           array.forEach(function (num) {
-            console.log('categories: ' + categories);
-            console.dir($scope.activityData.filters.category);
             if ($scope.activityData.filters.category[num] && activity.category == categories[num - 1]) {
               tempArray.push(activity);
             }

@@ -10,7 +10,6 @@ function activitiesController($scope, $state, $ionicLoading, $localStorage, Acti
 
   // Set default filters - these should change based on the user's default filter.
   if (!$localStorage.defaultFilter) {
-    console.log('localStorage empty');
     $scope.activityData.filters.category = [];
     for (var i = 1; i < 11; i++) {
       $scope.activityData.filters.category[i] = true;
@@ -21,8 +20,6 @@ function activitiesController($scope, $state, $ionicLoading, $localStorage, Acti
     $scope.activityData.filters.follow = true;
     $scope.stars = [true, false, false, false, false];
   } else {
-    console.log('localStorage in place');
-
     $scope.activityData.filters.category = $localStorage.defaultFilter.category;
   }
 
@@ -40,6 +37,9 @@ function activitiesController($scope, $state, $ionicLoading, $localStorage, Acti
         });
         setDifficultyWords();
         $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
+        if ($localStorage.defaultFilter) {
+          Filters.applyFilters($scope, categories);
+        }
         $ionicLoading.hide();
       });
     }
