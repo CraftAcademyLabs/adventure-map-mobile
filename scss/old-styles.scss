@@ -45,10 +45,6 @@
   padding: 10px;
 }
 
-.row {
-  margin-top: 10px;
-}
-
 /*****************
 PROFILE
  */
@@ -79,6 +75,10 @@ PROFILE
   padding-top: 20px;
   font-size: x-large !important;
   font-weight: normal !important;
+}
+
+.blue {
+  color: #4ea4be;
 }
 
 /**************
@@ -208,13 +208,19 @@ COMMENTS
 .count-span {
   position: absolute;
   top: -5px;
-  right: 15px;
-  height: 18px;
-  width: 18px;
+  right: 13px;
+  height: 19px;
+  width: 19px;
   background: #4ea4be;
   border-radius: 8px;
   text-align: center;
+  color: #444;
+
 }
+.count-span-follow {
+  right: 2px;
+}
+
 
 .comment-user {
   padding-top: 10px;

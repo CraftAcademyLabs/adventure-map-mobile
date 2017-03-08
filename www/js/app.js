@@ -4,16 +4,19 @@
 angular.module('adventureMap', [
     'ionic',
     'ui.router',
+    'angular-md5',
     'adventureMap.controllers',
     'adventureMap.directives',
     'adventureMap.services',
     'adventureMap.s3FileUpload',
     'adventureMap.mapService',
     'ngCordova', 'ng-token-auth',
-    'ngResource'
+    'ngResource',
+    'ngStorage'
   ])
   .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   // .constant('API_URL', 'http://localhost:3000/api/v1')
+  .constant('DIFFICULTY_WORDS', ['Easy', 'Moderate', 'Hard'])
 
   .config(function($httpProvider){
     // Remove cache headers from put requests - AWS S3 doesn't like them
@@ -107,6 +110,42 @@ angular.module('adventureMap', [
           views: {
             'menuContent': {
               templateUrl: 'templates/auth/signup.html',
+              controller: 'authController'
+            }
+          }
+        })
+        .state('intro.terms', {
+          url: '/terms-and-conditions',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/policies/terms-and-conditions.html',
+              controller: 'authController'
+            }
+          }
+        })
+        .state('intro.disclaimer', {
+          url: '/content-policies',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/policies/disclaimer.html',
+              controller: 'authController'
+            }
+          }
+        })
+        .state('intro.privacy', {
+          url: '/privacy-policies',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/policies/privacy.html',
+              controller: 'authController'
+            }
+          }
+        })
+        .state('intro.cookie', {
+          url: '/cookies-policies',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/policies/cookies.html',
               controller: 'authController'
             }
           }
