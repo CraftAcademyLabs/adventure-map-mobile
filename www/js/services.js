@@ -20,6 +20,12 @@ angular.module('adventureMap.services', [])
     });
   })
 
+  .factory('ActivityDetail', function($resource, API_URL) {
+    return $resource(API_URL + '/activities/:id/activity_details', {}, {
+      save: {method: 'POST'}
+    })
+  })
+
   .factory('Filters', function ($localStorage) {
     return {
       applyFilters: function ($scope, categories) {

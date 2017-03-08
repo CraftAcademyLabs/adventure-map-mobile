@@ -1,4 +1,4 @@
-function createActivityController($scope, $ionicLoading, $state, Activity) {
+function createActivityController($scope, $ionicLoading, $state, $cordovaImagePicker, Activity) {
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
@@ -13,5 +13,11 @@ function createActivityController($scope, $ionicLoading, $state, Activity) {
     }, function (resp) {
       console.log(resp);
     });
+  };
+
+  $scope.addImage = function() {
+    ActivityDetail.save($scope.activityData, function (resp) {
+      console.log(resp);
+    })
   }
 }
