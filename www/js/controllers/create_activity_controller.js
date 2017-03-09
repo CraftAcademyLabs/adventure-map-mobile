@@ -35,10 +35,10 @@ function createActivityController($scope, $ionicLoading, $state, $cordovaImagePi
           console.log('Image URI: ' + results[i]);
 
           // Upload to S3
-          S3FileUpload.upload('images', results[i])
-            .then( function (response) {
-              $scope.uploadImages.push(response.public_url);
-            })
+          S3FileUpload.upload('images', results[i]);
+            // .then( function (response) {
+            //   $scope.uploadImages.push(response.public_url);
+            // })
         }
       }, function(error) {
         // error getting photos
