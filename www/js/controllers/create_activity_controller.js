@@ -12,6 +12,8 @@ function createActivityController($scope, $ionicLoading, $state, Activity) {
       console.log(resp);
     }, function (resp) {
       console.log(resp);
+      $scope.errors = resp.data.message;
+      $ionicLoading.hide();
     });
   }
 }
