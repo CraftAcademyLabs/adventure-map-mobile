@@ -50,6 +50,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     $auth.authenticate('facebook')
       .then(function (response) {
         console.log(response);
+        debugger;
         $state.go('app.activities');
         $ionicLoading.hide();
       })

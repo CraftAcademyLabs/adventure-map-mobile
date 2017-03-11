@@ -1,6 +1,12 @@
 {
   "name": "adventure-map-mobile",
   "app_id": "7e351a02",
+  "proxies": [
+    {
+      "path": "/api/v1",
+      "proxyUrl": "https://test-adventure.herokuapp.com/api/v1"
+    }
+  ],
   "gulpStartupTasks": [
     "sass",
     "watch"
