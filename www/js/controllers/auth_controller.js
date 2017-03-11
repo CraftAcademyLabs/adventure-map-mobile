@@ -1,5 +1,4 @@
 function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_URL, $ionicHistory) {
-  console.log($scope.user);
   $scope.credentials = {};
   $scope.signupForm = {};
   $scope.errorMessage = null;
@@ -15,7 +14,9 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
     $auth.submitLogin($scope.credentials)
       .then(function (response) {
-        $scope.user = response;
+        console.log(response);
+        console.log($rootScope.user);
+        console.log($scope.user);
         $state.go('app.activities');
         $ionicLoading.hide();
       })
@@ -50,6 +51,11 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     $auth.authenticate('facebook')
       .then(function (response) {
         console.log(response);
+        console.log($rootScope.user);
+        console.log($scope.user);
+        $auth.validateUser().then(function(resp){
+          console.log(resp)
+        });
         $state.go('app.activities');
         $ionicLoading.hide();
       })

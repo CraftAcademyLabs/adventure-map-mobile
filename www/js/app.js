@@ -158,7 +158,7 @@ angular.module('adventureMap', [
         controller: 'activitiesController',
         data: {
           // Should be true for production
-          requireLogin: false // this property will apply to all children of 'app'
+          requireLogin: true // this property will apply to all children of 'app'
         }
       })
       .state('app.activities', {

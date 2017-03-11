@@ -6,6 +6,7 @@ function createActivityController($scope, $ionicLoading, $state, Activity) {
     $ionicLoading.show({
       template: 'Saving...'
     });
+
     Activity.save($scope.activityData, function (resp) {
       $state.go('app.activities');
       $ionicLoading.hide();
