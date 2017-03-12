@@ -1,7 +1,7 @@
 angular.module('adventureMap.services', [])
 
   .factory('Activity', function ($resource, $auth, API_URL) {
-    var headers = $auth.retrieveData('auth_headers')
+    var headers = $auth.retrieveData('auth_headers');
     return $resource(API_URL + '/activities/:id', {}, {
       save: {method: 'POST', headers: headers},
       query: {method: 'GET', headers: headers},
