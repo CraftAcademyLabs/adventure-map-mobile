@@ -14,9 +14,10 @@ angular.module('adventureMap', [
     'ngResource',
     'ngStorage'
   ])
-  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   //.constant('API_URL', 'http://localhost:3000/api/v1')
-  .constant('API_URL', 'https://test-adventure.herokuapp.com/api/v1')
+  //.constant('API_URL', 'https://test-adventure.herokuapp.com/api/v1')
+  //.constant('API_URL', 'https://adventuremap-staging.herokuapp.com//api/v1')
   .constant('DIFFICULTY_WORDS', ['Easy', 'Moderate', 'Hard'])
 
   .config(function ($httpProvider) {
@@ -27,10 +28,19 @@ angular.module('adventureMap', [
   .config(function ($authProvider, API_URL) {
     $authProvider.configure({
       apiUrl: API_URL,
+      tokenValidationPath: '/auth/validate_token',
       omniauthWindowType: windowType(),
       storage: 'localStorage',
-      forceHardRedirect: true
-    });
+      validateOnPageLoad: true,
+      forceHardRedirect: true,
+      tokenFormat: {
+        "access-token": "{{ token }}",
+        "token-type": "Bearer",
+        "client": "{{ clientId }}",
+        "expiry": "{{ expiry }}",
+        "uid": "{{ uid }}"
+      }
+      });
 
     function windowType() {
       var IONIC_APP_ID = '7e351a02';
