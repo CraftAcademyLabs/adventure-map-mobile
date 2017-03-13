@@ -3,7 +3,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   $scope.signupForm = {};
   $scope.errorMessage = null;
 
-  $scope.skipIntro = function () {
+  $scope.skipIntro = function(){
     $state.go('intro.login');
   };
 
@@ -14,6 +14,8 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
     $auth.submitLogin($scope.credentials)
       .then(function (response) {
+        console.log('auth headers', $auth.retrieveData('auth_headers'));
+
         console.log(response);
         console.log($rootScope.user);
         console.log($scope.user);
@@ -26,7 +28,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
       });
   };
 
-  $scope.signup = function () {
+  $scope.signup = function() {
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
       template: 'Signing up...'
@@ -37,7 +39,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
         $state.go('app.activities');
         $ionicLoading.hide();
       })
-      .catch(function (response) {
+      .catch(function(response) {
         $ionicLoading.hide();
         $scope.errorMessage = response.data.errors.full_messages.toString();
       })
@@ -50,7 +52,12 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
 
     $auth.authenticate('facebook')
-      .then(function () {
+      .then(function (response) {
+        console.log('auth headers', $auth.retrieveData('auth_headers'));
+        $auth.validateUser().then(function(resp){
+          console.log('validateUser');
+          console.log(resp)
+        });
         $state.go('app.activities');
         $ionicLoading.hide();
       })
@@ -68,16 +75,17 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
     $auth.signOut()
       .then(function (response) {
+        $auth.invalidateTokens();
         $state.go('intro.walkthrough');
         $ionicLoading.hide();
       })
   };
 
-  $scope.cancelAuth = function () {
+  $scope.cancelAuth = function(){
     $state.go('intro.walkthrough');
   };
 
-  $scope.back = function () {
+  $scope.back = function(){
     $ionicHistory.goBack();
   };
 }

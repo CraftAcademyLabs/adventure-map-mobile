@@ -39,7 +39,7 @@ angular.module('adventureMap', [
         "expiry": "{{ expiry }}",
         "uid": "{{ uid }}"
       }
-      });
+    });
 
     function windowType() {
       var IONIC_APP_ID = '7e351a02';
