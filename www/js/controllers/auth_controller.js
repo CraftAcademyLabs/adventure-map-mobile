@@ -3,6 +3,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   $scope.signupForm = {};
   $scope.errorMessage = null;
 
+
   $scope.skipIntro = function(){
     $state.go('intro.login');
   };
@@ -46,6 +47,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   };
 
   $scope.facebookSignIn = function () {
+    $auth.signOut();
     $auth.getConfig().apiUrl = API_URL.replace(/^https:\/\//i, 'http://');
     $ionicLoading.show({
       template: 'Logging in with Facebook...'
@@ -54,6 +56,10 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     $auth.authenticate('facebook')
       .then(function (response) {
         console.log('auth headers', $auth.retrieveData('auth_headers'));
+
+        console.log(response);
+        console.log($rootScope.user);
+        console.log($scope.user);
         $auth.validateUser().then(function(resp){
           console.log('validateUser');
           console.log(resp)
