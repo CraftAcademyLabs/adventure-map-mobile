@@ -62,15 +62,15 @@ function activitiesController($scope,
 
     var rating = 1;
     if ($scope.stars[4]) {
-      rating = 5
+      rating = 5;
     } else if ($scope.stars[3]) {
-      rating = 4
+      rating = 4;
     } else if ($scope.stars[2]) {
-      rating = 3
+      rating = 3;
     } else if ($scope.stars[1]) {
-      rating = 2
+      rating = 2;
     } else {
-      rating = 1
+      rating = 1;
     }
     $scope.activityData.filters.rating = rating;
 
