@@ -37,8 +37,6 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     geolocation.then(function (position) {
       lat = position.coords.latitude;
       long = position.coords.longitude;
-      lat = 59.3167;
-      long = 18.0667;
 
       console.log(lat + ', ' + long);
 
