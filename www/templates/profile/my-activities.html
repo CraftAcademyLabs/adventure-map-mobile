@@ -1,8 +1,10 @@
 <nav-view title="My Activities">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  my-activities
+  <ion-content>
+    <br>
+    <br>
+    <br>
+    <div ng-repeat="activity in myActivities">
+      {{activity.title}}, {{activity.body}}
+    </div>
+  </ion-content>
 </nav-view>

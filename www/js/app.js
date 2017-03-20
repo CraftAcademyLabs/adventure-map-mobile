@@ -194,9 +194,6 @@ angular.module('adventureMap', [
               templateUrl: 'templates/profile/my-activities.html',
               controller: 'profileController'
             }
-          },
-          onEnter: function() {
-            console.log('fuck Angular')
           }
         })
         .state('app.create_activity', {
