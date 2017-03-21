@@ -1,6 +1,7 @@
 angular
   .module('adventureMap.directives', [])
   .directive("displayFirstImage", displayFirstImage)
+  .directive('showActivityFeed', showActivityFeed)
 
   .directive('preImg', function() {
     return {
@@ -57,4 +58,13 @@ function displayFirstImage() {
   };
   return directive;
 
+}
+
+function showActivityFeed() {
+  const directive = {
+    restrict: 'E',
+    scope: {activities: '='},
+    templateUrl: 'templates/directives/activity-feed.html'
+  };
+  return directive;
 }
