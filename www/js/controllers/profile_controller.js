@@ -6,7 +6,7 @@ function profileController($scope, $ionicLoading,$ionicPlatform, $localStorage, 
     $ionicLoading.show({
       template: 'Getting activities'
     });
-    // Scope empties out at some point!
+    // Scope empties out at some point! That's why we need the user in $localStorage
     MyActivities.get({id: user.id}, function (resp) {
       console.log(resp);
       $ionicLoading.hide();
