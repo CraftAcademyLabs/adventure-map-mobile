@@ -3,18 +3,18 @@ angular
   .directive("displayFirstImage", displayFirstImage)
   .directive('showActivityFeed', showActivityFeed)
 
-  .directive('preImg', function() {
+  .directive('preImg', function () {
     return {
       restrict: 'E',
       transclude: true,
       scope: {
-        ratio:'@',
+        ratio: '@',
         helperClass: '@'
       },
-      controller: function($scope) {
+      controller: function ($scope) {
         $scope.loaded = false;
 
-        this.hideSpinner = function(){
+        this.hideSpinner = function () {
           // Think i have to use apply because this function is not called from this controller ($scope)
           $scope.$apply(function () {
             $scope.loaded = true;
@@ -25,15 +25,15 @@ angular
     };
   })
 
-  .directive('spinnerOnLoad', function() {
+  .directive('spinnerOnLoad', function () {
     return {
       restrict: 'A',
       require: '^preImg',
       scope: {
         ngSrc: '@'
       },
-      link: function(scope, element, attr, preImgController) {
-        element.on('load', function() {
+      link: function (scope, element, attr, preImgController) {
+        element.on('load', function () {
           preImgController.hideSpinner();
         });
       }
@@ -43,7 +43,7 @@ angular
 function displayFirstImage() {
   var directive = {
     restrict: 'E',
-    scope: { imagesFor: '@' },
+    scope: {imagesFor: '@'},
     template: '<img class="full-image" ng-src="{{getImage(imagesFor)}}"> ',
     link: function (scope, element, attrs) {
       scope.getImage = function (resource) {
@@ -57,7 +57,6 @@ function displayFirstImage() {
     }
   };
   return directive;
-
 }
 
 function showActivityFeed() {
