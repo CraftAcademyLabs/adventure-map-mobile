@@ -11,7 +11,10 @@ function profileController($scope, $ionicLoading,$ionicPlatform, $localStorage, 
       console.log(resp);
       $ionicLoading.hide();
       if (resp.status == 'success') {
-        $scope.myActivities = resp.data;
+        // Sort by date
+        $scope.myActivities = resp.data.sort(function (a, b) {
+          return Date.parse(b.created_at) - Date.parse(a.created_at);
+        });
         setDifficultyWords();
         console.log(resp);
       } else {
