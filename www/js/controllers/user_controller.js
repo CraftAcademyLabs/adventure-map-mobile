@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform, $state, md5) {
+function userController($scope, $ionicPlatform, md5) {
   console.log('user controller');
   $scope.files = [];
   $scope.profileImage = function () {
@@ -41,9 +41,4 @@ function userController($scope, $ionicPlatform, $state, md5) {
       console.log("Failed to list directory contents: " + error.code);
     }
   });
-
-  $scope.viewMyActivities = function () {
-    console.log('Yea whatever');
-    $state.go('app.my-activities');
-  };
 }

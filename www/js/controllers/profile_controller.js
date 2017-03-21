@@ -1,7 +1,5 @@
 function profileController($scope, $ionicLoading,$ionicPlatform, $localStorage, MyActivities, DIFFICULTY_WORDS) {
-  console.log('profile controller');
   const user = $localStorage.user;
-  console.log(user.id);
 
   showMyActivities = function () {
     console.log(user);
@@ -10,6 +8,7 @@ function profileController($scope, $ionicLoading,$ionicPlatform, $localStorage, 
     });
     // Scope empties out at some point!
     MyActivities.get({id: user.id}, function (resp) {
+      console.log(resp);
       $ionicLoading.hide();
       if (resp.status == 'success') {
         $scope.myActivities = resp.data;
@@ -27,8 +26,6 @@ function profileController($scope, $ionicLoading,$ionicPlatform, $localStorage, 
   };
 
   $ionicPlatform.ready(function () {
-    console.log('ready');
-    console.log(user.id);
     showMyActivities();
   });
 
