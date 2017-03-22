@@ -49,6 +49,7 @@ Run the following commands
 $ gulp sass # May not be necessary - This will compile the stylesheets
 $ ionic platform remove ios (optional)
 $ ionic platform add ios
+$ ionic state restore --plugins
 $ ionic emulate ios
 ```
 
