@@ -13,7 +13,10 @@ function activitiesController($scope,
   //   'Cross country ice skating', 'Foraging'
   // ];
   const categories = [
-    '../../img/icons/hiking.svg'
+    '../../img/icons/hiking.svg', '../../img/icons/cc_skiing.svg', '../../img/icons/bc_skiing.svg',
+    '../../img/icons/paddling.svg', '../../img/icons/mountain_biking.svg', '../../img/icons/horse-riding.svg',
+    '../../img/icons/climbing.svg', '../../img/icons/snow_mobiling.svg', '../../img/icons/cc_ice_skating.svg',
+    '../../img/icons/foraging.svg'
   ];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
@@ -63,19 +66,22 @@ function activitiesController($scope,
     // reset no-results-found message
     $scope.activityData.message = undefined;
 
-    var rating = 1;
-    if ($scope.stars[4]) {
-      rating = 5
-    } else if ($scope.stars[3]) {
-      rating = 4
-    } else if ($scope.stars[2]) {
-      rating = 3
-    } else if ($scope.stars[1]) {
-      rating = 2
-    } else {
-      rating = 1
-    }
-    $scope.activityData.filters.rating = rating;
+    // I'm not sure why this was throwing an error, but we don't need it anyway -
+    // we got rid of ratings as a feature.
+
+    // var rating = 1;
+    // if ($scope.stars[4]) {
+    //   rating = 5
+    // } else if ($scope.stars[3]) {
+    //   rating = 4
+    // } else if ($scope.stars[2]) {
+    //   rating = 3
+    // } else if ($scope.stars[1]) {
+    //   rating = 2
+    // } else {
+    //   rating = 1
+    // }
+    // $scope.activityData.filters.rating = rating;
 
     Filters.applyFilters($scope, categories);
   };
