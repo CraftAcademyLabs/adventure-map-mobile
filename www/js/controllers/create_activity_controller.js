@@ -1,4 +1,5 @@
-function createActivityController($scope, $ionicLoading, $state, $cordovaImagePicker, Activity, S3FileUpload) {
+function createActivityController($scope,  $auth, $ionicLoading, $state, $cordovaImagePicker, Activity, S3FileUpload) {
+
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
 
@@ -6,16 +7,21 @@ function createActivityController($scope, $ionicLoading, $state, $cordovaImagePi
     $ionicLoading.show({
       template: 'Saving...'
     });
-    Activity.save($scope.activityData, function (resp) {
 
-      // Loop through uploadImages and send them to the server
-      addImages(resp.data.id);
-
-      $state.go('app.activities');
-      $ionicLoading.hide();
-      console.log(resp);
-    }, function (resp) {
-      console.log(resp);
+    $auth.validateUser().then(function(resp){
+      Activity.save($scope.activityData, function (resp) {
+        // Loop through uploadImages and send them to the server
+        addImages(resp.data.id);
+        // This takes you to the activities page, even if you created
+        // an activity from the my-activities page.
+        $state.go('app.activities');
+        $ionicLoading.hide();
+        console.log(resp);
+      }, function (resp) {
+        console.log(resp);
+        $scope.errors = resp.data.message;
+        $ionicLoading.hide();
+      });
     });
   };
 
@@ -54,7 +60,5 @@ function createActivityController($scope, $ionicLoading, $state, $cordovaImagePi
         })
       })
     }
-
-
   }
 }

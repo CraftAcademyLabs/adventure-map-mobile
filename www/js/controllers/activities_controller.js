@@ -2,55 +2,46 @@ function activitiesController($scope,
                               $state,
                               $ionicLoading,
                               $localStorage,
+                              $auth,
                               Activity,
                               Filters,
-                              DIFFICULTY_WORDS) {
+                              DIFFICULTY_WORDS,
+                              CATEGORY_ICONS,
+                              CATEGORY_WORDS) {
 
   console.dir($localStorage.defaultFilter || 'no default filter');
-
-  $scope.activityData = $scope.activityData || {activityData: {}};
-  $scope.activityData.filters = $localStorage.defaultFilter || {};
-  $scope.activityData.filters.default = false;
-  $scope.activityData.message = undefined;
-  const categories = ['Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
-  $scope.categories = categories;
-  $scope.difficulty_words = DIFFICULTY_WORDS;
-
-  // Set default filters - these should change based on the user's default filter.
-  if (!$localStorage.defaultFilter) {
-    $scope.activityData.filters.category = [];
-    for (var i = 1; i < 11; i++) {
-      $scope.activityData.filters.category[i] = true;
-    }
-    $scope.activityData.filters.difficulty1 = true;
-    $scope.activityData.filters.difficulty2 = true;
-    $scope.activityData.filters.difficulty3 = true;
-    $scope.activityData.filters.follow = true;
-    $scope.stars = [true, false, false, false, false];
-  } else {
-    $scope.stars = $localStorage.defaultFilter.stars;
-  }
-
+  setState();
   $scope.$on("$ionicView.enter", function (scopes, states) {
+    console.dir($localStorage.defaultFilter || 'no default filter');
+    console.log('in activities controller');
     console.log($scope.activityData);
-    if (states.stateName == "app.activities") {
-      $ionicLoading.show({
-        template: 'Getting activities...'
-      });
-      Activity.query(function (response) {
-        console.log(response);
-        // Sort by date
-        $scope.activityData.activityList = response.data.sort(function (a, b) {
-          return Date.parse(b.created_at) - Date.parse(a.created_at);
-        });
-        setDifficultyWords();
-        $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
 
-        // Apply filters on page load if there is a default filter
-        if ($localStorage.defaultFilter) {
-          Filters.applyFilters($scope, categories);
-        }
-        $ionicLoading.hide();
+    if (states.stateName === "app.activities") {
+      $auth.validateUser().then(function (resp) {
+        console.log('validated');
+        console.log(resp);
+        $ionicLoading.show({
+          template: 'Getting activities...'
+        });
+
+        Activity.query(function (response) {
+          console.log(response);
+          // Sort by date
+          $scope.activityData.activityList = response.data.sort(function (a, b) {
+            return Date.parse(b.created_at) - Date.parse(a.created_at);
+          });
+          setDifficultyWords();
+          $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
+
+          // Apply filters on page load if there is a default filter
+          if ($localStorage.defaultFilter) {
+            Filters.applyFilters($scope);
+          }
+          $ionicLoading.hide();
+        }, function (response) {
+          $ionicLoading.hide();
+          $scope.errors = response.data.errors;
+        });
       });
     }
   });
@@ -67,21 +58,7 @@ function activitiesController($scope,
     // reset no-results-found message
     $scope.activityData.message = undefined;
 
-    var rating = 1;
-    if ($scope.stars[4]) {
-      rating = 5
-    } else if ($scope.stars[3]) {
-      rating = 4
-    } else if ($scope.stars[2]) {
-      rating = 3
-    } else if ($scope.stars[1]) {
-      rating = 2
-    } else {
-      rating = 1
-    }
-    $scope.activityData.filters.rating = rating;
-
-    Filters.applyFilters($scope, categories);
+    Filters.applyFilters($scope);
   };
 
   $scope.toggleStars = function (star_id) {
@@ -125,4 +102,32 @@ function activitiesController($scope,
     })
   }
 
+  function setState() {
+    $scope.activityData = $scope.activityData || {activityData: {}};
+    $scope.activityData.filters = $localStorage.defaultFilter || {};
+    $scope.activityData.filters.default = false;
+    $scope.activityData.message = undefined;
+    $scope.category_icons = CATEGORY_ICONS;
+    $scope.categories = CATEGORY_WORDS;
+
+    if ($localStorage.defaultFilter !== undefined)
+      $scope.stars = $localStorage.defaultFilter.stars;
+    else
+      $scope.stars = [true, false, false, false, false];
+
+    $scope.difficulty_words = DIFFICULTY_WORDS;
+
+    // Set default filters - these should change based on the user's default filter.
+    if (!$localStorage.defaultFilter) {
+      $scope.activityData.filters.category = [];
+      for (var i = 1; i < 11; i++) {
+        $scope.activityData.filters.category[i] = true;
+      }
+      $scope.activityData.filters.difficulty1 = true;
+      $scope.activityData.filters.difficulty2 = true;
+      $scope.activityData.filters.difficulty3 = true;
+      $scope.activityData.filters.follow = true;
+      $scope.stars = [true, false, false, false, false];
+    }
+  }
 }

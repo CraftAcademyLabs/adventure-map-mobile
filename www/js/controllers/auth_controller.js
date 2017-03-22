@@ -1,5 +1,4 @@
-function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_URL, $ionicHistory) {
-  console.log($scope.user);
+function authController($scope, $auth, $ionicLoading, $state, $rootScope, $localStorage, API_URL, $ionicHistory) {
   $scope.credentials = {};
   $scope.signupForm = {};
   $scope.errorMessage = null;
@@ -15,8 +14,8 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
     $auth.submitLogin($scope.credentials)
       .then(function (response) {
-        $scope.user = response;
         $state.go('app.activities');
+        storeUser();
         $ionicLoading.hide();
       })
       .catch(function (response) {
@@ -43,18 +42,26 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   };
 
   $scope.facebookSignIn = function () {
+    $auth.signOut();
     $auth.getConfig().apiUrl = API_URL.replace(/^https:\/\//i, 'http://');
     $ionicLoading.show({
       template: 'Logging in with Facebook...'
     });
+
     $auth.authenticate('facebook')
       .then(function (response) {
-        console.log(response);
+        $auth.validateUser().then(function(resp){
+          console.log('validateUser');
+          storeUser();
+          console.log(resp)
+        });
         $state.go('app.activities');
         $ionicLoading.hide();
       })
       .catch(function (ev, response) {
         // handle errors
+        console.log(ev);
+        console.log(response);
         $ionicLoading.hide();
       });
   };
@@ -65,6 +72,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
     });
     $auth.signOut()
       .then(function (response) {
+        $auth.invalidateTokens();
         $state.go('intro.walkthrough');
         $ionicLoading.hide();
       })
@@ -77,4 +85,10 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, API_UR
   $scope.back = function(){
     $ionicHistory.goBack();
   };
+
+  storeUser = function() {
+    $localStorage.user = $scope.user;
+    console.log('storing user');
+    console.log($localStorage.user);
+  }
 }
