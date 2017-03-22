@@ -29,7 +29,6 @@ angular.module('adventureMap.services', [])
         var tempArray = [];
 
         var tempList = $scope.activityData.cachedActivities;
-        console.log('tempList from cache: ' + tempList.length);
 
         // Set default filter
         if ($scope.activityData.filters.default) {
@@ -50,28 +49,22 @@ angular.module('adventureMap.services', [])
             return activity;
           }
         });
-        console.log('tempList difficulty activities: ' + tempList.length);
 
         // Category filters
         tempList.filter(function (activity) {
           var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
           array.forEach(function (num) {
-            console.log($scope.activityData.filters.category[num]);
-            if ($scope.activityData.filters.category[num] && activity.category == $scope.categories[num - 1]) {
+            if ($scope.activityData.filters.category[num] && activity.category == $scope.category_words[num - 1]) {
               tempArray.push(activity);
             }
           });
-
-          console.log(tempArray);
 
           tempArray.forEach(function (activity) {
             return activity;
           });
         });
-
-        console.log('tempList category activities: ' + tempList.length);
-
+        
 
         // Add all activities for users I follow if follow filter set to true
         if ($scope.activityData.filters.follow) {
@@ -82,14 +75,13 @@ angular.module('adventureMap.services', [])
           });
         }
 
-        console.log('tempArray activities: ' + tempList.length);
-
-
         // Filter out duplicates.
         var endArray = [];
         for (var i = 0; i < tempArray.length; i++) {
           if (endArray.indexOf(tempArray[i]) == -1) endArray.push(tempArray[i]);
         }
+
+        $scope.activityData.activityList = endArray;
 
         console.log('endArray categories: ' + endArray.length);
         $scope.activityData.activityList = endArray;
