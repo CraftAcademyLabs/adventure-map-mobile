@@ -72,7 +72,7 @@
               </ion-list>
             </div>
             <div class="list">
-              <label class="item item-input wrap-label">Sport<br>
+              <div class="item item-input wrap-label">
               <ion-list ng-repeat="category in categories" class="margin-10">
                 <!--<input type="checkbox" ng-model="activityData.filters.category[$index + 1]"-->
                        <!--ng-checked="activityData.filters.category[$index + 1]"-->
@@ -80,14 +80,14 @@
                 <!--<ion-checkbox ng-model="activityData.filters.category[$index + 1]"-->
                               <!--ng-checked="activityData.filters.category[$index + 1]"-->
                               <!--style="background-image: url({{categories[$index]}});">-->
-                <div class="row">
+                <div class="row" ng-click="activityData.filters.category[$index + 1] = !activityData.filters.category[$index + 1];">
                   <div class="col-md-3">
-                    <img class="menu-icon" ng-src="{{categories[$index]}}" ng-click="activityData.filters.category[$index + 1] = !activityData.filters.category[$index + 1]" ng-if="activityData.filters.category[$index + 1]">
-                    <img class="menu-icon menu-icon-unselected" ng-src="{{categories[$index]}}" ng-click="activityData.filters.category[$index + 1] = !activityData.filters.category[$index + 1]" ng-if="!activityData.filters.category[$index + 1]">
+                    <img class="menu-icon" ng-src="{{categories[$index]}}"  ng-if="activityData.filters.category[$index + 1]">
+                    <img class="menu-icon menu-icon-unselected" ng-src="{{categories[$index]}}" ng-if="!activityData.filters.category[$index + 1]">
                   </div>
                 </div>
               </ion-list>
-              </label>
+              </div>
             </div>
             <div class="list">
               <ion-list>
