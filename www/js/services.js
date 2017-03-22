@@ -29,6 +29,7 @@ angular.module('adventureMap.services', [])
         var tempArray = [];
 
         var tempList = $scope.activityData.cachedActivities;
+        console.log('tempList from cache: ' + tempList.length);
 
         // Set default filter
         if ($scope.activityData.filters.default) {
@@ -56,10 +57,13 @@ angular.module('adventureMap.services', [])
           var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
           array.forEach(function (num) {
+            console.log($scope.activityData.filters.category[num]);
             if ($scope.activityData.filters.category[num] && activity.category == $scope.categories[num - 1]) {
               tempArray.push(activity);
             }
           });
+
+          console.log(tempArray);
 
           tempArray.forEach(function (activity) {
             return activity;
@@ -73,7 +77,7 @@ angular.module('adventureMap.services', [])
         if ($scope.activityData.filters.follow) {
           $scope.activityData.cachedActivities.filter(function (activity) {
             if (activity.user.following) {
-              tempList.push(activity);
+              tempArray.push(activity);
             }
           });
         }
@@ -83,10 +87,11 @@ angular.module('adventureMap.services', [])
 
         // Filter out duplicates.
         var endArray = [];
-        for (var i = 0; i < tempList.length; i++) {
-          if (endArray.indexOf(tempList[i]) == -1) endArray.push(tempList[i]);
+        for (var i = 0; i < tempArray.length; i++) {
+          if (endArray.indexOf(tempArray[i]) == -1) endArray.push(tempArray[i]);
         }
 
+        console.log('endArray categories: ' + endArray.length);
         $scope.activityData.activityList = endArray;
 
         // Show users a message instead of a blank screen if there are no activities that match their search.

@@ -18,12 +18,13 @@ function activitiesController($scope,
     '../../img/icons/climbing.svg', '../../img/icons/snow_mobiling.svg', '../../img/icons/cc_ice_skating.svg',
     '../../img/icons/foraging.svg'
   ];
+  setState();
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     console.dir($localStorage.defaultFilter || 'no default filter');
     console.log('in activities controller');
     console.log($scope.activityData);
-    setState();
+
     if (states.stateName === "app.activities") {
       $auth.validateUser().then(function(resp){
         console.log('validated');
@@ -136,7 +137,7 @@ function activitiesController($scope,
     $scope.categories = categories;
 
     if($localStorage.defaultFilter !== undefined)
-      $scope.stars = $localStorage.defaultFilter.stars
+      $scope.stars = $localStorage.defaultFilter.stars;
     else
       $scope.stars = [true, false, false, false, false];
 
