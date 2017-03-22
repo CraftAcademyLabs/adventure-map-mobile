@@ -49,6 +49,7 @@ angular.module('adventureMap.services', [])
             return activity;
           }
         });
+        console.log('tempList difficulty activities: ' + tempList.length);
 
         // Category filters
         tempList.filter(function (activity) {
@@ -65,19 +66,25 @@ angular.module('adventureMap.services', [])
           });
         });
 
+        console.log('tempList category activities: ' + tempList.length);
+
+
         // Add all activities for users I follow if follow filter set to true
         if ($scope.activityData.filters.follow) {
           $scope.activityData.cachedActivities.filter(function (activity) {
             if (activity.user.following) {
-              tempArray.push(activity);
+              tempList.push(activity);
             }
           });
         }
 
+        console.log('tempArray activities: ' + tempList.length);
+
+
         // Filter out duplicates.
         var endArray = [];
-        for (var i = 0; i < tempArray.length; i++) {
-          if (endArray.indexOf(tempArray[i]) == -1) endArray.push(tempArray[i]);
+        for (var i = 0; i < tempList.length; i++) {
+          if (endArray.indexOf(tempList[i]) == -1) endArray.push(tempList[i]);
         }
 
         $scope.activityData.activityList = endArray;

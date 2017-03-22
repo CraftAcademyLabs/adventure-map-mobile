@@ -40,6 +40,7 @@ function activitiesController($scope,
           });
           setDifficultyWords();
           $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
+          console.log($scope.activityData.cachedActivities);
 
           // Apply filters on page load if there is a default filter
           if ($localStorage.defaultFilter) {
