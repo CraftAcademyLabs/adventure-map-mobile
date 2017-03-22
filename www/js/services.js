@@ -9,6 +9,12 @@ angular.module('adventureMap.services', [])
     });
   })
 
+  .factory('MyActivities', function ($resource, $auth, API_URL) {
+    return $resource(API_URL + '/users/:id/activities', {id: '@id'}, {
+      get: { method: 'GET' }
+    })
+  })
+
   .factory('Comment', function ($resource, API_URL) {
     return $resource(API_URL + '/activities/:id/comments', {id: '@id'}, {
       save: {method: 'POST'}
@@ -23,7 +29,7 @@ angular.module('adventureMap.services', [])
 
   .factory('Filters', function ($localStorage) {
     return {
-      applyFilters: function ($scope, categories) {
+      applyFilters: function ($scope) {
         console.log($scope.activityData.filters);
 
         var tempArray = [];
@@ -64,6 +70,7 @@ angular.module('adventureMap.services', [])
             return activity;
           });
         });
+
 
         // Add all activities for users I follow if follow filter set to true
         if ($scope.activityData.filters.follow) {
