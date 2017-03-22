@@ -7,12 +7,12 @@ function activitiesController($scope,
                               Filters,
                               DIFFICULTY_WORDS) {
 
-  const category_words = [
+  const categories = [
     'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
     'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling',
     'Cross country ice skating', 'Foraging'
   ];
-  const categories = [
+  const category_icons = [
     '../../img/icons/hiking.svg', '../../img/icons/cc_skiing.svg', '../../img/icons/bc_skiing.svg',
     '../../img/icons/paddling.svg', '../../img/icons/mountain_biking.svg', '../../img/icons/horse-riding.svg',
     '../../img/icons/climbing.svg', '../../img/icons/snow_mobiling.svg', '../../img/icons/cc_ice_skating.svg',
@@ -85,7 +85,7 @@ function activitiesController($scope,
     // }
     // $scope.activityData.filters.rating = rating;
 
-    Filters.applyFilters($scope, categories);
+    Filters.applyFilters($scope);
   };
 
   $scope.toggleStars = function (star_id) {
@@ -134,8 +134,8 @@ function activitiesController($scope,
     $scope.activityData.filters = $localStorage.defaultFilter || {};
     $scope.activityData.filters.default = false;
     $scope.activityData.message = undefined;
+    $scope.category_icons = category_icons;
     $scope.categories = categories;
-    $scope.category_words = category_words;
 
     if($localStorage.defaultFilter !== undefined)
       $scope.stars = $localStorage.defaultFilter.stars;
