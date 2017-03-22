@@ -9,14 +9,7 @@ function activitiesController($scope,
                               CATEGORY_ICONS,
                               CATEGORY_WORDS) {
 
-  // const categories = [
-  //   'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
-  //   'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling',
-  //   'Cross country ice skating', 'Foraging'
-  // ];
   setState();
-
-
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     console.dir($localStorage.defaultFilter || 'no default filter');
@@ -39,7 +32,6 @@ function activitiesController($scope,
           });
           setDifficultyWords();
           $scope.activityData.cachedActivities = $scope.activityData.activityList; // This keeps the entire activity list so users can un-filter.
-          console.log($scope.activityData.cachedActivities);
 
           // Apply filters on page load if there is a default filter
           if ($localStorage.defaultFilter) {
@@ -65,23 +57,6 @@ function activitiesController($scope,
   $scope.setFilters = function () {
     // reset no-results-found message
     $scope.activityData.message = undefined;
-
-    // I'm not sure why this was throwing an error, but we don't need it anyway -
-    // we got rid of ratings as a feature.
-
-    // var rating = 1;
-    // if ($scope.stars[4]) {
-    //   rating = 5
-    // } else if ($scope.stars[3]) {
-    //   rating = 4
-    // } else if ($scope.stars[2]) {
-    //   rating = 3
-    // } else if ($scope.stars[1]) {
-    //   rating = 2
-    // } else {
-    //   rating = 1
-    // }
-    // $scope.activityData.filters.rating = rating;
 
     Filters.applyFilters($scope);
   };
