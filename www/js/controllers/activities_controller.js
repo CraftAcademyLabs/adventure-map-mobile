@@ -7,10 +7,13 @@ function activitiesController($scope,
                               Filters,
                               DIFFICULTY_WORDS) {
 
+  // const categories = [
+  //   'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
+  //   'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling',
+  //   'Cross country ice skating', 'Foraging'
+  // ];
   const categories = [
-    'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
-    'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling',
-    'Cross country ice skating', 'Foraging'
+    '../../img/icons/hiking.svg'
   ];
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
