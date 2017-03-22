@@ -8,11 +8,6 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
       ],
       origin: [-1200000.000000, 8500000.000000 ],
       bounds:  L.bounds( [-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
-    }),
-    map = new L.Map('map-container', {
-      crs: crs,
-      continuousWorld: true,
-      zoomControl: false
     });
 
   $scope.inProgress = false;
@@ -26,6 +21,12 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
       timeout: 5000,
       enableHighAccuracy: false
     };
+
+    map = new L.Map('map-container', {
+      crs: crs,
+      continuousWorld: true,
+      zoomControl: false
+    });
 
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
     //document.getElementById("stop-tracking").addEventListener('click', MapService.stopTracking(map));

@@ -52,7 +52,6 @@ angular.module('adventureMap.mapService', [])
     };
 
     var addToMapFunction = function (lat, long, map) {
-
       markers.push(L.marker([lat, long]).addTo(map));
 
       new L.TileLayer(wmtsUrl, {
