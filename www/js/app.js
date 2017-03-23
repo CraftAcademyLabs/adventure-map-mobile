@@ -14,15 +14,16 @@ angular.module('adventureMap', [
     'ngResource',
     'ngStorage'
   ])
+  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
   // .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .constant('DIFFICULTY_WORDS', ['Easy', 'Moderate', 'Hard'])
   .constant('CATEGORY_ICONS', [
-  '../../img/icons/hiking.svg', '../../img/icons/cc_skiing.svg', '../../img/icons/bc_skiing.svg',
-  '../../img/icons/paddling.svg', '../../img/icons/mountain_biking.svg', '../../img/icons/horse-riding.svg',
-  '../../img/icons/climbing.svg', '../../img/icons/snow_mobiling.svg', '../../img/icons/cc_ice_skating.svg',
-  '../../img/icons/foraging.svg'
+    'img/icons/hiking.svg', 'img/icons/cc_skiing.svg', 'img/icons/bc_skiing.svg',
+    'img/icons/paddling.svg', 'img/icons/mountain_biking.svg', 'img/icons/horse-riding.svg',
+    'img/icons/climbing.svg', 'img/icons/snow_mobiling.svg', 'img/icons/cc_ice_skating.svg',
+    'img/icons/foraging.svg'
   ])
   .constant('CATEGORY_WORDS', [
     'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
@@ -30,7 +31,7 @@ angular.module('adventureMap', [
     'Cross country ice skating', 'Foraging'
   ])
 
-  .config(function($httpProvider){
+  .config(function ($httpProvider) {
     // Remove cache headers from put requests - AWS S3 doesn't like them
     delete $httpProvider.defaults.headers.put['If-Modified-Since']
   })
@@ -107,69 +108,69 @@ angular.module('adventureMap', [
           requireLogin: false
         }
       })
-        .state('intro.walkthrough', {
-          url: '/walkthrough',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/auth/walkthrough.html',
-              controller: 'authController'
-            }
+      .state('intro.walkthrough', {
+        url: '/walkthrough',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/auth/walkthrough.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.login', {
-          url: '/login',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/auth/login.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.login', {
+        url: '/login',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/auth/login.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.signup', {
-          url: '/signup',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/auth/signup.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.signup', {
+        url: '/signup',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/auth/signup.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.terms', {
-          url: '/terms-and-conditions',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/policies/terms-and-conditions.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.terms', {
+        url: '/terms-and-conditions',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/policies/terms-and-conditions.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.disclaimer', {
-          url: '/content-policies',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/policies/disclaimer.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.disclaimer', {
+        url: '/content-policies',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/policies/disclaimer.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.privacy', {
-          url: '/privacy-policies',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/policies/privacy.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.privacy', {
+        url: '/privacy-policies',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/policies/privacy.html',
+            controller: 'authController'
           }
-        })
-        .state('intro.cookie', {
-          url: '/cookies-policies',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/policies/cookies.html',
-              controller: 'authController'
-            }
+        }
+      })
+      .state('intro.cookie', {
+        url: '/cookies-policies',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/policies/cookies.html',
+            controller: 'authController'
           }
-        })
+        }
+      })
       .state('app', {
         url: '/app',
         abstract: true,
@@ -180,52 +181,53 @@ angular.module('adventureMap', [
           requireLogin: false // this property will apply to all children of 'app'
         }
       })
-        .state('app.activities', {
-          url: '/activities',
-          cache: false,
-          views: {
-            'menuContent' :{
-              templateUrl: 'templates/activities.html',
-              controller: 'activitiesController'
-            }
+      .state('app.activities', {
+        url: '/activities',
+        cache: false,
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activities.html',
+            controller: 'activitiesController'
           }
-        })
-        .state('app.profile', {
-          url: '/profile',
-          views: {
-            'menuContent' :{
-              templateUrl: 'templates/profile.html',
-              controller: 'userController'
-            }
+        }
+      })
+      .state('app.profile', {
+        url: '/profile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/profile.html',
+            controller: 'userController'
           }
-        })
-        .state('app.my-activities', {
-          url: '/my-activities',
-          views: {
-            'menuContent': {
-              templateUrl: 'templates/profile/my-activities.html',
-              controller: 'profileController'
-            }
+
+        }
+      })
+      .state('app.my-activities', {
+        url: '/my-activities',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/profile/my-activities.html',
+            controller: 'profileController'
           }
-        })
-        .state('app.create_activity', {
-          url: '/create_activity',
-          views: {
-            'menuContent' :{
-              templateUrl: 'templates/create_activity.html',
-              controller: 'createActivityController'
-            }
+        }
+      })
+      .state('app.create_activity', {
+        url: '/create_activity',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/create_activity.html',
+            controller: 'createActivityController'
           }
-        })
-        .state('app.map', {
-          url: '/map',
-          views: {
-            'menuContent' :{
-              templateUrl: 'templates/map.html',
-              controller: 'mapController'
-            }
+        }
+      })
+      .state('app.map', {
+        url: '/map',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/map.html',
+            controller: 'mapController'
           }
-        });
+        }
+      });
 
     $urlRouterProvider.otherwise('/intro/walkthrough');
   });

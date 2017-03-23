@@ -9,6 +9,8 @@ Feature: User profile page
     Given I open the app
     And I am logged in as "thomas@random.se" with password "password"
 
-
   Scenario: View profile
-    Given I click "Me" on the left side in the navigation bar
+    Given I click on the toggle menu button
+    And I select "Profile"
+    Then I should be on the "app/profile" page
+
