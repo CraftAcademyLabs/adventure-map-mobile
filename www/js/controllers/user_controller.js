@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform, $cordovaImagePicker, md5) {
+function userController($scope, $ionicPlatform, md5) {
   $scope.files = [];
   $scope.profileImage = function () {
     if ($scope.user.id !== undefined) {
