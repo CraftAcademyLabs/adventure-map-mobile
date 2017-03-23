@@ -38,6 +38,12 @@
           <button class='button button-block button-positive' ng-click="createActivity()">Create</button>
         </div>
       </div>
+
+      <div class="row responsive-sm">
+        <div class="col col-25" ng-repeat="image in uploadedImages">
+          <img ng-src="{{image}}" width="100%" />
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

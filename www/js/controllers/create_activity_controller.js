@@ -2,8 +2,7 @@ function createActivityController($scope,  $auth, $ionicLoading, $state, $cordov
 
   $scope.activityData = {};
   $scope.categories = ['Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling', 'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling', 'Cross country ice skating', 'Foraging'];
-  $scope.images = [];
-  $scope.uploadImages = [];
+  $scope.uploadedImages = [];
 
   $scope.createActivity = function () {
     $ionicLoading.show({
@@ -84,62 +83,49 @@ function createActivityController($scope,  $auth, $ionicLoading, $state, $cordov
     var options = setOptions(srcType);
 
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
-      console.log(">>>>>>>>> Picked a file, next let's get a fileEntry we can upload");
       getFileEntry(imageUri);
     }, function cameraError(error) {
         console.debug("Unable to obtain picture: " + error, "app");
-
     }, options);
   }
 
   function getFileEntry(imgUri) {
     window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
-      console.log(">>>>>>>>> Let's see if we can upload something");
       // Create file object using fileEntry
       fileEntry.file(function (file) {
         var reader = new FileReader();
 
         reader.onloadend = function() {
           console.log("Successful file read: " + this.result);
-          var blob = new Blob([new Uint8Array(this.result)], { type: "image/jpeg" });
-          blob.name = file.name;
-          console.log("File name: " + blob.name);
-          console.log("File type: " + blob.type);
-          console.log("File size: " + blob.size);
-          S3FileUpload.upload('images', blob).then(
+          var imageFile = new Blob([new Uint8Array(this.result)], { type: "image/jpeg" });
+          imageFile.name = file.name;
+
+          S3FileUpload.upload('images', imageFile).then(
             function(imageResp) {
-              console.log("<<<<< Image Response >>>>>")
-              console.log(imageResp.public_url);
+              $scope.uploadedImages.push(imageResp.public_url);
+              $ionicLoading.hide();
+            },
+            // Image upload failed - Handle error
+            function(response) {
+              console.log(response);
+              $ionicLoading.hide();
             }
           );
-          // displayFileData(fileEntry.fullPath + ": " + this.result);
         };
 
+        $ionicLoading.show({
+          template: 'Uploading image...'
+        });
         reader.readAsArrayBuffer(file);
 
       }, function() {
-        console.log('file read failed');
+        console.log("Sorry, something went wrong and we couldn't read your file");
       });
 
       console.log("got file: " + fileEntry.fullPath);
     }, function () {
-      // If don't get the FileEntry (which may happen when testing
-      // on some emulators), copy to a new FileEntry.
-        createNewFileEntry(imgUri);
+      // Perhaps we want to create the file?
+      console.log("Sorry, something went wrong while creating file object");
     });
-  }
-
-  function createNewFileEntry(imgUri) {
-    window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
-      // JPEG file
-      dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
-        // Do something with it, like write to it, upload it, etc.
-        // writeFile(fileEntry, imgUri);
-        console.log("got file: " + fileEntry.fullPath);
-        // displayFileData(fileEntry.fullPath, "File copied to");
-
-      }, onErrorCreateFile);
-
-    }, onErrorResolveUrl);
   }
 }

@@ -20,15 +20,14 @@ angular.module('adventureMap.s3FileUpload', [])
       var url = API_URL + '/upload/' + type;
       var deferred = $q.defer();
 
-      if(!response) {
-        // Obtain presigned url from backend server
-        $http.post(url, { filename: file.name, content_type: file.type })
-          .success(function(resp) {
-            // Upload the file to S3 using presigned url
-            $http.put(resp.upload_url, file, {
-              cache: false, headers: { 'Content-Type' : file.type }
-            })
-            .then(function(response) {
+      // Obtain presigned url from backend server
+      $http.post(url, { filename: file.name, content_type: file.type })
+        .success(function(resp) {
+          // Upload the file to S3 using presigned url
+          $http.put(resp.upload_url, file, {
+            cache: false, headers: { 'Content-Type' : file.type }
+          }).then(
+            function(response) {
               response = {
                 message: 'File was successfully uploaded!',
                 public_url: resp.public_url,
@@ -36,18 +35,15 @@ angular.module('adventureMap.s3FileUpload', [])
               };
 
               deferred.resolve(response);
-            }, function(response) {
+            },
+            function(response) {
               deferred.reject(error);
             });
-          })
-          .error(function(response) {
-            deferred.reject(error);
-          });
+        })
+        .error(function(response) {
+          deferred.reject(error);
+        });
 
-        response = deferred.promise;
-      }
-
-      return $q.when(response);
+      return deferred.promise;
     };
-
   });
