@@ -103,7 +103,7 @@ angular.module('adventureMap', [
       .state('intro', {
         url: '/intro',
         abstract: true,
-        templateUrl: 'templates/menu.html',
+        templateUrl: 'templates/common/intro.html',
         data: {
           requireLogin: false
         }
@@ -111,7 +111,7 @@ angular.module('adventureMap', [
       .state('intro.walkthrough', {
         url: '/walkthrough',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/auth/walkthrough.html',
             controller: 'authController'
           }
@@ -120,7 +120,7 @@ angular.module('adventureMap', [
       .state('intro.login', {
         url: '/login',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/auth/login.html',
             controller: 'authController'
           }
@@ -129,7 +129,7 @@ angular.module('adventureMap', [
       .state('intro.signup', {
         url: '/signup',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/auth/signup.html',
             controller: 'authController'
           }
@@ -138,7 +138,7 @@ angular.module('adventureMap', [
       .state('intro.terms', {
         url: '/terms-and-conditions',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/policies/terms-and-conditions.html',
             controller: 'authController'
           }
@@ -147,7 +147,7 @@ angular.module('adventureMap', [
       .state('intro.disclaimer', {
         url: '/content-policies',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/policies/disclaimer.html',
             controller: 'authController'
           }
@@ -156,7 +156,7 @@ angular.module('adventureMap', [
       .state('intro.privacy', {
         url: '/privacy-policies',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/policies/privacy.html',
             controller: 'authController'
           }
@@ -165,7 +165,7 @@ angular.module('adventureMap', [
       .state('intro.cookie', {
         url: '/cookies-policies',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/policies/cookies.html',
             controller: 'authController'
           }
