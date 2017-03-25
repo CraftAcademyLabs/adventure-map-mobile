@@ -31,6 +31,12 @@ angular.module('adventureMap', [
     'Cross country ice skating', 'Foraging'
   ])
 
+  .filter('difficultyWord', function(DIFFICULTY_WORDS) {
+    return function(difficulty){
+      return DIFFICULTY_WORDS[difficulty - 1];
+    }
+  })
+
   .config(function ($httpProvider) {
     // Remove cache headers from put requests - AWS S3 doesn't like them
     delete $httpProvider.defaults.headers.put['If-Modified-Since']
