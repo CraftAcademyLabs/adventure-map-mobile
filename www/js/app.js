@@ -185,7 +185,7 @@ angular.module('adventureMap', [
         url: '/activities',
         cache: false,
         views: {
-          'menuContent': {
+          'tab-activities-view': {
             templateUrl: 'templates/activities.html',
             controller: 'activitiesController'
           }
@@ -194,7 +194,7 @@ angular.module('adventureMap', [
       .state('app.profile', {
         url: '/profile',
         views: {
-          'menuContent': {
+          'tab-profile-view': {
             templateUrl: 'templates/profile.html',
             controller: 'userController'
           }
@@ -222,7 +222,7 @@ angular.module('adventureMap', [
       .state('app.map', {
         url: '/map',
         views: {
-          'menuContent': {
+          'tab-map-view': {
             templateUrl: 'templates/map.html',
             controller: 'mapController'
           }
