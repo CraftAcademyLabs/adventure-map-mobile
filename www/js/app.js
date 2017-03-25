@@ -174,7 +174,7 @@ angular.module('adventureMap', [
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: "templates/menu.html",
+        templateUrl: "templates/common/main-tabs.html",
         controller: 'activitiesController',
         data: {
           // Should be true for production

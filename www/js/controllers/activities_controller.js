@@ -3,6 +3,7 @@ function activitiesController($scope,
                               $ionicLoading,
                               $localStorage,
                               $auth,
+                              $ionicModal,
                               Activity,
                               Filters,
                               DIFFICULTY_WORDS,
@@ -10,6 +11,13 @@ function activitiesController($scope,
                               CATEGORY_WORDS) {
 
   setState();
+
+  $ionicModal.fromTemplateUrl('templates/filter_modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.filterModal = modal;
+  });
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     console.dir($localStorage.defaultFilter || 'no default filter');
@@ -58,6 +66,7 @@ function activitiesController($scope,
     // reset no-results-found message
     $scope.activityData.message = undefined;
     Filters.applyFilters($scope);
+    $scope.filterModal.hide();
   };
 
   $scope.toggleStars = function (star_id) {
