@@ -34,7 +34,7 @@ angular.module('adventureMap', [
   .filter('difficultyWord', function(DIFFICULTY_WORDS) {
     return function(difficulty){
       return DIFFICULTY_WORDS[difficulty - 1];
-    }
+    };
   })
 
   .config(function ($httpProvider) {
@@ -213,15 +213,6 @@ angular.module('adventureMap', [
           'menuContent': {
             templateUrl: 'templates/profile/my-activities.html',
             controller: 'profileController'
-          }
-        }
-      })
-      .state('app.create_activity', {
-        url: '/create_activity',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/create_activity.html',
-            controller: 'createActivityController'
           }
         }
       })
