@@ -9,8 +9,8 @@ function activitiesController($scope,
                               CATEGORY_ICONS,
                               CATEGORY_WORDS) {
 
-  console.dir($localStorage.defaultFilter || 'no default filter');
   setState();
+
   $scope.$on("$ionicView.enter", function (scopes, states) {
     console.dir($localStorage.defaultFilter || 'no default filter');
     console.log('in activities controller');
