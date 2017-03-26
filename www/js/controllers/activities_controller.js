@@ -14,7 +14,6 @@ function activitiesController($scope,
 
   setState();
   $scope.activity = {};
-  // $scope.activityData = {};
   $scope.uploadedImages = [];
 
   $ionicModal.fromTemplateUrl('templates/activities/filter_modal.html', {
@@ -182,7 +181,7 @@ function activitiesController($scope,
     }
   }
 
-  $scope.selectPhotos = function() {
+  $scope.selectPhoto = function() {
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
 
