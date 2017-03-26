@@ -210,7 +210,7 @@ angular.module('adventureMap', [
       .state('app.my-activities', {
         url: '/my-activities',
         views: {
-          'menuContent': {
+          'tab-profile-view': {
             templateUrl: 'templates/profile/my-activities.html',
             controller: 'profileController'
           }
