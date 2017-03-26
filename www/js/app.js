@@ -75,7 +75,7 @@ angular.module('adventureMap', [
   })
 
   .config(function ($ionicConfigProvider) {
-    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+    $ionicConfigProvider.backButton.icon('ion-ios-arrow-back').previousTitleText(true);
   })
 
   .run(function ($ionicPlatform, $rootScope, $state) {
