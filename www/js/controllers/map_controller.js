@@ -51,14 +51,18 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
 
   function saveToFile(timestamp, route) {
     var fileName = (timestamp + ".txt");
-    var data = angular.toJson(route, true);
+    var routeObject = {
+      file: fileName,
+      createdAt: timestamp,
+      route: route
+    };
+    var data = angular.toJson(routeObject, true);
     console.log(data);
     $cordovaFile.writeFile(cordova.file.dataDirectory, fileName, data, true)
       .then(function (success) {
         console.log(success);
         console.log('wrote to file: ' + fileName);
       }, function (error) {
-        debugger;
         console.log('error in write');
         console.error(error.messageData);
       });

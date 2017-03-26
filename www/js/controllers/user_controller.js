@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform, md5, $ionicModal) {
+function userController($scope, $ionicPlatform, md5, $ionicModal, $cordovaFile) {
   $scope.files = [];
   $scope.profileImage = function () {
     if ($scope.user.id !== undefined) {
@@ -31,8 +31,15 @@ function userController($scope, $ionicPlatform, md5, $ionicModal) {
 
 
   $scope.showFile = function (object) {
-    $scope.object = object;
-    $scope.openModal()
+    $cordovaFile.readAsText(cordova.file.dataDirectory, object.fileName)
+      .then(function (content) {
+        $scope.object = content;
+        $scope.openModal()
+      }, function (error) {
+        // error
+      });
+
+
   }
 
   $ionicPlatform.ready(function () {
