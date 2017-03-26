@@ -13,8 +13,6 @@ function showActivityController($scope,
   var activityId;
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
-    console.log("Activity(ies) controller >>>>>>");
-    console.log("Activity id: " + $stateParams.id);
     if($stateParams.id) {
       activityId = $stateParams.id
       getActivity(activityId);
@@ -55,7 +53,7 @@ function showActivityController($scope,
     });
     Comment.save({body: $scope.commentData.body, id: activityId}, function (resp) {
       $ionicLoading.hide();
-      if (resp.status == 'success') {
+      if (resp.status === 'success') {
         $scope.closeCommentModal();
       } else {
         console.log('error ' + resp.message[0]);
@@ -74,7 +72,7 @@ function showActivityController($scope,
     });
     Follow.save({user_id: userId}, function (response) {
       $ionicLoading.hide();
-      if (response.status == 'success') {
+      if (response.status === 'success') {
         console.log('user followed');
         getActivity(activityId);
       } else {
