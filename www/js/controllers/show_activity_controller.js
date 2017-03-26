@@ -22,7 +22,14 @@ function showActivityController($scope,
   });
 
   $scope.navigateToActivity = function(activity) {
-    $state.go('app.activity', { id: activity.id });
+    switch($state.current.name) {
+      case 'app.activities':
+        $state.go('app.activity', { id: activity.id });
+        break;
+      case 'app.my-activities':
+        $state.go('app.my-activity', { id: activity.id });
+        break;
+    }
   }
 
   $scope.closeCommentModal = function () {
