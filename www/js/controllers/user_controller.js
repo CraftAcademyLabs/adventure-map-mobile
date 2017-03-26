@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform, md5) {
+function userController($scope, $ionicPlatform, md5, $ionicModal) {
   $scope.files = [];
   $scope.profileImage = function () {
     if ($scope.user.id !== undefined) {
@@ -12,6 +12,28 @@ function userController($scope, $ionicPlatform, md5) {
       }
     }
   };
+
+  $ionicModal.fromTemplateUrl('templates/file.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function () {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+
+
+  $scope.showFile = function (object) {
+    $scope.object = object;
+    $scope.openModal()
+  }
 
   $ionicPlatform.ready(function () {
     try {

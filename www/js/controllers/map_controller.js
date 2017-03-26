@@ -29,7 +29,6 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     });
 
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
-    //document.getElementById("stop-tracking").addEventListener('click', MapService.stopTracking(map));
 
     $ionicLoading.show({
       template: 'Loading current location...'
@@ -44,7 +43,6 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
       map.setView([lat, long], 13);
       MapService.addToMap(lat, long, map);
       $ionicLoading.hide();
-      //document.getElementById("start-tracking").addEventListener('click', MapService.startTracking(lat, long, map));
     }, function (err) {
       console.log(err);
     });
