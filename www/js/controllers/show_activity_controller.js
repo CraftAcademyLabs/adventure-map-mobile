@@ -1,25 +1,34 @@
-function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment, Follow, $ionicSlideBoxDelegate, $ionicPopup, DIFFICULTY_WORDS) {
-  $scope.openModal = function (activity) {
-    $ionicModal.fromTemplateUrl('templates/activity.html', {
-      scope: $scope,
-      animation: 'zoom-from-center'
-    }).then(function (modal) {
-      $scope.activity_id = activity.id;
-      $scope.modal = modal;
-      getActivity();
-    });
-  };
+function showActivityController($scope,
+                                $state,
+                                $stateParams,
+                                $ionicModal,
+                                $ionicLoading,
+                                $ionicSlideBoxDelegate,
+                                $ionicPopup,
+                                Activity,
+                                Comment,
+                                Follow,
+                                DIFFICULTY_WORDS) {
 
-  $scope.closeModal = function () {
-    $scope.modal.hide();
-    $scope.modal.remove();
-    window.location.reload();
-  };
+  var activityId;
+
+  $scope.$on("$ionicView.enter", function (scopes, states) {
+    console.log("Activity(ies) controller >>>>>>");
+    console.log("Activity id: " + $stateParams.id);
+    if($stateParams.id) {
+      activityId = $stateParams.id
+      getActivity(activityId);
+    }
+  });
+
+  $scope.navigateToActivity = function(activity) {
+    $state.go('app.activity', { id: activity.id });
+  }
 
   $scope.closeCommentModal = function () {
     $scope.comment_modal.hide();
     $scope.comment_modal.remove();
-    getActivity();
+    getActivity(activityId);
   };
 
   $scope.openCommentBox = function () {
@@ -60,7 +69,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
       $ionicLoading.hide();
       if (response.status == 'success') {
         console.log('user followed');
-        getActivity();
+        getActivity(activityId);
       } else {
         console.log(response);
         $ionicPopup.alert({
@@ -85,16 +94,14 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
         return comment;
       })
     }
-
   }
 
-  function getActivity() {
-    Activity.get({id: $scope.activity_id}, function (response) {
+  function getActivity(id) {
+    Activity.get({id: id}, function (response) {
       $scope.activity = response.data;
       prepareComments();
 
       console.log(response);
-      $scope.modal.show();
     });
   }
 }

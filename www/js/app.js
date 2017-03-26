@@ -200,6 +200,16 @@ angular.module('adventureMap', [
           }
         }
       })
+      .state('app.activity', {
+        url: '/activities/:id',
+        cache: false,
+        views: {
+          'tab-activities-view': {
+            templateUrl: 'templates/activities/show.html',
+            controller: 'showActivityController'
+          }
+        }
+      })
       .state('app.profile', {
         url: '/profile',
         views: {
@@ -207,7 +217,6 @@ angular.module('adventureMap', [
             templateUrl: 'templates/profile.html',
             controller: 'userController'
           }
-
         }
       })
       .state('app.my-activities', {
