@@ -1,6 +1,6 @@
 angular.module('adventureMap.fileService', [])
 
-  .service('FileService', function ($q, $cordovaFile, $filter) {
+  .service('FileService', function ($q, $cordovaFile, $filter, $ionicPopup) {
     var saveToFileFunction = function (timestamp, route, type) {
       var date = $filter('date')(new Date(timestamp), 'yyyy-MM-d(h-mm)');
       var fileName = (type + '-' + date + ".txt");
@@ -15,6 +15,12 @@ angular.module('adventureMap.fileService', [])
         .then(function (success) {
           console.log(success);
           console.log('wrote to file: ' + fileName);
+          var lat = routeObject.route.lat || routeObject.route[0].lat;
+          var long = routeObject.route.long || routeObject.route[0].long;
+          $ionicPopup.alert({
+            title: 'Saved ' + type,
+            template: 'Lat: ' + lat + '<br>Long: ' + long
+          });
         }, function (error) {
           console.log('error in write');
           console.error(error.messageData);

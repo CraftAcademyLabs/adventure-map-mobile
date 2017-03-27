@@ -1,4 +1,4 @@
-function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading, $ionicPlatform, MapService, FileService) {
+function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform, MapService, FileService) {
   var lat, long;
   var srs_code = 'EPSG:3006';
   var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
@@ -35,7 +35,7 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     });
 
     geolocation.then(function (position) {
-      setCurrentLocation(position);
+      $scope.currentLocation = setCurrentLocation(position);
       var lat = $scope.currentLocation.coords.lat;
       var long = $scope.currentLocation.coords.long;
       console.log(lat + ', ' + long);
@@ -91,11 +91,10 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     }
   };
 
-  function setCurrentLocation(){
+  function setCurrentLocation(position) {
     lat = position.coords.latitude;
     long = position.coords.longitude;
-    $scope.currentLocation =
-    {
+    return {
       timestamp: position.timestamp,
       coords: {
         lat: lat,
