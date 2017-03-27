@@ -1,6 +1,6 @@
 
 <div class="list card" ng-repeat="activity in activities">
-  <div ng-controller="showActivityController" ng-click="openModal(activity)">
+  <div ng-controller="showActivityController" ng-click="navigateToActivity(activity)">
     <div class="item item-avatar gray">
       <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
       <h2 class="activity_title">{{activity.user.name}}</h2>
@@ -11,7 +11,7 @@
     </div>
 
     <div class="item item-body gray">
-      <span>{{activity.category}}</span>, <span>{{activity.difficulty_word}}</span>
+      <span>{{activity.category}}</span>, <span>{{activity.difficulty | difficultyWord}}</span>
       <div class="item gray card item-inner">
         <!--<img class="full-image" src="img/dummy_images/snow.jpg">-->
         <display-first-image images_for="{{activity}}"></display-first-image>

@@ -34,7 +34,10 @@ angular.module('adventureMap', [
 
   .filter('difficultyWord', function(DIFFICULTY_WORDS) {
     return function(difficulty){
-      return DIFFICULTY_WORDS[difficulty - 1];
+      if (difficulty <= 0 || difficulty > DIFFICULTY_WORDS.length)
+        return '';
+      else
+        return DIFFICULTY_WORDS[difficulty - 1];
     };
   })
 
@@ -73,7 +76,7 @@ angular.module('adventureMap', [
   })
 
   .config(function ($ionicConfigProvider) {
-    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+    $ionicConfigProvider.backButton.icon('ion-ios-arrow-back').previousTitleText(true);
   })
 
   .run(function ($ionicPlatform, $rootScope, $state) {
@@ -198,6 +201,16 @@ angular.module('adventureMap', [
           }
         }
       })
+      .state('app.activity', {
+        url: '/activities/:id',
+        cache: false,
+        views: {
+          'tab-activities-view': {
+            templateUrl: 'templates/activities/show.html',
+            controller: 'showActivityController'
+          }
+        }
+      })
       .state('app.profile', {
         url: '/profile',
         views: {
@@ -205,7 +218,6 @@ angular.module('adventureMap', [
             templateUrl: 'templates/profile.html',
             controller: 'userController'
           }
-
         }
       })
       .state('app.my-activities', {
@@ -217,13 +229,22 @@ angular.module('adventureMap', [
           }
         }
       })
-
       .state('app.my-recordings', {
         url: '/my-recordings',
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile/my-recordings.html',
             controller: 'userController'
+          }
+        }
+      })
+      .state('app.my-activity', {
+        url: '/me/activities/:id',
+        cache: false,
+        views: {
+          'tab-profile-view': {
+            templateUrl: 'templates/activities/show.html',
+            controller: 'showActivityController'
           }
         }
       })
