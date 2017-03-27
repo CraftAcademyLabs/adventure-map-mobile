@@ -1,4 +1,5 @@
 angular.module('adventureMap.fileService', [])
+
   .service('FileService', function ($q, $cordovaFile, $filter) {
     var saveToFileFunction = function (timestamp, route, type) {
       var date = $filter('date')(new Date(timestamp), 'yyyy-MM-d(h-mm)');
@@ -28,13 +29,11 @@ angular.module('adventureMap.fileService', [])
         }, function (error) {
           // error
         });
-
     };
 
     var readDirectoryFunction = function(window, $scope){
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
         var directoryReader = dirEntry.createReader();
-        //var files = directoryReader.readEntries(dirSuccess, dirFail);
         directoryReader.readEntries(function(entries) {
           entries.forEach(function(entry) {
             $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
@@ -48,8 +47,6 @@ angular.module('adventureMap.fileService', [])
               }, function (error) {
                 // error
               });
-
-
           }, function(error){
             console.log("Failed to list directory contents: " + error.code);
           });

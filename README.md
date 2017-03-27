@@ -60,7 +60,7 @@ $ ionic emulate ios
 ```
 
 **Running the emulator with live reload.** As we move forward with more Cordova plugins,we can no longer emulate the app running `$ ionic serve` 
- 
+Running the simulator with live reload is a much better option.  
  
 ```
 $ ionic emulate ios -l -c
@@ -69,6 +69,7 @@ This command will give you a console output in the terminal as well as reload th
  
 
 ### Clear files from Simulator
+You probably want to clear the simulator data after a while o
 
 ```
 $ xcrun simctl erase all
