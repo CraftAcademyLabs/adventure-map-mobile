@@ -37,6 +37,15 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     geolocation.then(function (position) {
       lat = position.coords.latitude;
       long = position.coords.longitude;
+      debugger;
+      $scope.currentLocation =
+      {
+        timestamp: position.timestamp,
+        coords: {
+          lat: lat,
+          long: long
+        }
+      };
 
       console.log(lat + ', ' + long);
 
@@ -47,8 +56,6 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
       console.log(err);
     });
   });
-
-
 
 
   //Menu navigation
@@ -85,6 +92,13 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     element.removeClass('open');
     if (window.cordova) {
       FileService.saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute, 'Recording');
+    }
+  };
+
+  $scope.addWaypoint = function () {
+    debugger;
+    if (window.cordova) {
+      FileService.saveToFile($scope.currentLocation.timestamp, $scope.currentLocation.coords, 'Waypoint');
     }
   };
 }
