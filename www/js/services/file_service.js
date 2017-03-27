@@ -25,6 +25,7 @@ angular.module('adventureMap.fileService', [])
       $cordovaFile.readAsText(cordova.file.dataDirectory, object.fileName)
         .then(function (content) {
           $scope.object = content;
+          $scope.fileName = angular.fromJson(content).file;
           $scope.openModal()
         }, function (error) {
           // error

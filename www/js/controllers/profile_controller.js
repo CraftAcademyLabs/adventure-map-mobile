@@ -29,7 +29,7 @@ function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage,
   };
 
   $ionicPlatform.ready(function () {
-    $window.location.reload(true)
+    $window.location.reload(true);
     showMyActivities();
   });
 

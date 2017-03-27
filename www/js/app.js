@@ -217,6 +217,16 @@ angular.module('adventureMap', [
           }
         }
       })
+
+      .state('app.my-recordings', {
+        url: '/my-recordings',
+        views: {
+          'tab-profile-view': {
+            templateUrl: 'templates/profile/my-recordings.html',
+            controller: 'userController'
+          }
+        }
+      })
       .state('app.map', {
         url: '/map',
         views: {

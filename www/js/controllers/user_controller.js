@@ -13,7 +13,7 @@ function userController($scope, $ionicPlatform, md5, $ionicModal, FileService) {
     }
   };
 
-  $ionicModal.fromTemplateUrl('templates/file.html', {
+  $ionicModal.fromTemplateUrl('templates/profile/file.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function (modal) {
