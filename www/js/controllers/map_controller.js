@@ -84,7 +84,7 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     console.log($scope.currentRoute);
     element.removeClass('open');
     if (window.cordova) {
-      FileService.saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute);
+      FileService.saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute, 'Recording');
     }
   };
 }

@@ -36,9 +36,9 @@ function userController($scope, $ionicPlatform, md5, $ionicModal, FileService) {
   $ionicPlatform.ready(function () {
     try {
       FileService.readDirectory(window, $scope);
-    } catch (e) {
+    } catch (error) {
       console.log("Corvova plugins aren't available in browsers.");
-      console.log(e);
+      console.log(error);
     }
   });
 }

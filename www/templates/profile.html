@@ -56,7 +56,7 @@
     <div class="item item-divider" ng-controller="userController">
       <ion-item class="item item-icon-right list-item" ng-repeat="file in files">
         <span class="main-text" ng-click="showFile(file)">{{file.fileName}}</span>
-        <span class="badge">{{file.date | date }}</span>
+        <span class="badge"><small>Created:{{file.date | date }} <br> at: {{file.date | date : 'hh:m'}}</small>  </span>
       </ion-item>
 
     </div>

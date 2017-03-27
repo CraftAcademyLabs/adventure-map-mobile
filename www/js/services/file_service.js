@@ -1,7 +1,8 @@
 angular.module('adventureMap.fileService', [])
-  .service('FileService', function ($q, $cordovaFile) {
-    var saveToFileFunction = function (timestamp, route) {
-      var fileName = (timestamp + ".txt");
+  .service('FileService', function ($q, $cordovaFile, $filter) {
+    var saveToFileFunction = function (timestamp, route, type) {
+      var date = $filter('date')(new Date(timestamp), 'yyyy-MM-d');
+      var fileName = (type + '-' + date + ".txt");
       var routeObject = {
         file: fileName,
         createdAt: timestamp,
@@ -33,28 +34,28 @@ angular.module('adventureMap.fileService', [])
     var readDirectoryFunction = function(window, $scope){
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
         var directoryReader = dirEntry.createReader();
-        var files = $q.when(directoryReader.readEntries(dirSuccess, dirFail));
-        debugger;
-      });
-    }
+        //var files = directoryReader.readEntries(dirSuccess, dirFail);
+        directoryReader.readEntries(function(entries) {
+          entries.forEach(function(entry) {
+            $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
+              .then(function (content) {
+                var fileContent = angular.fromJson(content);
+                console.log("Reading file " + entry.name + '' + fileContent.createdAt);
+                $scope.files.push({
+                  fileName: entry.name,
+                  date: fileContent.createdAt
+                });
+              }, function (error) {
+                // error
+              });
 
-    function dirSuccess(entries) {
-      console.log("INFO: Listing entries");
-      var files = [];
-      var i;
-      for (i = 0; i < entries.length; i++) {
-        var timeStampFromFileName = new Date(parseFloat(entries[i].name.replace(/\.[^/.]+$/, "")));
-        files.push({
-          fileName: entries[i].name,
-          date: timeStampFromFileName
+
+          }, function(error){
+            console.log("Failed to list directory contents: " + error.code);
+          });
         });
-      }
-      return files;
-    }
-
-    function dirFail(error) {
-      console.log("Failed to list directory contents: " + error.code);
-    }
+      });
+    };
 
     return {
       saveToFile: saveToFileFunction,

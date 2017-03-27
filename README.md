@@ -59,6 +59,12 @@ $ ionic state restore --plugins
 $ ionic emulate ios
 ```
 
+### Clear files from Simulator
+
+```
+$ xcrun simctl erase all
+```
+
 #### Browser
 You can run the app in your browser by starting the Ionic server with:
 ```
