@@ -8,6 +8,7 @@ function activitiesController($scope,
                               ActivityDetail,
                               Filters,
                               S3FileUpload,
+                              FileService,
                               DIFFICULTY_WORDS,
                               CATEGORY_ICONS,
                               CATEGORY_WORDS) {
@@ -144,6 +145,10 @@ function activitiesController($scope,
     }
   }
 
+  $scope.selectWaypoint = function(){
+    FileService.chooseFile();
+  };
+
   $scope.selectPhoto = function() {
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
@@ -175,7 +180,7 @@ function activitiesController($scope,
       mediaType: Camera.MediaType.PICTURE,
       allowEdit: true,
       correctOrientation: true  //Corrects Android orientation quirks
-    }
+    };
     return options;
   }
 

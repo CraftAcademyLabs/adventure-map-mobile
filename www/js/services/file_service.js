@@ -27,7 +27,7 @@ angular.module('adventureMap.fileService', [])
         });
     };
 
-    var readFileFunction = function(object, $scope){
+    var readFileFunction = function (object, $scope) {
       $cordovaFile.readAsText(cordova.file.dataDirectory, object.fileName)
         .then(function (content) {
           $scope.object = content;
@@ -38,11 +38,11 @@ angular.module('adventureMap.fileService', [])
         });
     };
 
-    var readDirectoryFunction = function(window, $scope){
+    var readDirectoryFunction = function (window, $scope) {
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
         var directoryReader = dirEntry.createReader();
-        directoryReader.readEntries(function(entries) {
-          entries.forEach(function(entry) {
+        directoryReader.readEntries(function (entries) {
+          entries.forEach(function (entry) {
             $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
               .then(function (content) {
                 var fileContent = angular.fromJson(content);
@@ -54,17 +54,64 @@ angular.module('adventureMap.fileService', [])
               }, function (error) {
                 // error
               });
-          }, function(error){
+          }, function (error) {
             console.log("Failed to list directory contents: " + error.code);
           });
         });
       });
     };
 
+    function chooseFileOk(deferred, uri) {
+      console.log('FileManager#chooseFile - uri: ' + uri);
+
+      deferred.resolve(uri);
+    }
+
+    function chooseFileError(deferred, source) {
+      console.debug('FileManager#chooseFile - ' + source + ' error: ' + JSON.stringify(error));
+
+      // assume operation cancelled
+      deferred.reject('cancelled');
+    }
+
+    var chooseFileFunction = function () {
+      debugger;
+      var deferred = $q.defer();
+      // WIP Not working ATM
+      // iOS (NOTE - only iOS 8 and higher): https://github.com/jcesarmobile/FilePicker-Phonegap-iOS-Plugin
+      if (ionic.Platform.isIOS()) {
+
+        FilePicker.pickFile(
+          function (uri) {
+            chooseFileOk(deferred, uri);
+          },
+          function (error) {
+            chooseFileError(deferred, 'FilePicker');
+          }
+        );
+
+        // Android: https://github.com/don/cordova-filechooser
+      } else {
+
+        fileChooser.open(
+          function (uri) {
+            chooseFileOk(deferred, uri);
+          },
+          function (error) {
+            chooseFileError(deferred, 'fileChooser');
+          }
+        );
+      }
+
+      return deferred.promise;
+    };
+
+
     return {
       saveToFile: saveToFileFunction,
       readDirectory: readDirectoryFunction,
-      readFile: readFileFunction
+      readFile: readFileFunction,
+      chooseFile: chooseFileFunction
     }
   });
 
