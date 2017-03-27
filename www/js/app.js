@@ -10,6 +10,7 @@ angular.module('adventureMap', [
     'adventureMap.services',
     'adventureMap.s3FileUpload',
     'adventureMap.mapService',
+    'adventureMap.fileService',
     'ngCordova', 'ng-token-auth',
     'ngResource',
     'ngStorage'

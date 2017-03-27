@@ -1,4 +1,4 @@
-function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading, $ionicPlatform, MapService) {
+function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading, $ionicPlatform, MapService, FileService) {
   var lat, long;
   var srs_code = 'EPSG:3006';
   var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
@@ -49,24 +49,7 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
   });
 
 
-  function saveToFile(timestamp, route) {
-    var fileName = (timestamp + ".txt");
-    var routeObject = {
-      file: fileName,
-      createdAt: timestamp,
-      route: route
-    };
-    var data = angular.toJson(routeObject, true);
-    console.log(data);
-    $cordovaFile.writeFile(cordova.file.dataDirectory, fileName, data, true)
-      .then(function (success) {
-        console.log(success);
-        console.log('wrote to file: ' + fileName);
-      }, function (error) {
-        console.log('error in write');
-        console.error(error.messageData);
-      });
-  }
+
 
   //Menu navigation
   var element = angular.element(document.querySelector('.filter-btn'));
@@ -101,7 +84,7 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     console.log($scope.currentRoute);
     element.removeClass('open');
     if (window.cordova) {
-      saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute);
+      FileService.saveToFile($scope.currentRoute[0].timestamp, $scope.currentRoute);
     }
   };
 }

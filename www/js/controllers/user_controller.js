@@ -1,4 +1,4 @@
-function userController($scope, $ionicPlatform, md5, $ionicModal, $cordovaFile) {
+function userController($scope, $ionicPlatform, md5, $ionicModal, FileService) {
   $scope.files = [];
   $scope.profileImage = function () {
     if ($scope.user.id !== undefined) {
@@ -29,44 +29,16 @@ function userController($scope, $ionicPlatform, md5, $ionicModal, $cordovaFile) 
     $scope.modal.remove();
   });
 
-
   $scope.showFile = function (object) {
-    $cordovaFile.readAsText(cordova.file.dataDirectory, object.fileName)
-      .then(function (content) {
-        $scope.object = content;
-        $scope.openModal()
-      }, function (error) {
-        // error
-      });
-
-
-  }
+    FileService.readFile(object, $scope)
+  };
 
   $ionicPlatform.ready(function () {
     try {
-      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
-        var directoryReader = dirEntry.createReader();
-        directoryReader.readEntries(dirSuccess, dirFail);
-      });
+      FileService.readDirectory(window, $scope);
     } catch (e) {
       console.log("Corvova plugins aren't available in browsers.");
       console.log(e);
-    }
-
-    function dirSuccess(entries) {
-      console.log("INFO: Listing entries");
-      var i;
-      for (i = 0; i < entries.length; i++) {
-        var timeStampFromFileName = new Date(parseFloat(entries[i].name.replace(/\.[^/.]+$/, "")));
-        $scope.files.push({
-          fileName: entries[i].name,
-          date: timeStampFromFileName
-        });
-      }
-    }
-
-    function dirFail(error) {
-      console.log("Failed to list directory contents: " + error.code);
     }
   });
 }
