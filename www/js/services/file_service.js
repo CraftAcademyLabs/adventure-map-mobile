@@ -1,7 +1,7 @@
 angular.module('adventureMap.fileService', [])
   .service('FileService', function ($q, $cordovaFile, $filter) {
     var saveToFileFunction = function (timestamp, route, type) {
-      var date = $filter('date')(new Date(timestamp), 'yyyy-MM-d');
+      var date = $filter('date')(new Date(timestamp), 'yyyy-MM-d(h-mm)');
       var fileName = (type + '-' + date + ".txt");
       var routeObject = {
         file: fileName,

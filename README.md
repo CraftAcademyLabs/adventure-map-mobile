@@ -59,6 +59,15 @@ $ ionic state restore --plugins
 $ ionic emulate ios
 ```
 
+**Running the emulator with live reload.** As we move forward with more Cordova plugins,we can no longer emulate the app running `$ ionic serve` 
+ 
+ 
+```
+$ ionic emulate ios -l -c
+``` 
+This command will give you a console output in the terminal as well as reload the application on every update.  
+ 
+
 ### Clear files from Simulator
 
 ```
