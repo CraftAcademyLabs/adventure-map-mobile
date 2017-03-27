@@ -35,20 +35,10 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
     });
 
     geolocation.then(function (position) {
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-      debugger;
-      $scope.currentLocation =
-      {
-        timestamp: position.timestamp,
-        coords: {
-          lat: lat,
-          long: long
-        }
-      };
-
+      setCurrentLocation(position);
+      var lat = $scope.currentLocation.coords.lat;
+      var long = $scope.currentLocation.coords.long;
       console.log(lat + ', ' + long);
-
       map.setView([lat, long], 13);
       MapService.addToMap(lat, long, map);
       $ionicLoading.hide();
@@ -96,9 +86,21 @@ function mapController($scope, $cordovaGeolocation, $cordovaFile, $ionicLoading,
   };
 
   $scope.addWaypoint = function () {
-    debugger;
     if (window.cordova) {
       FileService.saveToFile($scope.currentLocation.timestamp, $scope.currentLocation.coords, 'Waypoint');
     }
   };
+
+  function setCurrentLocation(){
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+    $scope.currentLocation =
+    {
+      timestamp: position.timestamp,
+      coords: {
+        lat: lat,
+        long: long
+      }
+    };
+  }
 }
