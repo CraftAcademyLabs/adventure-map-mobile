@@ -1,6 +1,5 @@
 function activitiesController($scope,
                               $q,
-                              $state,
                               $ionicLoading,
                               $localStorage,
                               $auth,
@@ -64,6 +63,7 @@ function activitiesController($scope,
       Activity.save($scope.activity, function (resp) {
         // Loop through uploadedImages and send them to the server
         addImages(resp.data.id);
+        addFiles(resp.data.id);
 
         $ionicLoading.hide();
         $scope.createModal.hide();
@@ -156,10 +156,7 @@ function activitiesController($scope,
   }
 
   $scope.openPicker = function (type) {
-    // FileService.chooseFile(window, $scope);
-    // console.log('files' + $scope.files);
     $scope.files = [];
-
     $q.when(FileService.readDirectory(window, $scope, type)).then(function () {
       console.log($scope.files);
       $scope.filesModal.show();
@@ -189,30 +186,52 @@ function activitiesController($scope,
         }
       ]
     });
-
   };
 
-  function uploadFile(obj){
-    debugger;
-    // Here we want to do an file upload to AWS;
-    // Once that is out of the way we want to update the activity with an
-    // instance of ActivityDetail with that url.
+  function uploadFile(obj) {
+    var path = cordova.file.dataDirectory + obj.fileName;
+    window.resolveLocalFileSystemURL(path, function success(fileEntry) {
+      // Create file object using fileEntry
+      fileEntry.file(function (file) {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          console.log("Successful file read: " + this.result);
+          var textFile = new Blob([new Uint8Array(this.result)], {type: "text/plain"});
+          textFile.name = file.name;
 
-    //S3FileUpload.upload('text', obj.fileName).then(
-    //  function (resp) {
-    //    $scope.uploadedFiles.push(resp.public_url);
-    //  },
-    //  // Image upload failed - Handle error
-    //  function (response) {
-    //    console.log(response);
-    //  }
-    //);
+          S3FileUpload.upload(obj.type.toLowerCase(), textFile).then(
+            function (file) {
+              $scope.uploadedFiles.push(
+                {
+                  url: file.public_url,
+                  type: obj.type
+                }
+              );
+              $ionicLoading.hide();
+            },
+            function (response) {
+              console.log(response);
+              $ionicLoading.hide();
+            }
+          );
+        };
+        $ionicLoading.show({
+          template: 'Uploading ' + obj.type + '...'
+        });
+        reader.readAsArrayBuffer(file);
+      }, function () {
+        console.log("Sorry, something went wrong and we couldn't read your file");
+      });
+      console.log("got file: " + fileEntry.fullPath);
+    }, function () {
+      // Perhaps we want to create the file?
+      console.log("Sorry, something went wrong while creating file object");
+    });
   }
 
   $scope.selectPhoto = function () {
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
-
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
       getFileEntry(imageUri);
     }, function cameraError(error) {
@@ -225,6 +244,17 @@ function activitiesController($scope,
     if ($scope.uploadedImages !== []) {
       $scope.uploadedImages.forEach(function (url) {
         ActivityDetail.save({id: activityId, file_attachment: url, attachment_type: 'Image'}, function (resp) {
+          console.log(resp);
+        });
+      });
+    }
+  }
+
+  function addFiles(activityId) {
+    if ($scope.uploadedFiles !== []) {
+      $scope.uploadedFiles.forEach(function (obj) {
+        var type = obj.type;
+        ActivityDetail.save({id: activityId, file_attachment: obj.url, attachment_type: type}, function (resp) {
           console.log(resp);
         });
       });
@@ -246,37 +276,30 @@ function activitiesController($scope,
 
   function getFileEntry(imgUri) {
     window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
-      // Create file object using fileEntry
       fileEntry.file(function (file) {
         var reader = new FileReader();
         reader.onloadend = function () {
           console.log("Successful file read: " + this.result);
           var imageFile = new Blob([new Uint8Array(this.result)], {type: "image/jpeg"});
           imageFile.name = file.name;
-
           S3FileUpload.upload('images', imageFile).then(
             function (imageResp) {
               $scope.uploadedImages.push(imageResp.public_url);
               $ionicLoading.hide();
             },
-            // Image upload failed - Handle error
             function (response) {
               console.log(response);
               $ionicLoading.hide();
             }
           );
         };
-
         $ionicLoading.show({
           template: 'Uploading image...'
         });
         reader.readAsArrayBuffer(file);
-
       }, function () {
         console.log("Sorry, something went wrong and we couldn't read your file");
       });
-
-      console.log("got file: " + fileEntry.fullPath);
     }, function () {
       // Perhaps we want to create the file?
       console.log("Sorry, something went wrong while creating file object");

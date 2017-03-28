@@ -67,6 +67,7 @@ angular.module('adventureMap.fileService', [])
                   if (fileContent.type === type){
                     $scope.files.push({
                       fileName: entry.name,
+                      type: type,
                       date: fileContent.createdAt
                     });
                   }
@@ -89,9 +90,7 @@ angular.module('adventureMap.fileService', [])
 
       $q.when(readDirectoryFunction(window, $scope)).then(function(result) {
         console.log('promise: ' + result);
-        debugger;
       });
-     // readDirectoryFunction(window, $scope);
     };
 
     return {
