@@ -7,6 +7,7 @@ angular.module('adventureMap.fileService', [])
       var routeObject = {
         file: fileName,
         createdAt: timestamp,
+        type: type,
         route: route
       };
       var data = angular.toJson(routeObject, true);
@@ -38,25 +39,44 @@ angular.module('adventureMap.fileService', [])
         });
     };
 
-    var readDirectoryFunction = function (window, $scope) {
+    var readDirectoryFunction = function (window, $scope, type) {
       var deferred = $q.defer();
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
         var directoryReader = dirEntry.createReader();
         directoryReader.readEntries(function (entries) {
           entries.forEach(function (entry) {
-            $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
-              .then(function (content) {
-                var fileContent = angular.fromJson(content);
-                console.log("Reading file " + entry.name + ' ' + fileContent.createdAt);
-                $scope.files.push({
-                  fileName: entry.name,
-                  date: fileContent.createdAt
+            if ("undefined" === typeof type) {
+              $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
+                .then(function (content) {
+                  var fileContent = angular.fromJson(content);
+                  console.log("Reading file " + entry.name + ' ' + fileContent.createdAt);
+                  $scope.files.push({
+                    fileName: entry.name,
+                    date: fileContent.createdAt
+                  });
+                  deferred.resolve($scope);
+                }, function (error) {
+                  // error
+                  deferred.reject(error);
                 });
-                deferred.resolve($scope);
-              }, function (error) {
-                // error
-                deferred.reject(error);
-              });
+            } else {
+              $cordovaFile.readAsText(cordova.file.dataDirectory, entry.name)
+                .then(function (content) {
+                  var fileContent = angular.fromJson(content);
+                  console.log("Reading file " + entry.name + ' ' + fileContent.createdAt);
+                  if (fileContent.type === type){
+                    $scope.files.push({
+                      fileName: entry.name,
+                      date: fileContent.createdAt
+                    });
+                  }
+                  deferred.resolve($scope);
+                }, function (error) {
+                  // error
+                  deferred.reject(error);
+                });
+            }
+
           }, function (error) {
             console.log("Failed to list directory contents: " + error.code);
           });

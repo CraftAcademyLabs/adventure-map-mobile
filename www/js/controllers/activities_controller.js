@@ -153,16 +153,15 @@ function activitiesController($scope,
     }
   }
 
-  $scope.selectWaypoint = function(){
+  $scope.openPicker = function(type){
    // FileService.chooseFile(window, $scope);
    // console.log('files' + $scope.files);
     $scope.files = [];
 
-    $q.when(FileService.readDirectory(window, $scope)).then(function() {
+    $q.when(FileService.readDirectory(window, $scope, type)).then(function() {
       console.log($scope.files);
       $scope.filesModal.show();
-    }, 1000);
-
+    });
   };
 
   $scope.selectPhoto = function() {
