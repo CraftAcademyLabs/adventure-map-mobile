@@ -5,6 +5,7 @@ function activitiesController($scope,
                               $localStorage,
                               $auth,
                               $ionicModal,
+                              $ionicPopup,
                               Activity,
                               ActivityDetail,
                               Filters,
@@ -17,25 +18,26 @@ function activitiesController($scope,
   setState();
   $scope.activity = {};
   $scope.uploadedImages = [];
+  $scope.uploadedFiles = [];
 
   $ionicModal.fromTemplateUrl('templates/activities/filter_modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
-  }).then(function(modal) {
+  }).then(function (modal) {
     $scope.filterModal = modal;
   });
 
   $ionicModal.fromTemplateUrl('templates/activities/create.html', {
     scope: $scope,
     animation: 'slide-in-up'
-  }).then(function(modal) {
+  }).then(function (modal) {
     $scope.createModal = modal;
   });
 
   $ionicModal.fromTemplateUrl('templates/activities/pick_files.html', {
     scope: $scope,
     animation: 'slide-in-up'
-  }).then(function(modal) {
+  }).then(function (modal) {
     $scope.filesModal = modal;
   });
 
@@ -58,7 +60,7 @@ function activitiesController($scope,
       template: 'Saving...'
     });
 
-    $auth.validateUser().then(function(resp){
+    $auth.validateUser().then(function (resp) {
       Activity.save($scope.activity, function (resp) {
         // Loop through uploadedImages and send them to the server
         addImages(resp.data.id);
@@ -153,33 +155,76 @@ function activitiesController($scope,
     }
   }
 
-  $scope.openPicker = function(type){
-   // FileService.chooseFile(window, $scope);
-   // console.log('files' + $scope.files);
+  $scope.openPicker = function (type) {
+    // FileService.chooseFile(window, $scope);
+    // console.log('files' + $scope.files);
     $scope.files = [];
 
-    $q.when(FileService.readDirectory(window, $scope, type)).then(function() {
+    $q.when(FileService.readDirectory(window, $scope, type)).then(function () {
       console.log($scope.files);
       $scope.filesModal.show();
     });
   };
 
-  $scope.selectPhoto = function() {
+  $scope.chooseFile = function (obj) {
+    $scope.filesModal.hide();
+    $ionicPopup.alert({
+      title: 'You chose<br>' + obj.fileName,
+      template: 'Do you want to attach this file to this activity?',
+      buttons: [
+        {
+          text: 'Cancel',
+          onTap: function (e) {
+            return true;
+          }
+        },
+        {
+          text: 'Save',
+          type: 'button-positive',
+          onTap: function (e) {
+            console.log(e);
+            uploadFile(obj);
+            return true;
+          }
+        }
+      ]
+    });
+
+  };
+
+  function uploadFile(obj){
+    debugger;
+    // Here we want to do an file upload to AWS;
+    // Once that is out of the way we want to update the activity with an
+    // instance of ActivityDetail with that url.
+
+    //S3FileUpload.upload('text', obj.fileName).then(
+    //  function (resp) {
+    //    $scope.uploadedFiles.push(resp.public_url);
+    //  },
+    //  // Image upload failed - Handle error
+    //  function (response) {
+    //    console.log(response);
+    //  }
+    //);
+  }
+
+  $scope.selectPhoto = function () {
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
 
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
       getFileEntry(imageUri);
     }, function cameraError(error) {
-        console.debug("Unable to obtain picture: " + error, "app");
+      console.debug("Unable to obtain picture: " + error, "app");
     }, options);
   };
 
   function addImages(activityId) {
     // If there are uploaded images, register them as activity details with the server.
     if ($scope.uploadedImages !== []) {
-      $scope.uploadedImages.forEach(function(url) {
-        ActivityDetail.save({ id: activityId, file_attachment: url, attachment_type: 'Image' }, function (resp) {
+      $scope.uploadedImages.forEach(function (url) {
+        ActivityDetail.save({id: activityId, file_attachment: url, attachment_type: 'Image'}, function (resp) {
           console.log(resp);
         });
       });
@@ -204,18 +249,18 @@ function activitiesController($scope,
       // Create file object using fileEntry
       fileEntry.file(function (file) {
         var reader = new FileReader();
-        reader.onloadend = function() {
+        reader.onloadend = function () {
           console.log("Successful file read: " + this.result);
-          var imageFile = new Blob([new Uint8Array(this.result)], { type: "image/jpeg" });
+          var imageFile = new Blob([new Uint8Array(this.result)], {type: "image/jpeg"});
           imageFile.name = file.name;
 
           S3FileUpload.upload('images', imageFile).then(
-            function(imageResp) {
+            function (imageResp) {
               $scope.uploadedImages.push(imageResp.public_url);
               $ionicLoading.hide();
             },
             // Image upload failed - Handle error
-            function(response) {
+            function (response) {
               console.log(response);
               $ionicLoading.hide();
             }
@@ -227,7 +272,7 @@ function activitiesController($scope,
         });
         reader.readAsArrayBuffer(file);
 
-      }, function() {
+      }, function () {
         console.log("Sorry, something went wrong and we couldn't read your file");
       });
 

@@ -76,7 +76,6 @@ angular.module('adventureMap.fileService', [])
                   deferred.reject(error);
                 });
             }
-
           }, function (error) {
             console.log("Failed to list directory contents: " + error.code);
           });
@@ -94,7 +93,6 @@ angular.module('adventureMap.fileService', [])
       });
      // readDirectoryFunction(window, $scope);
     };
-
 
     return {
       saveToFile: saveToFileFunction,

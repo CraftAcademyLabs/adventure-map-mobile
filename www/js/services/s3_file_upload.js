@@ -19,7 +19,7 @@ angular.module('adventureMap.s3FileUpload', [])
     this.upload = function(type, file) {
       var url = API_URL + '/upload/' + type;
       var deferred = $q.defer();
-
+      debugger;
       // Obtain presigned url from backend server
       $http.post(url, { filename: file.name, content_type: file.type })
         .success(function(resp) {
