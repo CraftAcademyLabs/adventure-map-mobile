@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="filesModal.hide()">
+        Cancel
+      </button>
+    </div>
+    <h1 class="title">Files</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list ng-repeat="file in files">
+      <ion-item class="item item-icon-right list-item" >
+        <span class="main-text" ng-click="showFile(file)">
+           <small>
+             {{file.fileName}}
+           </small>
+          </span>
+        <span class="badge">
+          <small>
+            Created: {{file.date | date }} <br> at: {{file.date | date : 'hh:m'}}</span>
+        </small>
+        <ion-option-button class="button button-positive"
+                           ng-click="">
+          Attach to Activity
+        </ion-option-button>
+        <ion-option-button class="button button-assertive"
+                           ng-click="">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

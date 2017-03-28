@@ -1,4 +1,5 @@
 function activitiesController($scope,
+                              $q,
                               $state,
                               $ionicLoading,
                               $localStorage,
@@ -29,6 +30,13 @@ function activitiesController($scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.createModal = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/activities/pick_files.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.filesModal = modal;
   });
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
@@ -146,7 +154,15 @@ function activitiesController($scope,
   }
 
   $scope.selectWaypoint = function(){
-    FileService.chooseFile();
+   // FileService.chooseFile(window, $scope);
+   // console.log('files' + $scope.files);
+    $scope.files = [];
+
+    $q.when(FileService.readDirectory(window, $scope)).then(function() {
+      console.log($scope.files);
+      $scope.filesModal.show();
+    }, 1000);
+
   };
 
   $scope.selectPhoto = function() {
@@ -189,7 +205,6 @@ function activitiesController($scope,
       // Create file object using fileEntry
       fileEntry.file(function (file) {
         var reader = new FileReader();
-
         reader.onloadend = function() {
           console.log("Successful file read: " + this.result);
           var imageFile = new Blob([new Uint8Array(this.result)], { type: "image/jpeg" });
@@ -223,4 +238,5 @@ function activitiesController($scope,
       console.log("Sorry, something went wrong while creating file object");
     });
   }
+
 }
