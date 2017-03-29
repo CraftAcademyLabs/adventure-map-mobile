@@ -218,4 +218,5 @@ function activitiesController($scope,
       console.log("Sorry, something went wrong while creating file object");
     });
   }
+
 }

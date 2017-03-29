@@ -109,4 +109,8 @@ function showActivityController($scope,
       console.log(response);
     });
   }
+
+  $scope.likeActivity = function(activity_id) {
+    console.log(activity_id);
+  }
 }

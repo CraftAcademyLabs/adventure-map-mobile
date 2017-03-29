@@ -1,7 +1,6 @@
-
 <div class="list card" ng-repeat="activity in activities">
-  <div ng-controller="showActivityController" ng-click="navigateToActivity(activity)">
-    <div class="item item-avatar gray">
+  <div ng-controller="showActivityController">
+    <div class="item item-avatar gray" ng-click="navigateToActivity(activity)">
       <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
       <h2 class="activity_title">{{activity.user.name}}</h2>
       <p ng-repeat="interest in activity.user.interests">
@@ -10,9 +9,9 @@
       <p>{{activity.created_at}}</p>
     </div>
 
-    <div class="item item-body gray">
+    <div class="item item-body gray" >
       <span>{{activity.category}}</span>, <span>{{activity.difficulty | difficultyWord}}</span>
-      <div class="item gray card item-inner">
+      <div class="item gray card item-inner" ng-click="navigateToActivity(activity)">
         <!--<img class="full-image" src="img/dummy_images/snow.jpg">-->
         <display-first-image images_for="{{activity}}"></display-first-image>
         <div class="padding">
@@ -23,23 +22,33 @@
         </div>
       </div>
       <div class='row centered'>
-        <div class='col'>
-          <i class="icon ion-thumbsup card-bottom"></i>
-          <p>Interested</p>
+        <div class="blue" ng-if=activity.user.likes ng-click="unlikeActivity(activity.id)">
+          <div class='col'>
+            <i class="icon ion-thumbsup card-bottom"></i>
+            <!--<img src="img/icons/like.svg">-->
+            <p>Unlike</p>
+          </div>
+        </div>
+        <div ng-if=!activity.user.likes ng-click="likeActivity(activity.id)">
+          <div class='col'>
+            <i class="icon ion-thumbsup card-bottom"></i>
+            <!--<img src="img/icons/like.svg">-->
+            <p>Like</p>
+          </div>
         </div>
         <div class='col'>
           <i class="icon ion-android-star-outline card-bottom"></i>
           <p>Recommend</p>
         </div>
         <div class='col'>
-          <div class="blue" ng-if=activity.user.following >
+          <div class="blue" ng-if=activity.user.following>
               <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
                 <span class="count-span">{{activity.user.followers_count}}</span>
                 <p>Following</p>
               </span>
           </div>
-          <div ng-if=!activity.user.following >
+          <div ng-if=!activity.user.following>
               <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
                 <span class="count-span count-span-follow">{{activity.user.followers_count}}</span>
