@@ -1,7 +1,7 @@
-function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities, DIFFICULTY_WORDS) {
+function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities, DIFFICULTY_WORDS) {
   const user = $localStorage.user;
 
-  showMyActivities = function () {
+  showFollowers = function () {
     console.log(user);
     $ionicLoading.show({
       template: 'Getting activities'
@@ -30,6 +30,6 @@ function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage,
 
   $ionicPlatform.ready(function () {
     // $window.location.reload(true);
-    showMyActivities();
+    showFollowers();
   });
 }
