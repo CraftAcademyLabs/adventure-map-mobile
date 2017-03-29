@@ -157,7 +157,8 @@ function activitiesController($scope,
 
   $scope.openPicker = function (type) {
     $scope.files = [];
-    $q.when(FileService.readDirectory(window, $scope, type)).then(function () {
+    $q.when(FileService.readDirectory(window, type)).then(function (response) {
+      $scope.files = response;
       console.log($scope.files);
       $scope.filesModal.show();
     });

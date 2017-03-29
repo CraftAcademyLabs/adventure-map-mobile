@@ -17,7 +17,6 @@ function showActivityController($scope,
       activityId = $stateParams.id;
       getActivity(activityId);
     }
-    debugger;
   });
 
   $scope.navigateToActivity = function(activity) {
@@ -29,7 +28,7 @@ function showActivityController($scope,
         $state.go('app.my-activity', { id: activity.id });
         break;
     }
-  },
+  };
 
   $scope.closeCommentModal = function () {
     $scope.comment_modal.hide();

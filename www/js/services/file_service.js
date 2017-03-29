@@ -39,8 +39,9 @@ angular.module('adventureMap.fileService', [])
         });
     };
 
-    var readDirectoryFunction = function (window, $scope, type) {
+    var readDirectoryFunction = function (window, type) {
       var deferred = $q.defer();
+      var files = [];
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dirEntry) {
         var directoryReader = dirEntry.createReader();
         directoryReader.readEntries(function (entries) {
@@ -50,11 +51,11 @@ angular.module('adventureMap.fileService', [])
                 .then(function (content) {
                   var fileContent = angular.fromJson(content);
                   console.log("Reading file " + entry.name + ' ' + fileContent.createdAt);
-                  $scope.files.push({
+                  files.push({
                     fileName: entry.name,
                     date: fileContent.createdAt
                   });
-                  deferred.resolve($scope);
+                  deferred.resolve(files);
                 }, function (error) {
                   // error
                   deferred.reject(error);
@@ -65,13 +66,13 @@ angular.module('adventureMap.fileService', [])
                   var fileContent = angular.fromJson(content);
                   console.log("Reading file " + entry.name + ' ' + fileContent.createdAt);
                   if (fileContent.type === type){
-                    $scope.files.push({
+                    files.push({
                       fileName: entry.name,
                       type: type,
                       date: fileContent.createdAt
                     });
                   }
-                  deferred.resolve($scope);
+                  deferred.resolve(files);
                 }, function (error) {
                   // error
                   deferred.reject(error);
