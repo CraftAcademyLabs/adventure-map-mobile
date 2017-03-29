@@ -1,22 +1,21 @@
-function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities, DIFFICULTY_WORDS) {
+function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyFollowers) {
   const user = $localStorage.user;
 
   showFollowers = function () {
     console.log(user);
     $ionicLoading.show({
-      template: 'Getting activities'
+      template: 'Getting followers'
     });
-    // Scope empties out at some point! That's why we need the user in $localStorage
-    MyActivities.get({id: user.id}, function (resp) {
-      console.log(resp);
+    MyFollowers.get({request: 'followers'}, function (resp) {
+      // console.log(resp);
       $ionicLoading.hide();
       if (resp.status == 'success') {
         // Sort by date
-        $scope.myActivities = resp.data.sort(function (a, b) {
-          return Date.parse(b.created_at) - Date.parse(a.created_at);
+        $scope.myFollowers = resp.users.sort(function (a, b) {
+          return Date.parse(b.name) - Date.parse(a.name);
         });
 
-        console.log(resp);
+        console.log($scope.myFollowers);
       } else {
         console.log('error ' + resp.message[0]);
         $ionicPopup.alert({
