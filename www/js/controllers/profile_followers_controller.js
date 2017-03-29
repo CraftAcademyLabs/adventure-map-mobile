@@ -1,4 +1,4 @@
-function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyFollowers) {
+function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyFollowers, md5) {
   const user = $localStorage.user;
 
   showFollowers = function () {
@@ -31,4 +31,17 @@ function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $loca
     // $window.location.reload(true);
     showFollowers();
   });
+
+  $scope.profileImage = function (index) {
+    if ($scope.myFollowers[index] !== undefined) {
+      if ($scope.myFollowers[index].image) {
+        return $scope.myFollowers[index].image;
+      } else {
+        var options = {size: 30, format: 'svg'};
+
+        var hashedName = md5.createHash($scope.myFollowers[index].name);
+        return 'data:image/svg+xml;base64,' + new Identicon(hashedName, options).toString();
+      }
+    }
+  };
 }
