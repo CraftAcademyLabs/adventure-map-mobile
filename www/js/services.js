@@ -34,7 +34,7 @@ angular.module('adventureMap.services', [])
   })
 
   .factory('Like', function ($resource, API_URL) {
-    return $resource(API_URL + '/likes', {activity_id: '@activity_id'}, {
+    return $resource(API_URL + '/likes/:id', {id: '@id', activity_id: '@activity_id'}, {
       save: {method: 'POST'}
     })
   })
