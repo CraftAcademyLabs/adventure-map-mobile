@@ -1,10 +1,10 @@
-<ion-view title="Users I Follow">
+<ion-view title="Users I Follow" ng-init="loadFollows('followings')">
   <!-- ion-nav-title provides the back button -->
   <ion-nav-title> Users I Follow</ion-nav-title>
 
   <ion-content>
     <ion-list class="profile-list">
-      <div ng-repeat="following in myFollowings">
+      <div ng-repeat="following in myFollow">
         <div class="item item-divider smaller-profile-divider"></div>
         <ion-item class="item item-icon-right list-item height-50" ui-sref="user.show">
           <!-- should link to user's profile page -->

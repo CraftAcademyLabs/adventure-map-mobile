@@ -234,7 +234,7 @@ angular.module('adventureMap', [
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile/followers.html',
-            controller: 'profileFollowersController'
+            controller: 'profileFollowController'
           }
         }
       })
@@ -243,7 +243,7 @@ angular.module('adventureMap', [
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile/followings.html',
-            controller: 'profileFollowingsController'
+            controller: 'profileFollowController'
           }
         }
       })
