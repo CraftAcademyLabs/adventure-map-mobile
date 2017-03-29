@@ -8,6 +8,7 @@ function showActivityController($scope,
                                 Activity,
                                 Comment,
                                 Follow,
+                                Like,
                                 DIFFICULTY_WORDS) {
 
   var activityId;
@@ -111,6 +112,20 @@ function showActivityController($scope,
   }
 
   $scope.likeActivity = function(activity_id) {
-    console.log(activity_id);
+    $ionicLoading.show({
+      template: 'Liking activity...'
+    });
+    Like.save({activity_id: activity_id}, function (response) {
+      $ionicLoading.hide();
+      if (response.status === 'success') {
+        console.log('activity liked');
+        // animate thumbs-up
+      } else {
+        console.log(response);
+        $ionicPopup.alert({
+          title: 'Like was not saved.'
+        })
+      }
+    })
   }
 }
