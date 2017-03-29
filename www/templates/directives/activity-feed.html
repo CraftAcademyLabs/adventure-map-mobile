@@ -29,7 +29,7 @@
             <p>Unlike</p>
           </div>
         </div>
-        <div ng-if=!activity.user.likes ng-click="likeActivity(activity.id)">
+        <div ng-if=!activity.user.likes ng-click="likeActivity(activity.id, $event)">
           <div class='col'>
             <i class="icon ion-thumbsup card-bottom"></i>
             <!--<img src="img/icons/like.svg">-->

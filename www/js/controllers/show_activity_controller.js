@@ -111,7 +111,8 @@ function showActivityController($scope,
     });
   }
 
-  $scope.likeActivity = function(activity_id) {
+  $scope.likeActivity = function(activity_id, event) {
+    console.log(event);
     $ionicLoading.show({
       template: 'Liking activity...'
     });
@@ -119,7 +120,7 @@ function showActivityController($scope,
       $ionicLoading.hide();
       if (response.status === 'success') {
         console.log('activity liked');
-        // animate thumbs-up
+        event.srcElement.classList.add('blue');
       } else {
         console.log(response);
         $ionicPopup.alert({
@@ -128,4 +129,6 @@ function showActivityController($scope,
       }
     })
   }
+
+  
 }
