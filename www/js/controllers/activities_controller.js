@@ -10,6 +10,7 @@ function activitiesController($scope,
                               Filters,
                               S3FileUpload,
                               FileService,
+                              Utilities,
                               DIFFICULTY_WORDS,
                               CATEGORY_ICONS,
                               CATEGORY_WORDS) {
@@ -109,7 +110,13 @@ function activitiesController($scope,
     Activity.query(function (response) {
       console.log(response);
       // Sort by date
-      $scope.activityData.activityList = response.data.sort(function (a, b) {
+      $scope.activityData.activityList = response.data;
+
+      $scope.activityData.activityList.forEach(function(activity){
+        var index = $scope.activityData.activityList.indexOf(activity);
+        $scope.activityData.activityList[index].images = Utilities.sanitizeArrayFromNullObjects(activity.images);
+      });
+      $scope.activityData.activityList.sort(function (a, b) {
         return Date.parse(b.created_at) - Date.parse(a.created_at);
       });
 
