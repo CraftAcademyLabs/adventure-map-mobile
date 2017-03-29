@@ -1,4 +1,4 @@
-function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities) {
+function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities, MyFollowers, md5) {
   const user = $localStorage.user || $scope.user;
 
   showMyActivities = function () {
