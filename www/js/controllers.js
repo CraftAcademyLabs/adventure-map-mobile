@@ -6,4 +6,5 @@ angular
   .controller('mapController', mapController)
   .controller('userController', userController)
   .controller('profileController', profileController)
-  .controller('profileFollowersController', profileFollowersController);
+  .controller('profileFollowersController', profileFollowersController)
+  .controller('profileFollowingsController', profileFollowingsController);

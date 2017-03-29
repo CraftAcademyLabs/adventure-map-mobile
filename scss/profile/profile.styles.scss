@@ -57,6 +57,10 @@
     height: 35px;
   }
 
+  .smaller-profile-divider {
+    height: 15px;
+  }
+
   .list-item {
     border-left: 0;
     margin-left: 8px;
@@ -90,5 +94,9 @@
     .icon-badge {
       top: 4px !important;
     }
+
+  }
+  .auto-height {
+    line-height: 50px;
   }
 }

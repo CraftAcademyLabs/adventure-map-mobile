@@ -1,21 +1,21 @@
-function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyFollowers, md5) {
+function profileFollowingsController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyFollowers, md5) {
   const user = $localStorage.user;
 
-  showFollowers = function () {
+  showFollowings = function () {
     console.log(user);
     $ionicLoading.show({
-      template: 'Getting followers'
+      template: 'Getting users I follow...'
     });
-    MyFollowers.get({request: 'followers'}, function (resp) {
+    MyFollowers.get({request: 'followings'}, function (resp) {
       // console.log(resp);
       $ionicLoading.hide();
       if (resp.status == 'success') {
         // Sort by name --> actually get this working!!
-        $scope.myFollowers = resp.users.sort(function (a, b) {
+        $scope.myFollowings = resp.users.sort(function (a, b) {
           return b.name - a.name;
         });
 
-        console.log($scope.myFollowers);
+        console.log($scope.myFollowings);
       } else {
         console.log('error ' + resp.message[0]);
         $ionicPopup.alert({
@@ -29,16 +29,17 @@ function profileFollowersController($scope, $ionicLoading, $ionicPlatform, $loca
 
   $ionicPlatform.ready(function () {
     // $window.location.reload(true);
-    showFollowers();
+    showFollowings();
   });
 
   $scope.profileImage = function (index) {
-    if ($scope.myFollowers[index] !== undefined && $scope.myFollowers[index] !== null) {
-      if ($scope.myFollowers[index].image) {
-        return $scope.myFollowers[index].image;
+    if ($scope.myFollowings[index] !== undefined) {
+      if ($scope.myFollowings[index].image) {
+        return $scope.myFollowings[index].image;
       } else {
         var options = {size: 50, format: 'svg'};
-        var hashedName = md5.createHash($scope.myFollowers[index].name);
+
+        var hashedName = md5.createHash($scope.myFollowings[index].name);
         return 'data:image/svg+xml;base64,' + new Identicon(hashedName, options).toString();
       }
     }
