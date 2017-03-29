@@ -10,9 +10,11 @@ function profileFollowingsController($scope, $ionicLoading, $ionicPlatform, $loc
       // console.log(resp);
       $ionicLoading.hide();
       if (resp.status == 'success') {
-        // Sort by name --> actually get this working!!
-        $scope.myFollowings = resp.users.sort(function (a, b) {
-          return b.name - a.name;
+        // Sort by name
+        $scope.myFollowings = resp.users.sort(function(a, b){
+          if(a.name < b.name) return -1;
+          if(a.name > b.name) return 1;
+          return 0;
         });
 
         console.log($scope.myFollowings);
