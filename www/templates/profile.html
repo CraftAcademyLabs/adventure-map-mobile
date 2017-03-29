@@ -17,7 +17,7 @@
         <a ui-sref="main.profile">
           <h5 class="username">@{{user.nickname}}</h5>
         </a>
-        <p class="user-social">
+        <p class="user-social" ng-if="user.description">
           {{user.description}}
         </p>
         <p class="user-social">
