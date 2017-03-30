@@ -20,7 +20,10 @@
         <display-first-image images_for="{{activity}}"></display-first-image>
         <div class="padding">
           <h3>{{activity.title}}</h3>
-          <p>
+          <p ng-if="activity.body.length > 120">
+            {{activity.body | limitTo: 120}} ...SEE MORE
+          </p>
+          <p ng-if="activity.body.length <= 120">
             {{activity.body}}
           </p>
         </div>
