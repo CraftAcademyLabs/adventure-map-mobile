@@ -112,16 +112,8 @@ function showActivityController($scope,
   }
 
   $scope.likeActivity = function(activity_id, event) {
-    console.log(event);
-    $ionicLoading.show({
-      template: 'Liking activity...'
-    });
     Like.save({activity_id: activity_id}, function (response) {
-      $ionicLoading.hide();
       if (response.status === 'success') {
-        console.log('activity liked');
-        // Set $scope.activityList to reflect the "like"
-        event.srcElement.classList.add('blue');
       } else {
         console.log(response);
         $ionicPopup.alert({
@@ -132,17 +124,9 @@ function showActivityController($scope,
   };
 
   $scope.unlikeActivity = function(activity_id, event) {
-    console.log(event);
-    $ionicLoading.show({
-      template: 'Liking activity...'
-    });
     Like.delete({id: activity_id}, function (response) {
-      $ionicLoading.hide();
       if (response.status === 'success') {
         console.log('activity unliked');
-        // Set $scope.activityList to reflect the "unlike"
-
-        event.srcElement.classList.remove('blue');
       } else {
         console.log(response);
         $ionicPopup.alert({
