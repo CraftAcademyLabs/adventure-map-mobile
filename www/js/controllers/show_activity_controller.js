@@ -8,15 +8,13 @@ function showActivityController($scope,
                                 Activity,
                                 Comment,
                                 Follow,
-                                Like,
                                 LikeActivity,
                                 UnlikeActivity,
-                                Utilities,
-                                DIFFICULTY_WORDS) {
+                                Utilities) {
 
   var activityId;
 
-  $scope.$on("$ionicView.enter", function (scopes, states) {
+  $scope.$on("$ionicView.enter", function () {
     if ($stateParams.id) {
       activityId = $stateParams.id;
       getActivity(activityId);
@@ -116,11 +114,11 @@ function showActivityController($scope,
     });
   }
 
-  $scope.likeActivity = function(activity_id) {
+  $scope.likeActivity = function (activity_id) {
     LikeActivity.likeActivity(activity_id);
   };
 
-  $scope.unlikeActivity = function(activity_id) {
+  $scope.unlikeActivity = function (activity_id) {
     UnlikeActivity.unlikeActivity(activity_id);
   }
 

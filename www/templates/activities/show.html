@@ -1,5 +1,5 @@
 <ion-view class="activity-show">
-  <ion-nav-title> {{ activity.title }} </ion-nav-title>
+  <ion-nav-title> {{ activity.title }}</ion-nav-title>
 
   <ion-content class="padding has-header">
     <div class="list card">
@@ -57,7 +57,7 @@
             <i class="icon ion-android-star-outline card-bottom"></i>
             <p>Recommend</p>
           </div>
-          <div class="col blue" ng-if=activity.user.following >
+          <div class="col blue" ng-if=activity.user.following>
               <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
                 <span class="count-span">{{activity.user.followers_count}}</span>
