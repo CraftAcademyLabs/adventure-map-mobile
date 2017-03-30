@@ -9,6 +9,8 @@ function showActivityController($scope,
                                 Comment,
                                 Follow,
                                 Like,
+                                LikeActivity,
+                                UnlikeActivity,
                                 Utilities,
                                 DIFFICULTY_WORDS) {
 
@@ -114,29 +116,12 @@ function showActivityController($scope,
     });
   }
 
-  $scope.likeActivity = function(activity_id, event) {
-    Like.save({activity_id: activity_id}, function (response) {
-      if (response.status === 'success') {
-      } else {
-        console.log(response);
-        $ionicPopup.alert({
-          title: 'Like was not saved.'
-        })
-      }
-    })
+  $scope.likeActivity = function(activity_id) {
+    LikeActivity.likeActivity(activity_id);
   };
 
-  $scope.unlikeActivity = function(activity_id, event) {
-    Like.delete({id: activity_id}, function (response) {
-      if (response.status === 'success') {
-        console.log('activity unliked');
-      } else {
-        console.log(response);
-        $ionicPopup.alert({
-          title: 'Could not unlike.'
-        })
-      }
-    })
+  $scope.unlikeActivity = function(activity_id) {
+    UnlikeActivity.unlikeActivity(activity_id);
   }
 
 }

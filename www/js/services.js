@@ -45,6 +45,40 @@ angular.module('adventureMap.services', [])
     })
   })
 
+  .factory('LikeActivity', function(Like) {
+    return {
+      likeActivity: function (activity_id) {
+        Like.save({activity_id: activity_id}, function (response) {
+          if (response.status === 'success') {
+            console.log('activity liked');
+          } else {
+            console.log(response);
+            $ionicPopup.alert({
+              title: 'Like was not saved.'
+            })
+          }
+        })
+      }
+    }
+  })
+
+  .factory('UnlikeActivity', function(Like) {
+    return {
+      unlikeActivity: function(activity_id) {
+        Like.delete({id: activity_id}, function (response) {
+          if (response.status === 'success') {
+            console.log('activity unliked');
+          } else {
+            console.log(response);
+            $ionicPopup.alert({
+              title: 'Could not unlike.'
+            })
+          }
+        })
+      }
+    }
+  })
+
   .factory('Filters', function ($localStorage) {
     return {
       applyFilters: function ($scope) {
