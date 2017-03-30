@@ -4,16 +4,15 @@
   <ion-content class="padding has-header">
     <div class="list card">
       <div class="item item-avatar gray">
-        <!--<img src={{activity.user.image}}>-->
         <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
         <h2 class="activity_title">{{activity.user.name}}</h2>
         <p ng-repeat="interest in activity.user.interests">
           <i class="mybadge badge-royal">{{interest.name}}</i>
         </p>
-        <!--<p>{{activity.created_at}}</p> Not available from the API endpoint yet -->
+        <p>{{activity.created_at}}</p>
       </div>
       <div class="item item-body gray">
-        <span>{{activity.category}}</span>, <span>{{activity.difficulty_word}}</span>
+        <span>{{activity.category}}</span>, <span>{{activity.difficulty | difficultyWord}}</span>
         <div class="item gray card item-inner">
           <ion-slide-box on-slide-changed="nextSlide($index)">
             <ion-slide ng-if="activity.images[0]" ng-repeat="image in activity.images">
@@ -28,6 +27,12 @@
             <h3>{{activity.title}}</h3>
             <p>
               {{activity.body}}
+            </p>
+            <p>
+              Routes {{activity.routes.length}}
+            </p>
+            <p>
+              Waypoints {{activity.waypoints.length}}
             </p>
           </div>
         </div>

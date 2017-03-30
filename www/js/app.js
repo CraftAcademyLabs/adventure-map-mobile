@@ -11,6 +11,7 @@ angular.module('adventureMap', [
     'adventureMap.s3FileUpload',
     'adventureMap.mapService',
     'adventureMap.fileService',
+    'adventureMap.utilities',
     'ngCordova', 'ng-token-auth',
     'ngResource',
     'ngStorage'
@@ -32,8 +33,8 @@ angular.module('adventureMap', [
     'Cross country ice skating', 'Foraging'
   ])
 
-  .filter('difficultyWord', function(DIFFICULTY_WORDS) {
-    return function(difficulty){
+  .filter('difficultyWord', function (DIFFICULTY_WORDS) {
+    return function (difficulty) {
       if (difficulty <= 0 || difficulty > DIFFICULTY_WORDS.length)
         return '';
       else
@@ -225,6 +226,24 @@ angular.module('adventureMap', [
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile/my-activities.html',
+            controller: 'profileController'
+          }
+        }
+      })
+      .state('app.followers', {
+        url: '/followers',
+        views: {
+          'tab-profile-view': {
+            templateUrl: 'templates/profile/followers.html',
+            controller: 'profileController'
+          }
+        }
+      })
+      .state('app.followings', {
+        url: '/followings',
+        views: {
+          'tab-profile-view': {
+            templateUrl: 'templates/profile/followings.html',
             controller: 'profileController'
           }
         }

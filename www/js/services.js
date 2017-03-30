@@ -27,7 +27,7 @@ angular.module('adventureMap.services', [])
     });
   })
 
-  .factory('ActivityDetail', function ($resource, API_URL) {
+  .factory('ActivityDetail', function($resource, API_URL) {
     return $resource(API_URL + '/activities/:id/activity_details', {id: '@id'}, {
       save: {method: 'POST'}
     })
@@ -36,6 +36,12 @@ angular.module('adventureMap.services', [])
   .factory('Like', function ($resource, API_URL) {
     return $resource(API_URL + '/likes/:id', {id: '@id', activity_id: '@activity_id'}, {
       save: {method: 'POST'}
+    })
+  })
+
+  .factory('MyFollowers', function($resource, API_URL) {
+    return $resource(API_URL + '/follows', {request: '@request'}, {
+      get: { method: 'GET' }
     })
   })
 
