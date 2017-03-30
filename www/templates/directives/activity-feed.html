@@ -10,13 +10,20 @@
     </div>
 
     <div class="item item-body gray">
-      <span>{{activity.category}}</span>, <span>{{activity.difficulty | difficultyWord}}</span>
-      <div class="item gray card item-inner" ng-click="navigateToActivity(activity)">
-        <!--<img class="full-image" src="img/dummy_images/snow.jpg">-->
+      <span class="difficulty-icon">
+        <span class="activity-category">{{activity.category}}</span>
+        <i class="icon ion-ios-ionic-outline" ng-if="activity.difficulty === 1"></i>
+        <i class="icon ion-ios-ionic" ng-if="activity.difficulty === 2"></i>
+        <i class="icon ion-social-angular" ng-if="activity.difficulty === 3"></i>
+      </span>
+      <div class="item gray card item-inner">
         <display-first-image images_for="{{activity}}"></display-first-image>
         <div class="padding">
           <h3>{{activity.title}}</h3>
-          <p>
+          <p ng-if="activity.body.length > 120">
+            {{activity.body | limitTo: 120}} ...SEE MORE
+          </p>
+          <p ng-if="activity.body.length <= 120">
             {{activity.body}}
           </p>
         </div>
@@ -45,8 +52,8 @@
           </div>
         </div>
         <div class='col'>
-          <i class="icon ion-android-star-outline card-bottom"></i>
-          <p>Recommend</p>
+          <i class="icon ion-bookmark card-bottom"></i>
+          <p>Save</p>
         </div>
         <div class='col'>
           <div class="blue" ng-if=activity.user.following>
