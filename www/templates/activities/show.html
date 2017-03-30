@@ -38,19 +38,24 @@
         </div>
         <div class='row centered'>
           <div class="blue" ng-if=activity.user.likes
-               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes">
+               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
             <div class='col'>
-              <i class="icon ion-thumbsup card-bottom"></i>
-              <!--<img src="img/icons/like.svg">-->
-              <p>Unlike</p>
+              <span class="count-icon">
+                <i class="icon ion-thumbsup card-bottom"></i>
+                <span class="count-span">{{activity.likes_count}}</span>
+                <p>Unlike</p>
+              </span>
             </div>
           </div>
           <div ng-if=!activity.user.likes
-               ng-click="likeActivity(activity.id, $event); activity.user.likes = !activity.user.likes">
+               ng-click="likeActivity(activity.id, $event); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
             <div class='col'>
-              <i class="icon ion-thumbsup card-bottom"></i>
+              <span class="count-icon">
+                <i class="icon ion-thumbsup card-bottom"></i>
+                <span class="count-span">{{activity.likes_count}}</span>
+                <p>Like</p>
+              </span>
               <!--<img src="img/icons/like.svg"> This is the icon sent by Morgan -->
-              <p>Like</p>
             </div>
           </div>
           <div class='col'>
