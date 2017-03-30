@@ -37,9 +37,21 @@
           </div>
         </div>
         <div class='row centered'>
-          <div class='col'>
-            <i class="icon ion-thumbsup card-bottom"></i>
-            <p>Interested</p>
+          <div class="blue" ng-if=activity.user.likes
+               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes">
+            <div class='col'>
+              <i class="icon ion-thumbsup card-bottom"></i>
+              <!--<img src="img/icons/like.svg">-->
+              <p>Unlike</p>
+            </div>
+          </div>
+          <div ng-if=!activity.user.likes
+               ng-click="likeActivity(activity.id, $event); activity.user.likes = !activity.user.likes">
+            <div class='col'>
+              <i class="icon ion-thumbsup card-bottom"></i>
+              <!--<img src="img/icons/like.svg"> This is the icon sent by Morgan -->
+              <p>Like</p>
+            </div>
           </div>
           <div class='col'>
             <i class="icon ion-android-star-outline card-bottom"></i>
