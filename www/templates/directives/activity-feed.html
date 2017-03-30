@@ -22,24 +22,25 @@
         </div>
       </div>
       <div class='row centered'>
-        <div class="blue" ng-if=activity.user.likes
-             ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
-          <div class='col'>
-              <span class="count-icon">
-                <i class="icon ion-thumbsup card-bottom"></i>
-                <span class="count-span">{{activity.likes_count}}</span>
-                <p>Unlike</p>
-              </span>
+        <div class='col'>
+
+          <div class="blue" ng-if=activity.user.likes
+               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
+            <div class='col'>
+                <span class="count-icon">
+                  <i class="icon ion-thumbsup card-bottom"></i>
+                  <span class="count-span">{{activity.likes_count}}</span>
+                  <p>Unlike</p>
+                </span>
+            </div>
           </div>
-        </div>
-        <div ng-if=!activity.user.likes
-             ng-click="likeActivity(activity.id, $event); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
-          <div class='col'>
-              <span class="count-icon">
-                <i class="icon ion-thumbsup card-bottom"></i>
-                <span class="count-span">{{activity.likes_count}}</span>
-                <p>Like</p>
-              </span>
+          <div ng-if=!activity.user.likes
+               ng-click="likeActivity(activity.id, $event); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
+                <span class="count-icon">
+                  <i class="icon ion-thumbsup card-bottom"></i>
+                  <span class="count-span">{{activity.likes_count}}</span>
+                  <p>Like</p>
+                </span>
             <!--<img src="img/icons/like.svg"> This is the icon sent by Morgan -->
           </div>
         </div>
@@ -51,7 +52,7 @@
           <div class="blue" ng-if=activity.user.following>
               <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
-                <span class="count-span">{{activity.user.followers_count}}</span>
+                <span class="count-span ">{{activity.user.followers_count}}</span>
                 <p>Following</p>
               </span>
           </div>
