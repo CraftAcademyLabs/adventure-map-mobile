@@ -84,11 +84,10 @@
 }
 .activity-name {
   position: absolute;
-  //width: 100%;
   margin: 0;
-  //position: absolute;
   top: 50%;
-  //left: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-transform: uppercase;
   text-align: center;
   text-wrap: normal;
