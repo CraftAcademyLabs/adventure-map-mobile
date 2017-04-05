@@ -8,6 +8,9 @@
   </ion-header-bar>
 
   <ion-content class="padding has-header">
-    Activity selection page.
+    <div ng-repeat="uri in activity_images">
+      <img ng-src="{{uri}}">
+    </div>
+    <button class="button action-button button-block button-balanced" ng-click="signup()">SIGN UP</button>
   </ion-content>
 </ion-view>
