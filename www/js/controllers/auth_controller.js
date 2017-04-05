@@ -1,4 +1,4 @@
-function authController($scope, $auth, $ionicLoading, $state, $rootScope, $localStorage, API_URL, $ionicHistory) {
+function authController($scope, $auth, $ionicLoading, $state, $rootScope, $localStorage, API_URL, $ionicHistory, $ionicModal) {
   $scope.credentials = {};
   $scope.signupForm = {};
   $scope.errorMessage = null;
@@ -32,6 +32,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
 
     $auth.submitRegistration($scope.signupForm)
       .then(function (response) {
+        $scope.activitiesModal.hide();
         $state.go('app.activities');
         $ionicLoading.hide();
       })
@@ -39,6 +40,19 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
         $ionicLoading.hide();
         $scope.errorMessage = response.data.errors.full_messages.toString();
       })
+  };
+
+  $ionicModal.fromTemplateUrl('templates/auth/activity_selection.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.activitiesModal = modal;
+  });
+
+  $scope.getActivitySelection = function() {
+    // "swipe" animation over to a new page with the activities
+    $scope.activitiesModal.show();
+    // Then use signup() on next page to actually register.
   };
 
   $scope.facebookSignIn = function () {
@@ -79,6 +93,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
   };
 
   $scope.cancelAuth = function(){
+    $scope.activitiesModal.hide();
     $state.go('intro.walkthrough');
   };
 
