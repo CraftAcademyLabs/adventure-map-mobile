@@ -1,4 +1,4 @@
-function authController($scope, $auth, $ionicLoading, $state, $rootScope, $localStorage, API_URL, $ionicHistory, $ionicModal) {
+function authController($scope, $auth, $ionicLoading, $state, $rootScope, $localStorage, API_URL, CATEGORY_WORDS, $ionicHistory, $ionicModal) {
   $scope.credentials = {};
   $scope.signupForm = {};
   $scope.errorMessage = null;
@@ -49,6 +49,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
     $scope.activitiesModal = modal;
   });
 
+  $scope.category_words = CATEGORY_WORDS;
   $scope.activity_images = ['img/activity_images/hiking.png', 'img/activity_images/cross_country_skiing.png', 'img/activity_images/back_country_skiing.png', 'img/activity_images/paddling.png', 'img/activity_images/mountain_biking.png', 'img/activity_images/horse_riding.png', 'img/activity_images/climbing.png', 'img/activity_images/snow_mobiling.png', 'img/activity_images/cross_country_ice_skating.png', 'img/activity_images/foraging.png'];
 
   $scope.getActivitySelection = function() {
