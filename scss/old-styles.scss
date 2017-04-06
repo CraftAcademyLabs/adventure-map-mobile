@@ -73,15 +73,6 @@
   width: 95%;
   position: relative;
 }
-
-.activity-image-unselected {
-  opacity: .3;
-  //position: relative;
-  width: 100%;
-}
-.activity-image-selected {
-  width: 100%;
-}
 .activity-name {
   position: absolute;
   margin: 0;
@@ -91,8 +82,22 @@
   text-transform: uppercase;
   text-align: center;
   text-wrap: normal;
-
+  //color: #444;
+  opacity: 1;
 }
+
+.activity-image-unselected {
+  opacity: .3;
+  width: 100%;
+}
+.activity-image-selected {
+  opacity: 1;
+  width: 100%;
+}
+.white-text h3 {
+  color: #fff;
+}
+
 
 /*****************
 PROFILE

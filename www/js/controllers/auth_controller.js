@@ -50,12 +50,18 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
   });
 
   $scope.category_words = CATEGORY_WORDS;
+  $scope.signupForm.category = [false, false, false, false, false, false, false, false, false, false];
   $scope.activity_images = ['img/activity_images/hiking.png', 'img/activity_images/cross_country_skiing.png', 'img/activity_images/back_country_skiing.png', 'img/activity_images/paddling.png', 'img/activity_images/mountain_biking.png', 'img/activity_images/horse_riding.png', 'img/activity_images/climbing.png', 'img/activity_images/snow_mobiling.png', 'img/activity_images/cross_country_ice_skating.png', 'img/activity_images/foraging.png'];
 
   $scope.getActivitySelection = function() {
     // "swipe" animation over to a new page with the activities
     $scope.activitiesModal.show();
     // Then use signup() on next page to actually register.
+  };
+
+  $scope.selectActivity = function(index) {
+    $scope.signupForm.category[index] = !$scope.signupForm.category[index]
+    console.log($scope.signupForm.category);
   };
 
   $scope.facebookSignIn = function () {

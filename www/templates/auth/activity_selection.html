@@ -8,10 +8,19 @@
   </ion-header-bar>
 
   <ion-content class="padding has-header">
-      <div class="activity-images" ng-repeat="uri in activity_images">
+    <div class="activity-images" ng-repeat="uri in activity_images">
+      <div ng-if="signupForm.category[$index]"
+           ng-click="selectActivity($index)"
+           class="white-text">
+        <img ng-src="{{uri}}" class="activity-image-selected">
+        <h3 class="activity-name">{{category_words[$index]}}</h3>
+      </div>
+      <div ng-if="!signupForm.category[$index]"
+           ng-click="selectActivity($index)">
         <img ng-src="{{uri}}" class="activity-image-unselected">
         <h3 class="activity-name">{{category_words[$index]}}</h3>
       </div>
+    </div>
 
     <button class="button action-button button-block button-balanced" ng-click="signup()">SIGN UP</button>
   </ion-content>
