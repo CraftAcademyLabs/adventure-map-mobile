@@ -9,6 +9,7 @@
 
   <ion-content class="padding has-header">
     <div class="activity-images" ng-repeat="uri in activity_images">
+      <!-- show a faded image with gray text if unselected, or full opacity and white if selected -->
       <div ng-if="signupForm.category[$index]"
            ng-click="selectActivity($index)"
            class="white-text">
