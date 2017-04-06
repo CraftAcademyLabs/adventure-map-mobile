@@ -28,6 +28,8 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
     translateActivityArray();
     // The server expects a string and returns a string (instead of an array)
     console.dir($scope.signupForm);
+    // Store activity preferences in default filter.
+    $localStorage.defaultFilter.category = $scope.signupForm.category;
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
       template: 'Signing up...'
