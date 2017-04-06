@@ -26,7 +26,8 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
 
   $scope.signup = function () {
     translateActivityArray();
-    console.log($scope.signupForm.interest_list);
+    // The server expects a string and returns a string (instead of an array)
+    console.dir($scope.signupForm);
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
       template: 'Signing up...'
@@ -89,6 +90,7 @@ function authController($scope, $auth, $ionicLoading, $state, $rootScope, $local
           storeUser();
           console.log(resp)
         });
+        // This needs to be updated to send FB users through activity selection as well.
         $state.go('app.activities');
         $ionicLoading.hide();
       })
