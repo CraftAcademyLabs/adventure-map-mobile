@@ -45,6 +45,12 @@ angular.module('adventureMap.services', [])
     })
   })
 
+  .factory('Save', function ($resource, API_URL) {
+    return $resource(API_URL + '/saved_activities', {activity_id: '@activity_id'}, {
+      saveActivity: {method: 'POST'}
+    })
+  })
+
   .factory('MyFollowers', function($resource, API_URL) {
     return $resource(API_URL + '/follows', {request: '@request'}, {
       get: { method: 'GET' }
@@ -78,6 +84,23 @@ angular.module('adventureMap.services', [])
             console.log(response);
             $ionicPopup.alert({
               title: 'Could not unlike.'
+            })
+          }
+        })
+      }
+    }
+  })
+
+  .factory('SaveActivity', function(Save) {
+    return {
+      saveActivity: function (activity_id) {
+        Save.save({activity_id: activity_id}, function (response) {
+          if (response.status === 'success') {
+            console.log('activity saved');
+          } else {
+            console.log(response);
+            $ionicPopup.alert({
+              title: 'Save was not recorded.'
             })
           }
         })
