@@ -46,7 +46,7 @@ angular.module('adventureMap.services', [])
   })
 
   .factory('Save', function ($resource, API_URL) {
-    return $resource(API_URL + '/saved_activities', {activity_id: '@activity_id'}, {
+    return $resource(API_URL + '/saved_activities/:id', {id: '@id', activity_id: '@activity_id'}, {
       saveActivity: {method: 'POST'}
     })
   })
@@ -101,6 +101,23 @@ angular.module('adventureMap.services', [])
             console.log(response);
             $ionicPopup.alert({
               title: 'Save was not recorded.'
+            })
+          }
+        })
+      }
+    }
+  })
+
+  .factory('UnsaveActivity', function(Save) {
+    return {
+      unsaveActivity: function(activity_id) {
+        Save.delete({id: activity_id}, function (response) {
+          if (response.status === 'success') {
+            console.log('activity unsaved');
+          } else {
+            console.log(response);
+            $ionicPopup.alert({
+              title: 'Could not unsave.'
             })
           }
         })

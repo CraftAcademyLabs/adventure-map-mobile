@@ -11,6 +11,7 @@ function showActivityController($scope,
                                 LikeActivity,
                                 UnlikeActivity,
                                 SaveActivity,
+                                UnsaveActivity,
                                 Utilities) {
 
   var activityId;
@@ -124,12 +125,11 @@ function showActivityController($scope,
   }
 
   $scope.saveActivity = function (activity_id) {
-    console.log(activity_id);
     SaveActivity.saveActivity(activity_id);
   };
 
   $scope.unsaveActivity = function (activity_id) {
-    Unsave.unsaveActivity(activity_id);
+    UnsaveActivity.unsaveActivity(activity_id);
   }
 
 }

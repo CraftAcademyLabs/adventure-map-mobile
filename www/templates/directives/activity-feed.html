@@ -52,7 +52,8 @@
           </div>
         </div>
         <div class='col'>
-          <div class="blue" ng-if=activity.user.saves>
+          <div class="blue" ng-if=activity.user.saves
+               ng-click="unsaveActivity(activity.id); activity.user.saves = !activity.user.saves; activity.saves_count = activity.saves_count - 1;">
               <span class="count-icon">
               <i class="icon ion-bookmark card-bottom"></i>
                 <span class="count-span ">{{activity.saves_count}}</span>
