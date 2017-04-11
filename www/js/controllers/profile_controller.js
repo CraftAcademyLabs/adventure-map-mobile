@@ -71,24 +71,18 @@ function profileController($scope,
   };
 
   showSavedActivities = function () {
-    console.log('show saved activities function');
     $ionicLoading.show({
       template: 'Getting my saved activities...'
     });
     Save.get(function (resp) {
-      // console.log(resp);
       $ionicLoading.hide();
       if (resp.status === 'success') {
-        // Sort by name
         $scope.mySaves = resp.data.sort(function(a, b){
           if(a.created_at < b.created_at) return -1;
           if(a.created_at > b.created_at) return 1;
           return 0;
         });
-
-        console.log($scope.mySaves);
       } else {
-        console.log('error ' + resp.message[0]);
         $ionicPopup.alert({
           title: resp.message[0]
         });
