@@ -15,12 +15,6 @@ angular.module('adventureMap.services', [])
     })
   })
 
-  .factory('MySavedActivities', function ($resource, $auth, API_URL) {
-    return $resource(API_URL + '/saved_activities', {
-      get: { method: 'GET' }
-    })
-  })
-
   .factory('Comment', function ($resource, API_URL) {
     return $resource(API_URL + '/activities/:id/comments', {id: '@id'}, {
       save: {method: 'POST'}
@@ -90,21 +84,6 @@ angular.module('adventureMap.services', [])
       }
     }
   })
-
-  // .factory('SavedActivities', function(Save) {
-  //   return {
-  //     getSavedActivities: function() {
-  //       Save.get(function(response) {
-  //         if (response.status === 'success') {
-  //           console.log('activity saved');
-  //           return response;
-  //         } else {
-  //           console.log(response);
-  //         }
-  //       })
-  //     }
-  //   }
-  // })
 
   .factory('SaveActivity', function(Save, $ionicPopup) {
     return {
