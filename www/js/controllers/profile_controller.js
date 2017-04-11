@@ -1,4 +1,11 @@
-function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage, MyActivities, MyFollowers, md5) {
+function profileController($scope,
+                           $ionicLoading,
+                           $ionicPlatform,
+                           $localStorage,
+                           MyActivities,
+                           MyFollowers,
+                           MySavedActivities,
+                           md5,) {
   const user = $localStorage.user || $scope.user;
 
   showMyActivities = function () {
@@ -62,6 +69,33 @@ function profileController($scope, $ionicLoading, $ionicPlatform, $localStorage,
       $ionicLoading.hide();
     });
   };
+
+  showSavedActivities = function () {
+    $ionicLoading.show({
+      template: 'Getting my saved activities...'
+    });
+    MySavedActivities.get(function (resp) {
+      // console.log(resp);
+      $ionicLoading.hide();
+      if (resp.status === 'success') {
+        // Sort by name
+        $scope.mySaves = resp.data.sort(function(a, b){
+          if(a.created_at < b.created_at) return -1;
+          if(a.created_at > b.created_at) return 1;
+          return 0;
+        });
+
+        console.log($scope.mySaves);
+      } else {
+        console.log('error ' + resp.message[0]);
+        $ionicPopup.alert({
+          title: resp.message[0]
+        });
+      }
+    }, function (resp) {
+      $ionicLoading.hide();
+    });
+  }
 
   $scope.showFollows = function(request) {
     $ionicPlatform.ready(function () {
