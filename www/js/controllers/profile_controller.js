@@ -4,7 +4,7 @@ function profileController($scope,
                            $localStorage,
                            MyActivities,
                            MyFollowers,
-                           MySavedActivities,
+                           Save,
                            md5) {
   const user = $localStorage.user || $scope.user;
 
@@ -75,7 +75,7 @@ function profileController($scope,
     $ionicLoading.show({
       template: 'Getting my saved activities...'
     });
-    MySavedActivities.get(function (resp) {
+    Save.get(function (resp) {
       // console.log(resp);
       $ionicLoading.hide();
       if (resp.status === 'success') {

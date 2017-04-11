@@ -91,7 +91,22 @@ angular.module('adventureMap.services', [])
     }
   })
 
-  .factory('SaveActivity', function(Save) {
+  .factory('SavedActivities', function(Save) {
+    return {
+      getSavedActivities: function() {
+        Save.get(function(response) {
+          if (response.status === 'success') {
+            console.log('activity saved');
+            return response;
+          } else {
+            console.log(response);
+          }
+        })
+      }
+    }
+  })
+
+  .factory('SaveActivity', function(Save, $ionicPopup) {
     return {
       saveActivity: function (activity_id) {
         Save.save({activity_id: activity_id}, function (response) {
@@ -108,7 +123,7 @@ angular.module('adventureMap.services', [])
     }
   })
 
-  .factory('UnsaveActivity', function(Save) {
+  .factory('UnsaveActivity', function(Save, $ionicPopup) {
     return {
       unsaveActivity: function(activity_id) {
         Save.delete({id: activity_id}, function (response) {
