@@ -87,7 +87,25 @@ function showActivityController($scope,
       }
     })
   };
-  
+
+  $scope.unfollowUser = function (userId) {
+    $ionicLoading.show({
+      template: 'Unfollowing user...'
+    });
+    Follow.delete({id: userId}, function (response) {
+      $ionicLoading.hide();
+      if (response.status === 'success') {
+        console.log('user deleted, hopefully');
+        getActivity(activityId);
+      } else {
+        console.log(response);
+        $ionicPopup.alert({
+          title: 'User could not be unfollowed.'
+        })
+      }
+    })
+  };
+
   $scope.nextSlide = function (index) {
     $ionicSlideBoxDelegate.slide(index);
   };
