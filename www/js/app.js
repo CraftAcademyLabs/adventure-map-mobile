@@ -17,8 +17,8 @@ angular.module('adventureMap', [
     'ngStorage'
   ])
   //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
-  // .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
-  .constant('API_URL', 'http://localhost:3000/api/v1')
+  .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
+  // .constant('API_URL', 'http://localhost:3000/api/v1')
 
   .constant('DIFFICULTY_WORDS', ['Easy', 'Moderate', 'Hard'])
   .constant('CATEGORY_ICONS', [
@@ -28,7 +28,7 @@ angular.module('adventureMap', [
     'img/icons/foraging.svg'
   ])
   .constant('CATEGORY_WORDS', [
-    'Hiking', 'Cross-country skiing', 'Back country skiing', 'Paddling',
+    'Hiking', 'Cross country skiing', 'Back country skiing', 'Paddling',
     'Mountain biking', 'Horse riding', 'Climbing', 'Snow mobiling',
     'Cross country ice skating', 'Foraging'
   ])
