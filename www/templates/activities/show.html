@@ -77,7 +77,7 @@
               </span>
             </div>
           </div>
-          <div class="col blue" ng-if=activity.user.following>
+          <div class="col blue" ng-if=activity.user.following ng-click="unfollowUser(activity.user.id)">
               <span class="count-icon">
               <i class="icon ion-person card-bottom"></i>
                 <span class="count-span">{{activity.user.followers_count}}</span>
