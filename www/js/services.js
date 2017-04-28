@@ -47,7 +47,7 @@ angular.module('adventureMap.services', [])
   })
 
   .factory('MyFollowers', function($resource, API_URL) {
-    return $resource(API_URL + '/follows/:id', {request: '@request'}, {
+    return $resource(API_URL + '/follows', {request: '@request'}, {
       get: { method: 'GET' }
     });
   })
