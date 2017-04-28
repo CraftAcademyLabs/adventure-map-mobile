@@ -74,7 +74,6 @@ function showActivityController($scope,
     Follow.save({user_id: userId}, function (response) {
       $ionicLoading.hide();
       if (response.status === 'success') {
-        getActivity(activityId);
       } else {
         console.log(response);
         $ionicPopup.alert({
@@ -88,7 +87,6 @@ function showActivityController($scope,
     Follow.delete({id: userId}, function (response) {
       if (response.status === 'success') {
         console.log('user deleted, hopefully');
-        getActivity(activityId);
       } else {
         console.log(response);
         $ionicPopup.alert({
