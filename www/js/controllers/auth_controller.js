@@ -5,6 +5,7 @@ function authController($scope,
                         $localStorage,
                         API_URL,
                         CATEGORY_WORDS,
+                        User,
                         $ionicHistory,
                         $ionicModal,
                         $ionicPopup)
@@ -95,11 +96,20 @@ function authController($scope,
     $scope.signupForm.interest_list = tempArray.join(', ');
   };
 
-  $scope.updateFacebookuser = function () {
+  $scope.updateFacebookUser = function () {
     translateActivityArray();
-    $localStorage.user.interest_list = $scope.signupForm.interest_list.join(', ')
+    console.log($scope.signupForm.interest_list);
+    $localStorage.user.interest_list = $scope.signupForm.interest_list;
+    $scope.user.interest_list = $scope.signupForm.interest_list.split(', ');
     storeUser();
     // Put interest list to server.
+    User.update($scope.user, function (resp) {
+      if (resp.status === 'success') {
+        console.log(resp)
+        $state.go('app.activities');
+        $scope.activitiesModal.hide()
+      }
+    })
   }
 
   $scope.facebookSignIn = function () {
@@ -116,7 +126,7 @@ function authController($scope,
           storeUser();
           console.log(resp)
         });
-        if($localStorage.user.interest_list === undefined) {
+        if($localStorage.user.interest_list === undefined || $localStorage.user.interest_list === []) {
           $scope.getActivitySelection();
           console.log('inside if statement');
           console.log($localStorage.user.interest_list);

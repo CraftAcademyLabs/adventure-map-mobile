@@ -131,6 +131,9 @@ function profileController ($scope,
   $scope.openProfileEditor = function () {
     console.log('openProfileEditor $scope.user:')
     console.log($scope.user)
+    if($scope.user.interest_list) {
+      translateUserInterestList();
+    }
     $scope.editProfileModal.show()
   }
 
@@ -148,13 +151,36 @@ function profileController ($scope,
 
   setInterestList = function() {
     var list = [];
-    console.log($scope.activityData.filters.category);
+    console.log($scope.user.interest_list_booleans);
     for(var i = 0; i <= 10; i++) {
-      if($scope.activityData.filters.category[i] === true) {
-        list.push(CATEGORY_WORDS[i - 1])
+      if($scope.user.interest_list_booleans[i] === true) {
+        list.push(CATEGORY_WORDS[i])
       }
     }
     console.log(list);
     return list;
+  }
+
+  translateUserInterestList = function () {
+    $scope.user.interest_list_booleans = [];
+    console.log('$scope.user.interest_list: ');
+    console.dir($scope.user.interest_list);
+    // fuck this isn't working at all. The damn index doesn't line up.
+    // go through CATEGORY_WORDS and then add them to the interest list booleans
+    CATEGORY_WORDS.forEach(function(category, index) {
+      console.log(index, category);
+      $scope.user.interest_list.split(', ').forEach(function(interest) {
+        if(interest === category) {
+          $scope.user.interest_list_booleans[index] = true;
+        }
+      })
+
+    })
+    // for(var i = 0; i <= 10; i++) {
+    //   if(CATEGORY_WORDS.includes($scope.user.interest_list.split(', ')[i])) {
+    //     $scope.user.interest_list_booleans[i] = true;
+    //   }
+    // }
+    console.log($scope.user.interest_list_booleans);
   }
 }
