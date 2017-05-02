@@ -165,22 +165,30 @@ function profileController ($scope,
     $scope.user.interest_list_booleans = [];
     console.log('$scope.user.interest_list: ');
     console.dir($scope.user.interest_list);
-    // fuck this isn't working at all. The damn index doesn't line up.
-    // go through CATEGORY_WORDS and then add them to the interest list booleans
+    if(Array.isArray($scope.user.interest_list)){
+      translateInterestListForArray();
+    } else {
+      CATEGORY_WORDS.forEach(function(category, index) {
+        console.log(index, category);
+        $scope.user.interest_list.split(', ').forEach(function(interest) {
+          if(interest === category) {
+            $scope.user.interest_list_booleans[index] = true;
+          }
+        })
+      })
+    }
+    console.log($scope.user.interest_list_booleans);
+  }
+
+  translateInterestListForArray = function () {
     CATEGORY_WORDS.forEach(function(category, index) {
       console.log(index, category);
-      $scope.user.interest_list.split(', ').forEach(function(interest) {
+      $scope.user.interest_list.forEach(function(interest) {
         if(interest === category) {
           $scope.user.interest_list_booleans[index] = true;
         }
       })
 
     })
-    // for(var i = 0; i <= 10; i++) {
-    //   if(CATEGORY_WORDS.includes($scope.user.interest_list.split(', ')[i])) {
-    //     $scope.user.interest_list_booleans[i] = true;
-    //   }
-    // }
-    console.log($scope.user.interest_list_booleans);
   }
 }
