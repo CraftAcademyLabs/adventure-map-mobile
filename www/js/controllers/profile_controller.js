@@ -135,7 +135,10 @@ function profileController($scope,
 
   $scope.updateProfile = function() {
     User.update($scope.user, function (resp) {
-      console.log(resp);
+      if (resp.status === 'success') {
+        console.log(resp);
+        $scope.editProfileModal.hide();
+      }
     })
     }
 }

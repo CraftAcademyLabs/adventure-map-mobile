@@ -30,7 +30,7 @@
       </label>
       <label class="item item-input item-floating-label textarea">
         <span class="input-label">Description</span>
-        <textarea placeholder="{{user.description || 'Enter a description'}}" rows="6" ng-model="activity.body" style="resize: none;"></textarea>
+        <textarea placeholder="{{user.description || 'Enter a description'}}" rows="6" ng-model="user.description" style="resize: none;"></textarea>
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">City</span>
@@ -43,7 +43,7 @@
       <select ng-model="user.gender">
         <option>Male</option>
         <option>Female</option>
-        <option>Prefer Not to Say</option>
+        <option>Other</option>
       </select>
       </label>
       <label class="item item-input item-floating-label">
