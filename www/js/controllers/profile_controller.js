@@ -2,6 +2,7 @@ function profileController($scope,
                            $ionicLoading,
                            $ionicPlatform,
                            $localStorage,
+                           $ionicModal,
                            MyActivities,
                            MyFollowers,
                            Save,
@@ -17,7 +18,7 @@ function profileController($scope,
     MyActivities.get({id: user.id}, function (resp) {
       console.log(resp);
       $ionicLoading.hide();
-      if (resp.status == 'success') {
+      if (resp.status === 'success') {
         // Sort by date
         $scope.myActivities = resp.data.sort(function (a, b) {
           return Date.parse(b.created_at) - Date.parse(a.created_at);
@@ -117,4 +118,15 @@ function profileController($scope,
       }
     }
   };
+
+  $ionicModal.fromTemplateUrl('templates/profile/edit.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function (modal) {
+    $scope.editProfileModal = modal;
+  });
+
+  $scope.openProfileEditor = function() {
+    $scope.editProfileModal.show();
+  }
 }
