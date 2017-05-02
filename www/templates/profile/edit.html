@@ -1,5 +1,55 @@
-<ion-view title="Edit Profile">
-  <ion-content>
-    Edit profile
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="editProfileModal.hide()">
+        Cancel
+      </button>
+    </div>
+    <h1 class="title">Create an Activity</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="updateProfile()">
+        Update
+      </button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content class="has-header">
+    <div class="list">
+      <p ng-repeat="error in errors">{{error}}</p>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="{{user.first}}" ng-model="user.name">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Nickname</span>
+        <input type="text" placeholder="{{user.nickname  || 'Enter a nickname'}}" ng-model="user.nickname">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Email</span>
+        <input type="text" placeholder="{{user.email}}" ng-model="user.email">
+      </label>
+      <label class="item item-input item-floating-label textarea">
+        <span class="input-label">Description</span>
+        <textarea placeholder="{{user.description || 'Enter a description'}}" rows="6" ng-model="activity.body" style="resize: none;"></textarea>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">City</span>
+        <input type="text" placeholder="{{user.city || 'City'}}" ng-model="user.city">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Gender
+        </div>
+      <select ng-model="user.gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Prefer Not to Say</option>
+      </select>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Birthday</span>
+        <input type="text" placeholder="{{user.birthday || 'Birthday'}}" ng-model="user.date_of_birth">
+      </label>
+    </div>
   </ion-content>
-</ion-view>
+</ion-modal-view>

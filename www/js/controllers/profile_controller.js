@@ -127,6 +127,7 @@ function profileController($scope,
   });
 
   $scope.openProfileEditor = function() {
+    console.log($scope.user);
     $scope.editProfileModal.show();
   }
 }
