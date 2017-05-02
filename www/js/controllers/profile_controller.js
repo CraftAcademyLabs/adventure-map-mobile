@@ -6,6 +6,7 @@ function profileController($scope,
                            MyActivities,
                            MyFollowers,
                            Save,
+                           User,
                            md5) {
   const user = $localStorage.user || $scope.user;
 
@@ -127,7 +128,14 @@ function profileController($scope,
   });
 
   $scope.openProfileEditor = function() {
+    console.log('openProfileEditor $scope.user:');
     console.log($scope.user);
     $scope.editProfileModal.show();
   }
+
+  $scope.updateProfile = function() {
+    User.update($scope.user, function (resp) {
+      console.log(resp);
+    })
+    }
 }
