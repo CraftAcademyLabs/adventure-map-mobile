@@ -50,6 +50,19 @@
         <span class="input-label">Birthday</span>
         <input type="text" placeholder="{{user.birthday || 'Birthday'}}" ng-model="user.date_of_birth">
       </label>
+      <div class="item item-divider">
+        Interests
+      </div>
+      <div class="item item-input wrap-label">
+        <ion-list ng-repeat="icon in category_icons" class="margin-10" >
+          <div class="row" ng-click="activityData.filters.category[$index + 1] = !activityData.filters.category[$index + 1];">
+            <div>
+              <img class="menu-icon" ng-src="{{icon}}"  ng-if="activityData.filters.category[$index + 1]">
+              <img class="menu-icon menu-icon-unselected" ng-src="{{icon}}" ng-if="!activityData.filters.category[$index + 1]" ng-model="user.interest_list[$index]">
+            </div>
+          </div>
+        </ion-list>
+      </div>
     </div>
   </ion-content>
 </ion-modal-view>
