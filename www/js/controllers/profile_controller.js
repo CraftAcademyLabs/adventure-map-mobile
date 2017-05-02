@@ -129,6 +129,7 @@ function profileController ($scope,
   })
 
   $scope.openProfileEditor = function () {
+    $scope.user.interest_list_booleans = [];
     console.log('openProfileEditor $scope.user:')
     console.log($scope.user)
     if($scope.user.interest_list) {
@@ -162,20 +163,12 @@ function profileController ($scope,
   }
 
   translateUserInterestList = function () {
-    $scope.user.interest_list_booleans = [];
     console.log('$scope.user.interest_list: ');
     console.dir($scope.user.interest_list);
     if(Array.isArray($scope.user.interest_list)){
       translateInterestListForArray();
     } else {
-      CATEGORY_WORDS.forEach(function(category, index) {
-        console.log(index, category);
-        $scope.user.interest_list.split(', ').forEach(function(interest) {
-          if(interest === category) {
-            $scope.user.interest_list_booleans[index] = true;
-          }
-        })
-      })
+      translateInterestListForString();
     }
     console.log($scope.user.interest_list_booleans);
   }
@@ -189,6 +182,17 @@ function profileController ($scope,
         }
       })
 
+    })
+  }
+
+  translateInterestListForString = function () {
+    CATEGORY_WORDS.forEach(function(category, index) {
+      console.log(index, category);
+      $scope.user.interest_list.split(', ').forEach(function(interest) {
+        if(interest === category) {
+          $scope.user.interest_list_booleans[index] = true;
+        }
+      })
     })
   }
 }

@@ -125,8 +125,10 @@ function authController($scope,
           console.log('validateUser');
           storeUser();
           console.log(resp)
+          console.log('$scope.user: ');
+          console.log($scope.user);
         });
-        if($localStorage.user.interest_list === undefined || $localStorage.user.interest_list === []) {
+        if($scope.user.interest_list === undefined || $scope.user.interest_list === []) {
           $scope.getActivitySelection();
           console.log('inside if statement');
           console.log($localStorage.user.interest_list);
