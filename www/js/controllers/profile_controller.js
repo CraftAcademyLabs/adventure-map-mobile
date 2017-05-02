@@ -129,11 +129,11 @@ function profileController ($scope,
   })
 
   $scope.openProfileEditor = function () {
-    $scope.user.interest_list_booleans = [];
+    $scope.user.interest_list_booleans = []
     console.log('openProfileEditor $scope.user:')
     console.log($scope.user)
-    if($scope.user.interest_list) {
-      translateUserInterestList();
+    if ($scope.user.interest_list) {
+      translateUserInterestList()
     }
     $scope.editProfileModal.show()
   }
@@ -150,35 +150,31 @@ function profileController ($scope,
     })
   }
 
-  setInterestList = function() {
-    var list = [];
-    console.log($scope.user.interest_list_booleans);
-    for(var i = 0; i <= 10; i++) {
-      if($scope.user.interest_list_booleans[i] === true) {
+  setInterestList = function () {
+    var list = []
+    for (var i = 0; i <= 10; i++) {
+      if ($scope.user.interest_list_booleans[i] === true) {
         list.push(CATEGORY_WORDS[i])
       }
     }
-    console.log(list);
-    return list;
+    console.log(list)
+    return list
   }
 
   translateUserInterestList = function () {
-    console.log('$scope.user.interest_list: ');
-    console.dir($scope.user.interest_list);
-    if(Array.isArray($scope.user.interest_list)){
-      translateInterestListForArray();
+    if (Array.isArray($scope.user.interest_list)) {
+      translateInterestListForArray()
     } else {
-      translateInterestListForString();
+      translateInterestListForString()
     }
-    console.log($scope.user.interest_list_booleans);
+    console.log($scope.user.interest_list_booleans)
   }
 
   translateInterestListForArray = function () {
-    CATEGORY_WORDS.forEach(function(category, index) {
-      console.log(index, category);
-      $scope.user.interest_list.forEach(function(interest) {
-        if(interest === category) {
-          $scope.user.interest_list_booleans[index] = true;
+    CATEGORY_WORDS.forEach(function (category, index) {
+      $scope.user.interest_list.forEach(function (interest) {
+        if (interest === category) {
+          $scope.user.interest_list_booleans[index] = true
         }
       })
 
@@ -186,11 +182,10 @@ function profileController ($scope,
   }
 
   translateInterestListForString = function () {
-    CATEGORY_WORDS.forEach(function(category, index) {
-      console.log(index, category);
-      $scope.user.interest_list.split(', ').forEach(function(interest) {
-        if(interest === category) {
-          $scope.user.interest_list_booleans[index] = true;
+    CATEGORY_WORDS.forEach(function (category, index) {
+      $scope.user.interest_list.split(', ').forEach(function (interest) {
+        if (interest === category) {
+          $scope.user.interest_list_booleans[index] = true
         }
       })
     })

@@ -122,16 +122,10 @@ function authController($scope,
     $auth.authenticate('facebook')
       .then(function (response) {
         $auth.validateUser().then(function (resp) {
-          console.log('validateUser');
           storeUser();
-          console.log(resp)
-          console.log('$scope.user: ');
-          console.log($scope.user);
         });
         if($scope.user.interest_list === undefined || $scope.user.interest_list === []) {
           $scope.getActivitySelection();
-          console.log('inside if statement');
-          console.log($localStorage.user.interest_list);
         } else {
           $state.go('app.activities');
         }
