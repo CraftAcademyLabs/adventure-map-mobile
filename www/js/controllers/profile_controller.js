@@ -10,6 +10,9 @@ function profileController ($scope,
                             CATEGORY_WORDS,
                             md5) {
   const user = $localStorage.user || $scope.user
+  if (typeof(user.interest_list) === 'object') {
+    user.interest_list = user.interest_list.join(', ')
+  }
 
   showMyActivities = function () {
     console.log(user)
