@@ -7,12 +7,11 @@
       <p>{{activity.created_at}}</p>
     </div>
 
-    <div>
-      <span class="item card item-inner" ng-click="navigateToActivity(activity)"></span>
+    <div ng-click="navigateToActivity(activity)">
       <display-first-image images_for="{{activity}}"></display-first-image>
     </div>
 
-    <div class="padding">
+    <div class="padding" ng-click="navigateToActivity(activity)">
       <h3>{{activity.title}}</h3>
       <p ng-if="activity.body.length > 120">
         {{activity.body | limitTo: 120}} ...SEE MORE
@@ -89,7 +88,7 @@
         </span>
         </div>
 
-        <div class="col col-25">
+        <div class="col col-25" ng-click="navigateToActivity(activity)">
           <a class="button">
             <i class="icon ion-chatboxes"></i>
           </a>
