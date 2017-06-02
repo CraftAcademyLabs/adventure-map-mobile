@@ -14,14 +14,15 @@
 
       <div class="item item-body">
         <!-- place map container here-->
-        <div id="small-map"></div>
-      </div>
+        <!--<div id="small-map"></div>-->
+
 
       <ion-slide-box  on-slide-changed="nextSlide($index)">
         <ion-slide ng-if="activity.images[0]" ng-repeat="image in activity.images">
           <img class="full-image" src="{{image.file_attachment}}">
         </ion-slide>
       </ion-slide-box>
+      </div>
 
       <div class="padding">
         <h3>{{activity.title}}</h3>
@@ -91,12 +92,14 @@
       </div>
     </div>
 
-    <div class="comment-list comments" ng-repeat="comment in activity.comments">
-      <div class="comment-user">{{comment.user.name}}:</div>
-      <div class="comment-body">{{comment.body}}</div>
-      <div class="comment-date">{{comment.created_at}}</div>
-    </div>
+    <div class="item item-divider row-no-padding white comment-list comments" ng-repeat="comment in activity.comments">
+      <div class="row">
+        <div class="comment-user col-50">{{comment.user.name}}</div>
+        <div class="comment-date col-50">{{comment.created_at}}</div>
 
+      </div>
+      <div class="comment-body">{{comment.body}}</div>
+    </div>
 
   </ion-content>
 </ion-view>
