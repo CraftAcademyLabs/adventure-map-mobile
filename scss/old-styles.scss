@@ -321,18 +321,16 @@ COMMENTS
   color: rgba(77, 77, 77, 0.52);
 }
 
-show-activity-feed {
-  .card {
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
+.card {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
 
-  .col {
-    text-align: center;
-  }
+.col {
+  text-align: center;
+}
 
-  .white {
-    background-color: #FFFFFF;
-  }
+.white {
+  background-color: #FFFFFF;
 }

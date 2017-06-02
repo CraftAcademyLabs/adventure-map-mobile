@@ -1,5 +1,7 @@
 <ion-view class="activity-show">
+<!--
   <ion-nav-title> {{ activity.title }}</ion-nav-title>
+-->
 
   <ion-content class="has-header gray">
     <div class="list card">
@@ -11,86 +13,75 @@
       </div>
 
       <div class="item item-body">
-        <!-- place map container here -->
+        <!-- place map container here-->
         <div id="small-map"></div>
-        <!--span class="difficulty-icon">
-          <i class="icon ion-ios-ionic-outline" ng-if="activity.difficulty === 1"></i>
-          <i class="icon ion-ios-ionic" ng-if="activity.difficulty === 2"></i>
-          <i class="icon ion-social-angular" ng-if="activity.difficulty === 3"></i>
-        </span-->
-        <div class="item card item-inner">
+      </div>
 
-          <ion-slide-box ng-if="activity.images[0]" on-slide-changed="nextSlide($index)">
-            <ion-slide ng-repeat="image in activity.images">
-              <img class="full-image" src="{{image.file_attachment}}">
-            </ion-slide>
-          </ion-slide-box>
-          <div class="padding">
-            <h3>{{activity.title}}</h3>
-            <p>
-              {{activity.body}}
-            </p>
-            <p>
-              Routes {{activity.routes.length}}
-            </p>
-            <p>
-              Waypoints {{activity.waypoints.length}}
-            </p>
-          </div>
-        </div>
-        <div class='row centered'>
-          <div class="blue" ng-if=activity.user.likes
-               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
-            <div class='col'>
-              <span class="count-icon">
-                <i class="icon ion-thumbsup card-bottom"></i>
-                <span class="count-span">{{activity.likes_count}}</span>
-                <p>Unlike</p>
-              </span>
+      <ion-slide-box  on-slide-changed="nextSlide($index)">
+        <ion-slide ng-if="activity.images[0]" ng-repeat="image in activity.images">
+          <img class="full-image" src="{{image.file_attachment}}">
+        </ion-slide>
+      </ion-slide-box>
+
+      <div class="padding">
+        <h3>{{activity.title}}</h3>
+        <p>{{activity.body}}</p>
+        <p>Routes {{activity.routes.length}}</p>
+        <p>Waypoints {{activity.waypoints.length}}</p>
+      </div>
+
+      <div class="item item-divider row-no-padding white">
+        <div class="button-bar">
+
+          <div class="col col-25">
+            <span ng-if=activity.user.likes ng-click="unlikeActivity(activity.id);
+              activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
+              <a class="button white blue">
+                <i class="icon ion-thumbsup"></i>
+              </a>
+            </span>
+
+            <div ng-if=!activity.user.likes ng-click="likeActivity(activity.id, $event);
+              activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
+              <a class="button white">
+                <i class="icon ion-thumbsup"></i>
+              </a>
             </div>
           </div>
 
-          <span ng-if=!activity.user.likes ng-click="likeActivity(activity.id, $event);
-          activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
-            <a class="button white">
-              <i class="icon ion-thumbsup"></i>
-            </a>
-            </span>
-          </div>
-
-          <div class='col col-25'>
+          <div class="col col-25">
             <span ng-if=activity.user.saves ng-click="unsaveActivity(activity.id);
-            activity.user.saves = !activity.user.saves; activity.saves_count = activity.saves_count - 1;">
+              activity.user.saves = !activity.user.saves; activity.saves_count = activity.saves_count - 1;">
               <a class="button white blue">
                 <i class="icon ion-bookmark"></i>
               </a>
             </span>
 
             <span ng-if=!activity.user.saves ng-click="saveActivity(activity.id);
-            activity.user.saves = !activity.user.saves; activity.saves_count = activity.saves_count + 1;">
+             activity.user.saves = !activity.user.saves; activity.saves_count = activity.saves_count + 1;">
               <a class="button white">
-                <i class="icon ion-bookmark"></i>
+               <i class="icon ion-bookmark"></i>
               </a>
             </span>
           </div>
 
-          <div class='col col-25'>
+          <div class="col col-25">
             <span ng-if=activity.user.following ng-click="unfollowUser(activity.user.id);
-            activity.user.following = !activity.user.following; activity.user.followers_count = activity.user.followers_count - 1">
+             activity.user.following = !activity.user.following; activity.user.followers_count = activity.user.followers_count - 1">
               <a class="button white blue">
-                <i class="icon ion-person"></i>
+               <i class="icon ion-person"></i>
               </a>
             </span>
 
             <span ng-if=!activity.user.following ng-click="followUser(activity.user.id);
-            activity.user.following = !activity.user.following; activity.user.followers_count = activity.user.followers_count + 1">
-              <a class="button white ">
+             activity.user.following = !activity.user.following; activity.user.followers_count = activity.user.followers_count + 1">
+              <a class="button white">
                 <i class="icon ion-person"></i>
               </a>
             </span>
           </div>
 
-          <div class='col col-25' ng-click="openCommentBox(activity.id)">
+          <div class="col col-25" ng-click="openCommentBox(activity.id)">
             <a class="button white">
               <i class="icon ion-chatboxes"></i>
             </a>
@@ -98,7 +89,6 @@
 
         </div>
       </div>
-
     </div>
 
     <div class="comment-list comments" ng-repeat="comment in activity.comments">
@@ -106,6 +96,7 @@
       <div class="comment-body">{{comment.body}}</div>
       <div class="comment-date">{{comment.created_at}}</div>
     </div>
+
 
   </ion-content>
 </ion-view>
