@@ -1,7 +1,7 @@
 <ion-view class="activity-show">
   <ion-nav-title> {{ activity.title }}</ion-nav-title>
 
-  <ion-content class="padding has-header">
+  <ion-content class="has-header gray">
     <div class="list card">
 
       <div class="item item-avatar">
@@ -11,36 +11,44 @@
       </div>
 
       <div class="item item-body">
-        <ion-slide-box ng-if="activity.images[0]" on-slide-changed="nextSlide($index)">
-          <ion-slide ng-repeat="image in activity.images">
-            <img class="full-image" src="{{image.file_attachment}}">
-          </ion-slide>
-        </ion-slide-box>
+        <!-- place map container here -->
+        <div id="small-map"></div>
+        <!--span class="difficulty-icon">
+          <i class="icon ion-ios-ionic-outline" ng-if="activity.difficulty === 1"></i>
+          <i class="icon ion-ios-ionic" ng-if="activity.difficulty === 2"></i>
+          <i class="icon ion-social-angular" ng-if="activity.difficulty === 3"></i>
+        </span-->
+        <div class="item card item-inner">
 
-        <div class="padding">
-          <h3>{{activity.title}}</h3>
-          <p>
-            {{activity.body}}
-          </p>
-          <p>
-            Routes {{activity.routes.length}}
-          </p>
-          <p>
-            Waypoints {{activity.waypoints.length}}
-          </p>
+          <ion-slide-box ng-if="activity.images[0]" on-slide-changed="nextSlide($index)">
+            <ion-slide ng-repeat="image in activity.images">
+              <img class="full-image" src="{{image.file_attachment}}">
+            </ion-slide>
+          </ion-slide-box>
+          <div class="padding">
+            <h3>{{activity.title}}</h3>
+            <p>
+              {{activity.body}}
+            </p>
+            <!--p>
+              Routes {{activity.routes.length}}
+            </p>
+            <p>
+              Waypoints {{activity.waypoints.length}}
+            </p-->
+          </div>
         </div>
-      </div>
-
-      <div class="item item-divider row-no-padding white">
-        <div class="button-bar">
-
-          <div class='col col-25'>
-            <span ng-if=activity.user.likes ng-click="unlikeActivity(activity.id);
-            activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
-              <a class="button white blue">
-                <i class="icon ion-thumbsup"></i>
-              </a>
-            </span>
+        <div class='row centered'>
+          <div class="blue" ng-if=activity.user.likes
+               ng-click="unlikeActivity(activity.id); activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count - 1;">
+            <div class='col'>
+              <span class="count-icon">
+                <i class="icon ion-thumbsup card-bottom"></i>
+                <span class="count-span">{{activity.likes_count}}</span>
+                <p>Unlike</p>
+              </span>
+            </div>
+          </div>
 
           <span ng-if=!activity.user.likes ng-click="likeActivity(activity.id, $event);
           activity.user.likes = !activity.user.likes; activity.likes_count = activity.likes_count + 1;">
