@@ -112,6 +112,17 @@ function profileController ($scope,
     })
   }
 
+  $scope.navigateToActivity = function (activity) {
+    switch ($state.current.name) {
+      case 'app.activities':
+        $state.go('app.activity', {id: activity.id});
+        break;
+      case 'app.my-activities':
+        $state.go('app.my-activity', {id: activity.id});
+        break;
+    }
+  };
+
   $scope.othersProfileImage = function (index) {
     if ($scope.myFollow[index] !== undefined) {
       if ($scope.myFollow[index].image) {

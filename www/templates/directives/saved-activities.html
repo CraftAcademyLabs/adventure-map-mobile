@@ -1,4 +1,4 @@
-<div class="list card" ng-repeat="activity in saved">
+<div class="list card" ng-repeat="activity in saved" ng-click="navigateToActivity(activity)">
   <div class="item item-divider row-no-padding white">
     <div class="row">
       <div class="col-10"><img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}"></div>
