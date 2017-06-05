@@ -339,3 +339,45 @@ COMMENTS
 .white {
   background-color: #FFFFFF;
 }
+
+
+.col-50 {
+  border-color: #b2b2b2;
+}
+
+.button-followings {
+  color: #46a3c2;
+}
+
+.followings-list {
+  padding-top: 27px;
+}
+
+/**************
+SAVED ACTIVITIES
+ */
+
+div.title-div {
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+div.date-div {
+  padding-top: 7px;
+  padding-left: 40px;
+}
+
+div.saved-body {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+
+  h3 {
+    color: #46a3c2 !important;
+  }
+}
+
+div.arrow-div {
+  padding-left: 10px;
+  color: #46a3c2 !important;
+}

@@ -1,11 +1,18 @@
-  <div class="card" ng-repeat="activity in saved">
-    <div class="item item-avatar row">
-      <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
-      <h3 class="activity_title">{{activity.user.name}}</h3>
-      <p>{{activity.created_at}}</p>
+<div class="list card" ng-repeat="activity in saved">
+  <div class="item item-divider row-no-padding white">
+    <div class="row">
+      <div class="col-10"><img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}"></div>
+      <div class="col-60 title-div"><h2>{{activity.user.name}}</h2></div>
+      <div class="col-20 comment-date date-div">{{activity.created_at}}</p></div>
     </div>
-      <h2>{{activity.title}}</h2>
-      <img class="full-image" src="{{activity.images}}">
+    <div class="row">
+      <div class="saved-body col-90">
+        <h3>{{activity.title}}</h3>
+        <p>{{activity.body}}</p>
+      </div>
+      <div class="col-10 arrow-div">
+        <i class="ion-chevron-right"></i>
+      </div>
     </div>
   </div>
-
+</div>
