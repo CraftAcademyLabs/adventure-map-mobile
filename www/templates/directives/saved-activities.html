@@ -1,0 +1,11 @@
+  <div class="card" ng-repeat="activity in saved">
+    <div class="item item-avatar row">
+      <img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}">
+      <h3 class="activity_title">{{activity.user.name}}</h3>
+      <p>{{activity.created_at}}</p>
+    </div>
+      <h2>{{activity.title}}</h2>
+      <img class="full-image" src="{{activity.images}}">
+    </div>
+  </div>
+
