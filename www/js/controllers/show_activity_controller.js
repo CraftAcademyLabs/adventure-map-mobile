@@ -32,6 +32,9 @@ function showActivityController($scope,
       case 'app.my-activities':
         $state.go('app.my-activity', {id: activity.id});
         break;
+      case 'app.my-saved-activities':
+        $state.go('app.my-saved-activities', {id: activity.id});
+        break;
     }
   };
 
@@ -114,7 +117,7 @@ function showActivityController($scope,
     }
   }
 
-  function showSmallMap(lat, lng){
+  function showSmallMap(lat, lng) {
     //var lat, long;
     var srs_code = 'EPSG:3006';
     var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'

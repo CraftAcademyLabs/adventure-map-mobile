@@ -1,5 +1,6 @@
-<div class="list card" ng-repeat="activity in saved" ng-click="navigateToActivity(activity)">
-  <div class="item item-divider row-no-padding white">
+<div class="list card" ng-repeat="activity in saved">
+  <div ng-controller="showActivityController">
+  <div class="item item-divider row-no-padding white" ng-click="navigateToActivity(activity)">
     <div class="row">
       <div class="col-10"><img ng-src="{{activity.user.image ? activity.user.image : 'img/dummy_images/empty_image.svg'}}"></div>
       <div class="col-60 title-div"><h2>{{activity.user.name}}</h2></div>
@@ -14,5 +15,6 @@
         <i class="ion-chevron-right"></i>
       </div>
     </div>
+  </div>
   </div>
 </div>
