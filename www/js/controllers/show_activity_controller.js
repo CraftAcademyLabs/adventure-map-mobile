@@ -26,14 +26,12 @@ function showActivityController($scope,
 
   $scope.navigateToActivity = function (activity) {
     switch ($state.current.name) {
+      case 'app.my-saved-activities':
       case 'app.activities':
         $state.go('app.activity', {id: activity.id});
         break;
       case 'app.my-activities':
         $state.go('app.my-activity', {id: activity.id});
-        break;
-      case 'app.my-saved-activities':
-        $state.go('app.my-saved-activities', {id: activity.id});
         break;
     }
   };
@@ -136,6 +134,7 @@ function showActivityController($scope,
     });
     map.setView([lat, lng], 10);
     MapService.addToMap(lat, lng, map);
+    console.log($scope.activity)
   }
 
 
