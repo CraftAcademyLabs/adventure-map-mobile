@@ -27,6 +27,8 @@ function showActivityController($scope,
   $scope.navigateToActivity = function (activity) {
     switch ($state.current.name) {
       case 'app.my-saved-activities':
+        $state.go('app.profile-activity', {id: activity.id});
+        break;
       case 'app.activities':
         $state.go('app.activity', {id: activity.id});
         break;
