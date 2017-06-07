@@ -38,7 +38,6 @@ angular.module('adventureMap.mapService', [])
       function onError(err) {
         console.log(err);
       }
-
       return route;
     };
 
