@@ -5,6 +5,7 @@ function showActivityController($scope,
                                 $ionicLoading,
                                 $ionicSlideBoxDelegate,
                                 $ionicPopup,
+                                $http,
                                 Activity,
                                 Comment,
                                 Follow,
@@ -120,10 +121,10 @@ function showActivityController($scope,
   function showSmallMap(lat, lng) {
     //var lat, long;
     var srs_code = 'EPSG:3006';
-    var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
+    var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
     var crs = new L.Proj.CRS(srs_code, proj4def, {
       resolutions: [
-        4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8
+        4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4
       ],
       origin: [-1200000.000000, 8500000.000000],
       bounds: L.bounds([-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
@@ -134,39 +135,83 @@ function showActivityController($scope,
       continuousWorld: true,
       zoomControl: false
     });
-    map.setView([lat, lng], 10);
+    map.setView([lat, lng], 16);
     MapService.addToMap(lat, lng, map);
-    console.log($scope.activity)
+    console.log($scope.activity);
+    showRoute($scope.activity, map);
+
   }
 
+  function showRoute(activity, map) {
 
-  function getActivity(id) {
-    Activity.get({id: id}, function (response) {
-      $scope.activity = response.data;
-      $scope.activity.images = Utilities.sanitizeArrayFromNullObjects($scope.activity.images);
-      $scope.activity.routes = Utilities.sanitizeArrayFromNullObjects($scope.activity.routes);
-      $scope.activity.waypoints = Utilities.sanitizeArrayFromNullObjects($scope.activity.waypoints);
-      prepareComments();
-      console.log($scope.activity);
-      showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng)
+    $http.get(activity.routes[0].file_attachment).success(function (response) {
+      var routeInfo = response;
 
-    });
+      console.log(routeInfo);
+      map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 32);
+      var polOptions = {
+        color: 'blue',
+        weight: 3,
+        opacity: 0.5,
+        smoothFactor: 1
+      };
+      var old_lat, old_long;
+      routeInfo.route.forEach(function (result, index, arr) {
+        if (arr.indexOf(result) == arr.indexOf(arr[0]))
+      {
+        old_lat = result.lat;
+        old_long = result.long;
+      }
+      else
+      {
+        old_lat = arr[index - 1].lat;
+        old_long = arr[index - 1].long;
+      }
+        var pointA = new L.LatLng(old_lat, old_long);
+        var pointB = new L.LatLng(result.lat, result.long);
+        var pointList = [pointA, pointB];
+
+        var polyline = new L.polyline(pointList, polOptions);
+        polyline.addTo(map);
+
+    })
+      MapService.addToMap(routeInfo.route[0].lat, routeInfo.route[0].long, map);
   }
 
-  $scope.likeActivity = function (activity_id) {
-    LikeActivity.likeActivity(activity_id);
-  };
+);
 
-  $scope.unlikeActivity = function (activity_id) {
-    UnlikeActivity.unlikeActivity(activity_id);
-  }
 
-  $scope.saveActivity = function (activity_id) {
-    SaveActivity.saveActivity(activity_id);
-  };
+}
 
-  $scope.unsaveActivity = function (activity_id) {
-    UnsaveActivity.unsaveActivity(activity_id);
-  }
+
+function getActivity(id) {
+  Activity.get({id: id}, function (response) {
+    $scope.activity = response.data;
+    $scope.activity.images = Utilities.sanitizeArrayFromNullObjects($scope.activity.images);
+    $scope.activity.routes = Utilities.sanitizeArrayFromNullObjects($scope.activity.routes);
+    $scope.activity.waypoints = Utilities.sanitizeArrayFromNullObjects($scope.activity.waypoints);
+    prepareComments();
+    console.log($scope.activity);
+    showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
+
+
+  });
+}
+
+$scope.likeActivity = function (activity_id) {
+  LikeActivity.likeActivity(activity_id);
+};
+
+$scope.unlikeActivity = function (activity_id) {
+  UnlikeActivity.unlikeActivity(activity_id);
+}
+
+$scope.saveActivity = function (activity_id) {
+  SaveActivity.saveActivity(activity_id);
+};
+
+$scope.unsaveActivity = function (activity_id) {
+  UnsaveActivity.unsaveActivity(activity_id);
+}
 
 }
