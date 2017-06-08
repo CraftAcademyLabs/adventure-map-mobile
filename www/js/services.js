@@ -129,8 +129,8 @@ angular.module('adventureMap.services', [])
   .factory('Filters', function ($localStorage) {
     return {
       applyFilters: function ($scope) {
-        console.log($scope.activityData.filters);
-        // hardcoding the difficulty settings for now since we removed them from the filtering panel
+        //console.log($scope.activityData.filters);
+        // hard coding the difficulty settings for now since we removed them from the filtering panel
         $scope.activityData.filters.difficulty1 = true;
         $scope.activityData.filters.difficulty2 = true;
         $scope.activityData.filters.difficulty3 = true;
@@ -195,10 +195,10 @@ angular.module('adventureMap.services', [])
 
         // Show users a message instead of a blank screen if there are no activities that match their search.
         if ($scope.activityData.activityList.length === 0) {
-          $scope.activityData.message = 'Your search returned no results. Try adding some categories, difficulties or looking for activities from strangers.';
+          $scope.activityData.message = 'Your search returned no results. Try adding some categories';
         }
 
-        console.log('activities: ' + $scope.activityData.activityList.length);
+        //console.log('activities: ' + $scope.activityData.activityList.length);
 
       }
     };
