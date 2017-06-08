@@ -130,6 +130,11 @@ angular.module('adventureMap.services', [])
     return {
       applyFilters: function ($scope) {
         console.log($scope.activityData.filters);
+        // hardcoding the difficulty settings for now since we removed them from the filtering panel
+        $scope.activityData.filters.difficulty1 = true;
+        $scope.activityData.filters.difficulty2 = true;
+        $scope.activityData.filters.difficulty3 = true;
+
 
         var tempArray = [];
 
