@@ -1,4 +1,5 @@
 function profileController ($scope,
+                            $state,
                             $ionicLoading,
                             $ionicPlatform,
                             $localStorage,
@@ -18,11 +19,12 @@ function profileController ($scope,
     user.interest_list = user.interest_list.join(', ')
   }
 
-  $scope.selectPhoto = function () {
+  $scope.selectAvatar = function () {
+    console.log('getting avatar picker');
     var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
     var options = setOptions(srcType);
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
-      getFileEntry(imageUri);
+      getAvatarAndUpdateUser(imageUri);
     }, function cameraError(error) {
       console.debug("Unable to obtain picture: " + error, "app");
     }, options);
@@ -210,7 +212,21 @@ function profileController ($scope,
   }
 
   // This is repetitive code. Extract to a service
-  function getFileEntry(imgUri) {
+
+  function setOptions(srcType) {
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: srcType,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true  //Corrects Android orientation quirks
+    };
+    return options;
+  }
+
+  function getAvatarAndUpdateUser(imgUri) {
     window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
       fileEntry.file(function (file) {
         var reader = new FileReader();
@@ -223,9 +239,9 @@ function profileController ($scope,
               //Set the image attribute
               user.image = imageResp.public_url;
               User.update(user, function (resp) {
-                debugger;
                 if (resp.status === 'success') {
-                  console.log(resp)
+                  console.log(resp);
+                  $state.reload();
                   //$scope.editProfileModal.hide()
                 }
               })
