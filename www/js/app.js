@@ -149,7 +149,7 @@ angular.module('adventureMap', [
       .state('intro.password_reset', {
         url: '/password_reset',
         views: {
-          'menuContent': {
+          'intro-view@intro': {
             templateUrl: 'templates/auth/password_reset.html',
             controller: 'authController'
           }
