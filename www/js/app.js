@@ -14,7 +14,8 @@ angular.module('adventureMap', [
     'adventureMap.utilities',
     'ngCordova', 'ng-token-auth',
     'ngResource',
-    'ngStorage'
+    'ngStorage',
+    'aCarousel'
   ])
   //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
