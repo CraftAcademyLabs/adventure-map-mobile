@@ -25,7 +25,8 @@
               </div>
               <button class="button action-button button-block button-balanced" ng-click="login()">LOGIN</button>
               <div class="col alt-actions-container">
-                <a class="button button-clear button-small button-stable forgot-password-button" ui-sref="intro.password_reset">Forgot
+                <a class="button button-clear button-small button-stable forgot-password-button"
+                   ui-sref="intro.password_reset">Forgot
                   Password?</a>
               </div>
               <div class="row social-buttons-row">
@@ -40,17 +41,7 @@
           </form>
         </div>
       </div>
-      <div class="row row-no-padding legal-row">
-        <div class="col">
-          <p class="legal-text">
-            By logging in your agree to AdventureMaps's
-            <a ui-sref="intro.terms">Terms of Service</a>,
-            <a ui-sref="intro.privacy">Privacy Policy</a>,
-            <a ui-sref="intro.cookie">Cookie Policy</a> and
-            <a ui-sref="intro.disclaimer">Disclaimer</a>
-          </p>
-        </div>
-      </div>
+      <div ng-include src="'templates/partials/toc-links.html'"></div>
     </div>
   </ion-content>
 </ion-view>
