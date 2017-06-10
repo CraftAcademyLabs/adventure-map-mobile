@@ -1,25 +1,48 @@
-function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Comment, Follow, $ionicSlideBoxDelegate, $ionicPopup, DIFFICULTY_WORDS) {
-  $scope.openModal = function (activity) {
-    $ionicModal.fromTemplateUrl('templates/activity.html', {
-      scope: $scope,
-      animation: 'zoom-from-center'
-    }).then(function (modal) {
-      $scope.activity_id = activity.id;
-      $scope.modal = modal;
-      getActivity();
-    });
-  };
+function showActivityController($scope,
+                                $state,
+                                $stateParams,
+                                $ionicModal,
+                                $ionicLoading,
+                                $ionicSlideBoxDelegate,
+                                $ionicPopup,
+                                $http,
+                                Activity,
+                                Comment,
+                                Follow,
+                                LikeActivity,
+                                UnlikeActivity,
+                                SaveActivity,
+                                UnsaveActivity,
+                                Utilities,
+                                MapService) {
 
-  $scope.closeModal = function () {
-    $scope.modal.hide();
-    $scope.modal.remove();
-    window.location.reload();
+  var activityId;
+
+  $scope.$on("$ionicView.enter", function () {
+    if ($stateParams.id) {
+      activityId = $stateParams.id;
+      getActivity(activityId);
+    }
+  });
+
+  $scope.navigateToActivity = function (activity) {
+    switch ($state.current.name) {
+      case 'app.my-saved-activities':
+        $state.go('app.profile-activity', {id: activity.id});
+        break;
+      case 'app.activities':
+        $state.go('app.activity', {id: activity.id});
+        break;
+      case 'app.my-activities':
+        $state.go('app.my-activity', {id: activity.id});
+        break;
+    }
   };
 
   $scope.closeCommentModal = function () {
     $scope.comment_modal.hide();
     $scope.comment_modal.remove();
-    getActivity();
+    getActivity(activityId);
   };
 
   $scope.openCommentBox = function () {
@@ -39,7 +62,7 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     });
     Comment.save({body: $scope.commentData.body, id: activityId}, function (resp) {
       $ionicLoading.hide();
-      if (resp.status == 'success') {
+      if (resp.status === 'success') {
         $scope.closeCommentModal();
       } else {
         console.log('error ' + resp.message[0]);
@@ -52,19 +75,27 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     });
   };
 
-  $scope.followUser = function(userId) {
-    $ionicLoading.show({
-      template: 'Following user...'
-    });
+  $scope.followUser = function (userId) {
     Follow.save({user_id: userId}, function (response) {
       $ionicLoading.hide();
-      if (response.status == 'success') {
-        console.log('user followed');
-        getActivity();
+      if (response.status === 'success') {
       } else {
         console.log(response);
         $ionicPopup.alert({
           title: 'User could not be followed.'
+        })
+      }
+    })
+  };
+
+  $scope.unfollowUser = function (userId) {
+    Follow.delete({id: userId}, function (response) {
+      if (response.status === 'success') {
+        console.log('user deleted, hopefully');
+      } else {
+        console.log(response);
+        $ionicPopup.alert({
+          title: 'User could not be unfollowed.'
         })
       }
     })
@@ -78,38 +109,120 @@ function showActivityController($scope, $ionicModal, $ionicLoading, Activity, Co
     $scope.activity.comments = $scope.activity.comments.sort(function (a, b) {
       return Date.parse(b.created_at) - Date.parse(a.created_at);
     });
-    if ($scope.activity.comments != []) {
+    if ($scope.activity.comments !== []) {
       $scope.activity.comments = $scope.activity.comments.map(function (comment) {
         date = new Date(Date.parse(comment.created_at));
         comment.created_at = date.toDateString();
         return comment;
       })
     }
-
   }
 
-  function getActivity() {
-    Activity.get({id: $scope.activity_id}, function (response) {
+  function showSmallMap(lat, lng) {
+    //var lat, long;
+    var srs_code = 'EPSG:3006';
+    var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
+    var crs = new L.Proj.CRS(srs_code, proj4def, {
+      resolutions: [
+        4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4
+      ],
+      origin: [-1200000.000000, 8500000.000000],
+      bounds: L.bounds([-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
+    });
+
+    var map = new L.Map('small-map', {
+      crs: crs,
+      continuousWorld: true,
+      zoomControl: false
+    });
+    //noinspection JSValidateTypes
+    if (typeof lat !== null && lng !== null) {
+      map.setView([lat, lng], 16);
+      MapService.addToMap(lat, lng, map);
+    }
+    console.log($scope.activity);
+    if (typeof $scope.activity.routes.length !== 0) {
+      showRoute($scope.activity, map);
+    }
+    if (typeof $scope.activity.waypoints.length !== 0) {
+      showWaypoint($scope.activity, map);
+    }
+  }
+
+  function showRoute(activity, map) {
+    $http.get(activity.routes[0].file_attachment).success(function (response) {
+        var routeInfo = response;
+
+        console.log(routeInfo);
+        map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 32);
+        var polOptions = {
+          color: 'blue',
+          weight: 3,
+          opacity: 0.5,
+          smoothFactor: 1
+        };
+        var old_lat, old_long;
+        routeInfo.route.forEach(function (result, index, arr) {
+          if (arr.indexOf(result) == arr.indexOf(arr[0])) {
+            old_lat = result.lat;
+            old_long = result.long;
+          }
+          else {
+            old_lat = arr[index - 1].lat;
+            old_long = arr[index - 1].long;
+          }
+          var pointA = new L.LatLng(old_lat, old_long);
+          var pointB = new L.LatLng(result.lat, result.long);
+          var pointList = [pointA, pointB];
+
+          var polyline = new L.polyline(pointList, polOptions);
+          polyline.addTo(map);
+
+        })
+        MapService.addToMap(routeInfo.route[0].lat, routeInfo.route[0].long, map);
+      }
+    );
+  }
+
+
+  function showWaypoint(activity, map) {
+    $http.get(activity.waypoints[0].file_attachment).success(function (response) {
+        var waypointInfo = response;
+        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 32);
+
+        MapService.addToMap(waypointInfo.route[0].lat, waypointInfo.route[0].long, map);
+      }
+    );
+  }
+
+  function getActivity(id) {
+    Activity.get({id: id}, function (response) {
       $scope.activity = response.data;
+      $scope.activity.images = Utilities.sanitizeArrayFromNullObjects($scope.activity.images);
+      $scope.activity.routes = Utilities.sanitizeArrayFromNullObjects($scope.activity.routes);
+      $scope.activity.waypoints = Utilities.sanitizeArrayFromNullObjects($scope.activity.waypoints);
       prepareComments();
-      setDifficultyWords();
-      console.log(response);
-      $scope.modal.show();
+      console.log($scope.activity);
+      showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
+
+
     });
   }
-  function setDifficultyWords() {
-      switch ($scope.activity.difficulty) {
-        case 1:
-          $scope.activity.difficulty_word = DIFFICULTY_WORDS[0];
-          break;
-        case 2:
-          $scope.activity.difficulty_word = DIFFICULTY_WORDS[1];
-          break;
-        case 3:
-          $scope.activity.difficulty_word = DIFFICULTY_WORDS[2];
-          break;
-        default:
-          $scope.activity.difficulty_word = '';
-      }
+
+  $scope.likeActivity = function (activity_id) {
+    LikeActivity.likeActivity(activity_id);
+  };
+
+  $scope.unlikeActivity = function (activity_id) {
+    UnlikeActivity.unlikeActivity(activity_id);
   }
+
+  $scope.saveActivity = function (activity_id) {
+    SaveActivity.saveActivity(activity_id);
+  };
+
+  $scope.unsaveActivity = function (activity_id) {
+    UnsaveActivity.unsaveActivity(activity_id);
+  }
+
 }

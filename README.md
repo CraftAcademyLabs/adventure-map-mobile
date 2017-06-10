@@ -40,6 +40,12 @@ In order to run a specific scenario you can run `protractor` with a `--specs` fl
 protractor tests/protractor.conf.js --specs tests/features/feature_file_.feature 
 ```
 
+## "possible EventEmitter memory leak detected." warning 
+If you get this warning please run this command to install 
+```
+$ sudo npm install -g npm@next
+```
+
 ### Running the App
 You can choose to run the app on your phone or in an emulator.
 
@@ -49,7 +55,29 @@ Run the following commands
 $ gulp sass # May not be necessary - This will compile the stylesheets
 $ ionic platform remove ios (optional)
 $ ionic platform add ios
+$ ionic state restore --plugins
 $ ionic emulate ios
+```
+
+**Running the emulator with live reload.** As we move forward with more Cordova plugins,we can no longer emulate the app running `$ ionic serve` 
+Running the simulator with live reload is a much better option.  
+ 
+```
+$ ionic emulate ios -l -c
+``` 
+This command will give you a console output in the terminal as well as reload the application on every update.  
+ 
+### Logging in with Facebook
+We have test users added to the AdventureMapDevelop Facebook application. If you want to log in using facebook please use:
+
+- User email: john_qhmvlan_ricesky@tfbnw.net
+- Password Cr@ft2017
+
+### Clear files from Simulator
+You probably want to clear the simulator data after a while o
+
+```
+$ xcrun simctl erase all
 ```
 
 #### Browser

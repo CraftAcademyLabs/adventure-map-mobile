@@ -1,25 +1,68 @@
-<ion-view title="Profile">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+<ion-view cache-view="false" can-swipe-back="false" class="profile-view" view-title="Profile">
+  <ion-nav-buttons side="right">
+    <button class="button button-positive" ng-controller="profileController" ng-click="openProfileEditor()">
+      Edit
+    </button>
   </ion-nav-buttons>
 
-  <ion-content class="padding">
-    <div class="list card">
-      <ion-item class="profile-item">
-        <div class="profile-picture big-profile-picture">
-          <img ng-src="{{user.image ? user.image : 'img/dummy_images/empty_image.svg'}}">
+  <ion-content>
+    <div class="row row-no-padding">
+      <div class="col user-col">
+        <div class="user-image-container" ng-controller="profileController" ng-click="selectAvatar()">
+          <pre-img ratio="_1_1" helper-class="avatar-image">
+            <img ng-src="{{profileImage()}}" spinner-on-load>
+          </pre-img>
         </div>
-        <h2 class="profile-name dark">{{user.name}}</h2>
-        <div class="profile-info">{{user.interests}}</div>
+        <h2 class="user-name">{{user.name}}</h2>
+        <a ui-sref="main.profile">
+          <h5 class="username">@{{user.nickname}}</h5>
+        </a>
+        <p class="user-social" ng-if="user.description">
+          {{user.description}}
+        </p>
+        <p class="user-social">
+          <i class="ion-heart"></i>
+          <span>74</span> &nbsp;
+          <i class="ion-location"></i>
+          <span>{{user.city}}</span>
+        </p>
+        <div class="row">
+          <div class="col">
+            <p class="user-bio">{{user.interest_list}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ion-list class="profile-list">
+      <div class="item item-divider profile-divider"></div>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.my-saved-activities">
+        <span class="main-text">Saved Activities</span>
+        <span class="badge">{{user.counts.my_saved_activities}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.my-activities">
+        <span class="main-text">My Activities</span>
+        <span class="badge">{{user.counts.my_activities}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.followings">
+        <span class="main-text">My Connections</span>
+        <span class="badge">{{user.counts.followings}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.my-recordings">
+        <span class="main-text">My Recordings</span>
+        <span class="badge">{{files.length}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
 
-    </div>
-    <button class="button button-block button-positive" ng-controller="authController" ng-click="performSignOut()">Log out</button>
-    <ion-list ng-if="files">
-      <ion-item ng-repeat="file in files">
-        {{file.fileName}}
-        <p>{{file.date}}</p>
-      </ion-item>
     </ion-list>
+    <button class="button button-full button-outline button-assertive no-margin" ng-controller="authController"
+            ng-click="signOut()">
+      Log Out
+    </button>
+
+    <div class="item item-divider">
+    </div>
   </ion-content>
 </ion-view>

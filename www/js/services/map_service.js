@@ -3,11 +3,13 @@ angular.module('adventureMap.mapService', [])
     var watchOptions = {
       maximumAge: 30000,
       timeout: 5000,
-      enableHighAccuracy: false // may cause errors if true
+      enableHighAccuracy: true // may cause errors if true
     };
 
     var watch = null;
     var markers = [];
+
+    var wmtsUrl = 'https://lacunaserver.se/mapproxy/wmts/combined_sweden/grid_sweden/{z}/{x}/{y}.png';
 
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
@@ -36,7 +38,6 @@ angular.module('adventureMap.mapService', [])
       function onError(err) {
         console.log(err);
       }
-
       return route;
     };
 
@@ -47,14 +48,13 @@ angular.module('adventureMap.mapService', [])
     };
 
     var addToMapFunction = function (lat, long, map) {
-
       markers.push(L.marker([lat, long]).addTo(map));
 
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: '',
-        maxZoom: 18,
-        id: 'mapbox.outdoors',
-        accessToken: 'pk.eyJ1IjoiYXF1YWFtYmVyIiwiYSI6ImNpejVreGVxNzAwNTEyeXBnbWc5eXNlcTYifQ.ah37yE5P2LH9LVzNelgymQ'
+      new L.TileLayer(wmtsUrl, {
+        maxZoom: 9,
+        minZoom: 0,
+        continuousWorld: true,
+        attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
       }).addTo(map);
 
       L.control.scale({

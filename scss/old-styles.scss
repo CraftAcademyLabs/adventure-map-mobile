@@ -1,4 +1,20 @@
 /* Empty. Add your own CSS if you like */
+
+.tab-item {
+  padding-top: 7px;
+}
+
+.tab-item-active {
+  padding-top: 7px;
+}
+
+.item-body {
+  overflow: auto;
+  padding: 0px;
+  text-overflow: inherit;
+  white-space: normal;
+}
+
 .eighty_percent {
   width: 80%;
   margin: auto;
@@ -23,7 +39,7 @@
 }
 
 .gray {
-  background-color: #cccccc;
+  background-color: #f2f2f2;
 }
 
 .card-bottom {
@@ -45,9 +61,72 @@
   padding: 10px;
 }
 
-.row {
-  margin-top: 10px;
+.difficulty-icon {
+  display: block;
+  text-align: right;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
+
+.activity-category {
+  float: left;
+  font-weight: bold;
+  bottom: -12px;
+  position: relative;
+}
+
+.ion-ios-ionic-outline:before {
+  content: url('../img/icons/bars1.png') !important;
+}
+.ion-ios-ionic:before {
+  content: url('../img/icons/bars2.png') !important;
+}
+.ion-social-angular:before {
+  content: url('../img/icons/bars3.png') !important;
+}
+
+.mybadge {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.activity-images {
+  margin: 5px auto 5px auto;
+  text-align: center;
+  width: 95%;
+  position: relative;
+}
+.activity-name {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  text-align: center;
+  text-wrap: normal;
+  color: #444;
+  opacity: 1;
+}
+
+.activity-image-unselected {
+  opacity: .3;
+  width: 100%;
+}
+.activity-image-selected {
+  opacity: 1;
+  width: 100%;
+}
+.white-text h3 {
+  color: #fff;
+}
+
+.routes {
+  color: #4ea4be;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
 
 /*****************
 PROFILE
@@ -114,6 +193,22 @@ FILTERS
 
 .has-footer-filter {
   bottom: 60px;
+}
+
+.menu-icon {
+  width: 40px;
+}
+
+.menu-icon-unselected {
+  opacity: .3;
+}
+
+.margin-10 {
+  margin: 10px;
+}
+
+.wrap-label {
+  flex-wrap: wrap !important;
 }
 
 /***************
@@ -194,6 +289,9 @@ COMMENTS
 }
 
 .comment-list {
+  background-color: #ffffff;
+  padding: 10px;
+
   .item-divider {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -210,9 +308,11 @@ COMMENTS
 }
 
 .count-span {
-  position: absolute;
-  top: -5px;
-  right: 13px;
+  position: relative;
+  display: inline-block;
+  align-content: right;
+  top: -12px;
+  right: 10px;
   height: 19px;
   width: 19px;
   background: #4ea4be;
@@ -238,6 +338,87 @@ COMMENTS
 
 .comment-date {
   text-align: right;
-  font-size: 90%;
+  font-size: 65%;
   color: rgba(77, 77, 77, 0.52);
+}
+
+.card {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.col {
+  text-align: center;
+}
+
+.white {
+  background-color: #FFFFFF;
+}
+
+
+.col-50 {
+  border-color: #b2b2b2;
+}
+
+.button-followings {
+  color: #46a3c2;
+}
+
+.followings-list {
+  padding-top: 27px;
+}
+
+/**************
+ SIGN UP
+*/
+
+.sign-up {
+  padding-top: 30px;
+}
+
+.log-in {
+  margin-bottom: 40px;
+}
+
+.black {
+  color: #333;
+}
+
+.login-button {
+  padding-left: 0px;
+}
+
+.forgot-password-button {
+  color: #333 !important;
+}
+
+/**************
+SAVED ACTIVITIES
+ */
+
+div.title-div {
+  padding-top: 5px;
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+div.date-div {
+  padding-top: 7px;
+  padding-left: 40px;
+}
+
+div.saved-body {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+
+  h3 {
+    color: #46a3c2 !important;
+  }
+}
+
+div.arrow-div {
+  padding-top: 10px;
+  color: #46a3c2 !important;
 }
