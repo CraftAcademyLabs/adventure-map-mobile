@@ -39,6 +39,14 @@ function showActivityController($scope,
     }
   };
 
+  $scope.carouselOptions = {
+    carouselId    : 'image-carousel',
+    align         : 'right',
+    selectFirst   : true,
+    centerOnSelect: true,
+    template      : 'templates/partials/image-carousel.html'
+  };
+
   $scope.closeCommentModal = function () {
     $scope.comment_modal.hide();
     $scope.comment_modal.remove();
