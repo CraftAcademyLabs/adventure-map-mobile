@@ -24,6 +24,11 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
       enableHighAccuracy: false
     };
 
+    //var map = L.map('map-container', {
+    //  zoomControl: false,
+    //  attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
+    //});
+
     map = new L.Map('map-container', {
       crs: crs,
       continuousWorld: true,

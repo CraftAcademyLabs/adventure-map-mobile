@@ -10,6 +10,8 @@ angular.module('adventureMap.mapService', [])
     var markers = [];
 
     var wmtsUrl = 'https://lacunaserver.se/mapproxy/wmts/combined_sweden/grid_sweden/{z}/{x}/{y}.png';
+    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
+
 
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
@@ -49,18 +51,29 @@ angular.module('adventureMap.mapService', [])
     };
 
     var addToMapFunction = function (lat, long, map) {
+      new L.TileLayer(wmtsUrl, {
+        continuousWorld: true,
+      }).addTo(map);
       markers.push(L.marker([lat, long]).addTo(map));
 
-      new L.TileLayer(wmtsUrl, {
-        maxZoom: 9,
-        minZoom: 0,
-        continuousWorld: true,
-        attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
-      }).addTo(map);
+      //var baseMaps = {
+      //  blackwhite: L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+      //  combined_sweden: L.tileLayer.wms(mapproxyUrl,
+      //    {
+      //      layers: 'combined_sweden',
+      //      transparent: true,
+      //      format: 'image/png'
+      //    }).addTo(map)
+      //};
+
+
+      //L.control.layers(baseMaps).addTo(map);
 
       L.control.scale({
         imperial: false
       }).addTo(map);
+
+      new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
     };
 
     var clearRouteFunction = function (map) {
@@ -83,7 +96,7 @@ angular.module('adventureMap.mapService', [])
 
       var polyline = new L.polyline(pointList, polOptions);
       polyline.addTo(map);
-      map.setView([lat, long], 13);
+      map.setView([lat, long], 9);
 
     }
 
@@ -101,8 +114,6 @@ angular.module('adventureMap.mapService', [])
     }
 
     function addClustersFunction(map) {
-      var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
-
       var clusterOptions = {
         showCoverageOnHover: false,
         removeOutsideVisibleBounds: true,
@@ -111,20 +122,12 @@ angular.module('adventureMap.mapService', [])
       };
 
       // add layers and layer control
-      var baseMaps = {
-        blackwhite: L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
-        combined_sweden: L.tileLayer.wms(mapproxyUrl,
-          {
-            layers: 'combined_sweden',
-            transparent: true,
-            format: 'image/png'
-          }).addTo(map)
-      };
+
       var overlayMaps = {
         badplatserWfs: L.markerClusterGroup(clusterOptions).addTo(map),
         vindskyddWfs: L.markerClusterGroup(clusterOptions).addTo(map),
       };
-      L.control.layers(baseMaps, overlayMaps).addTo(map);
+      //L.control.layers(overlayMaps).addTo(map);
 
       // define marker options
       var badplatsIcon = L.icon({
@@ -146,7 +149,7 @@ angular.module('adventureMap.mapService', [])
       loadWfsPoints('adventuremap:vindskydd', overlayMaps.vindskyddWfs, vindskyddMarker);
     }
 
-    // Load geoJson from WFS with jQuery, add the points to the provided cluster
+    // Load geoJson from WFS and add the points to the provided cluster
     function loadWfsPoints(layerName, clusterLayer, markerOptions) {
       var owsrootUrl = 'https://lacunaserver.se/geoserver/ows';
 
@@ -159,19 +162,12 @@ angular.module('adventureMap.mapService', [])
         format_options: 'callback:JSON_CALLBACK',
         SrsName: 'EPSG:4326'
       };
-      var customParameters = {
-        bbox: map.getBounds().toBBoxString(), // for some reason this doesn't seem to do anything... would be preferable to only load items in view
-      }
+
       var parameters = L.Util.extend(defaultParameters);
       var URL = owsrootUrl + L.Util.getParamString(parameters);
       console.log(URL);
-      var WFSLayer = null;
-
 
       $http.jsonp(URL, {jsonpCallbackParam: 'parseResponse'}).success(function (response) {
-        debugger;
-
-        console.log(response);
         var point = L.geoJson(response, {
           pointToLayer: function (feature, latlng) {
             return L.marker(latlng, markerOptions);
