@@ -2,6 +2,8 @@ angular
   .module('adventureMap.directives', [])
   .directive("displayFirstImage", displayFirstImage)
   .directive('showActivityFeed', showActivityFeed)
+  .directive('showSavedActivities', showSavedActivities)
+  .directive('showMyActivities', showMyActivities)
 
   .directive('preImg', function () {
     return {
@@ -78,6 +80,22 @@ function showActivityFeed() {
     restrict: 'E',
     scope: {activities: '='},
     templateUrl: 'templates/directives/activity-feed.html'
+  };
+  return directive;
+}
+
+function showSavedActivities() {
+  const directive = {
+    scope: {saved: '='},
+    templateUrl: 'templates/directives/saved-activities.html'
+  };
+  return directive;
+}
+
+function showMyActivities() {
+  const directive = {
+    scope: {mine: '='},
+    templateUrl: 'templates/directives/my-activities.html'
   };
   return directive;
 }

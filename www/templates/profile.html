@@ -1,4 +1,4 @@
-<ion-view cache-view="false" can-swipe-back="false" class="profile-view" view-title="Profile">
+<ion-view cache-view="false" can-swipe-back="false" class="profile-view" view-title="Profile" cache-view="false">
   <ion-nav-buttons side="right">
     <button class="button button-positive" ng-controller="profileController" ng-click="openProfileEditor()">
       Edit
@@ -8,7 +8,7 @@
   <ion-content scroll="false">
     <div class="row row-no-padding">
       <div class="col user-col">
-        <div class="user-image-container">
+        <div class="user-image-container" ng-controller="profileController" ng-click="selectAvatar()">
           <pre-img ratio="_1_1" helper-class="avatar-image">
             <img ng-src="{{profileImage()}}" spinner-on-load>
           </pre-img>
@@ -33,7 +33,6 @@
         </div>
       </div>
     </div>
-
     <ion-list class="profile-list">
       <ion-item class="item item-icon-right list-item" ui-sref="app.my-saved-activities">
         <span class="main-text">Saved Activities</span>
@@ -41,16 +40,13 @@
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
       <ion-item class="item item-icon-right list-item" ui-sref="app.my-activities">
-        <span class="main-text">My Activities</span>
+        <span class="main-text">Activities I Made</span>
         <span class="badge">{{user.counts.my_activities}}</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
       <ion-item class="item item-icon-right list-item" ui-sref="app.followings">
-        <span class="main-text">Following</span>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-      <ion-item class="item item-icon-right list-item" ui-sref="app.followers">
-        <span class="main-text">Followers</span>
+        <span class="main-text">My Connections</span>
+        <span class="badge">{{user.counts.followings}}</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
       <ion-item class="item item-icon-right list-item" ui-sref="app.my-recordings">

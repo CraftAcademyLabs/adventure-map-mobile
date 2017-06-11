@@ -76,6 +76,11 @@ ion-spinner.spinner-on-load {
   color: $assertive;
 }
 
+.success-message {
+  color: $balanced;
+  word-wrap: break-word;
+}
+
 .no-margin {
   margin: 0 !important;
 }

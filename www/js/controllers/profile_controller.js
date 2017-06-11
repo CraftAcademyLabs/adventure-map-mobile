@@ -1,18 +1,35 @@
-function profileController ($scope,
-                            $ionicLoading,
-                            $ionicPlatform,
-                            $localStorage,
-                            $ionicModal,
-                            MyActivities,
-                            MyFollowers,
-                            Save,
-                            User,
-                            CATEGORY_WORDS,
-                            md5) {
-  const user = $localStorage.user || $scope.user
+function profileController($scope,
+                           $state,
+                           $ionicLoading,
+                           $ionicPlatform,
+                           $localStorage,
+                           $ionicModal,
+                           MyActivities,
+                           MyFollowers,
+                           S3FileUpload,
+                           Save,
+                           User,
+                           CATEGORY_WORDS,
+                           md5) {
+
+
+  var user = $scope.user;
+  console.log(user);
   if (typeof(user.interest_list) === 'object') {
     user.interest_list = user.interest_list.join(', ')
   }
+
+
+  $scope.selectAvatar = function () {
+    console.log('getting avatar picker');
+    var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+    var options = setOptions(srcType);
+    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+      getAvatarAndUpdateUser(imageUri);
+    }, function cameraError(error) {
+      console.debug("Unable to obtain picture: " + error, "app");
+    }, options);
+  };
 
   showMyActivities = function () {
     console.log(user)
@@ -48,8 +65,8 @@ function profileController ($scope,
   }
 
   showFollows = function (request) {
-    console.log(user)
-    console.log(request)
+    console.log(user);
+    console.log(request);
     $ionicLoading.show({
       template: 'Getting users I follow...'
     })
@@ -76,6 +93,13 @@ function profileController ($scope,
     })
   }
 
+  $scope.showFollows = function (request) {
+    $ionicPlatform.ready(function () {
+      // $window.location.reload(true);
+      showFollows(request)
+    })
+  }
+
   showSavedActivities = function () {
     $ionicLoading.show({
       template: 'Getting my saved activities...'
@@ -88,6 +112,7 @@ function profileController ($scope,
           if (a.created_at > b.created_at) return 1
           return 0
         })
+        console.log($scope.mySaves)
       } else {
         $ionicPopup.alert({
           title: resp.message[0]
@@ -95,13 +120,6 @@ function profileController ($scope,
       }
     }, function (resp) {
       $ionicLoading.hide()
-    })
-  }
-
-  $scope.showFollows = function (request) {
-    $ionicPlatform.ready(function () {
-      // $window.location.reload(true);
-      showFollows(request)
     })
   }
 
@@ -133,7 +151,7 @@ function profileController ($scope,
 
   $scope.openProfileEditor = function () {
     $scope.user.interest_list_booleans = []
-    console.log('openProfileEditor $scope.user:')
+    console.log('openProfileEditor $scope.user:');
     console.log($scope.user)
     if ($scope.user.interest_list) {
       translateUserInterestList()
@@ -142,9 +160,9 @@ function profileController ($scope,
   }
 
   $scope.updateProfile = function () {
-    console.log($scope.user)
+    console.log($scope.user);
 
-    $scope.user.interest_list = setInterestList().join(', ')
+    $scope.user.interest_list = setInterestList().join(', ');
     User.update($scope.user, function (resp) {
       if (resp.status === 'success') {
         console.log(resp)
@@ -154,13 +172,13 @@ function profileController ($scope,
   }
 
   setInterestList = function () {
-    var list = []
+    var list = [];
     for (var i = 0; i <= 10; i++) {
       if ($scope.user.interest_list_booleans[i] === true) {
         list.push(CATEGORY_WORDS[i])
       }
     }
-    console.log(list)
+    console.log(list);
     return list
   }
 
@@ -192,5 +210,61 @@ function profileController ($scope,
         }
       })
     })
+  }
+
+  // This is repetitive code. Extract to a service
+
+  function setOptions(srcType) {
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: srcType,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true  //Corrects Android orientation quirks
+    };
+    return options;
+  }
+
+  function getAvatarAndUpdateUser(imgUri) {
+    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+      fileEntry.file(function (file) {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          console.log("Successful file read: " + this.result);
+          var imageFile = new Blob([new Uint8Array(this.result)], {type: "image/jpeg"});
+          imageFile.name = file.name;
+          S3FileUpload.upload('images', imageFile).then(
+            function (imageResp) {
+              //Set the image attribute
+              user.image = imageResp.public_url;
+              User.update(user, function (resp) {
+                if (resp.status === 'success') {
+                  console.log(resp);
+                  $state.reload();
+                  //$scope.editProfileModal.hide()
+                }
+              })
+              //$scope.uploadedImages.push(imageResp.public_url);
+              $ionicLoading.hide();
+            },
+            function (response) {
+              console.log(response);
+              $ionicLoading.hide();
+            }
+          );
+        };
+        $ionicLoading.show({
+          template: 'Uploading image...'
+        });
+        reader.readAsArrayBuffer(file);
+      }, function () {
+        console.log("Sorry, something went wrong and we couldn't read your file");
+      });
+    }, function () {
+      // Perhaps we want to create the file?
+      console.log("Sorry, something went wrong while creating file object");
+    });
   }
 }

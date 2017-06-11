@@ -14,11 +14,12 @@ angular.module('adventureMap', [
     'adventureMap.utilities',
     'ngCordova', 'ng-token-auth',
     'ngResource',
-    'ngStorage'
+    'ngStorage',
+    'ionic.contrib.ui.hscrollcards'
   ])
   //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
-  // .constant('API_URL', 'http://localhost:3000/api/v1')
+  //.constant('API_URL', 'http://localhost:3000/api/v1')//
 
   .constant('DIFFICULTY_WORDS', ['Easy', 'Moderate', 'Hard'])
   .constant('CATEGORY_ICONS', [
@@ -77,7 +78,7 @@ angular.module('adventureMap', [
   })
 
   .config(function ($ionicConfigProvider) {
-    $ionicConfigProvider.backButton.icon('ion-ios-arrow-back').previousTitleText(true);
+    $ionicConfigProvider.backButton.icon('ion-ios-arrow-left').previousTitleText(false).text('');
   })
 
   .run(function ($ionicPlatform, $rootScope, $state) {
@@ -142,6 +143,15 @@ angular.module('adventureMap', [
         views: {
           'intro-view@intro': {
             templateUrl: 'templates/auth/signup.html',
+            controller: 'authController'
+          }
+        }
+      })
+      .state('intro.password_reset', {
+        url: '/password_reset',
+        views: {
+          'intro-view@intro': {
+            templateUrl: 'templates/auth/password_reset.html',
             controller: 'authController'
           }
         }
@@ -214,10 +224,21 @@ angular.module('adventureMap', [
       })
       .state('app.profile', {
         url: '/profile',
+        cache: false,
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile.html',
             controller: 'userController'
+          }
+        }
+      })
+      .state('app.profile-activity', {
+        url: '/profile/activities/:id',
+        cache: false,
+        views: {
+          'tab-profile-view': {
+            templateUrl: 'templates/activities/show.html',
+            controller: 'showActivityController'
           }
         }
       })
