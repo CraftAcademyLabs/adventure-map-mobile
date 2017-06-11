@@ -1,16 +1,17 @@
-function profileController ($scope,
-                            $state,
-                            $ionicLoading,
-                            $ionicPlatform,
-                            $localStorage,
-                            $ionicModal,
-                            MyActivities,
-                            MyFollowers,
-                            S3FileUpload,
-                            Save,
-                            User,
-                            CATEGORY_WORDS,
-                            md5) {
+function profileController($scope,
+                           $state,
+                           $ionicLoading,
+                           $ionicPlatform,
+                           $localStorage,
+                           $ionicModal,
+                           MyActivities,
+                           MyFollowers,
+                           S3FileUpload,
+                           Save,
+                           User,
+                           CATEGORY_WORDS,
+                           md5) {
+  
   var user = $localStorage.user || $scope.user;
   console.log($scope.user);
   console.log($localStorage.user);

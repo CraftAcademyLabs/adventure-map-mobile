@@ -48,8 +48,7 @@ div.hscroller-card{
 		margin: 0;
 		word-wrap: break-word;
 		white-space: normal;
-		//height: calc($hscroller-card-height - $hscroller-image-height);
-    height: 0;
+    height:  calc(#{$hscroller-card-height} - #{$hscroller-image-height});
 	}
 
 	&:last-child {margin-right: $hscroller-lateral-padding;}
