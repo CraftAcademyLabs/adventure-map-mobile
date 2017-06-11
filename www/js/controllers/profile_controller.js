@@ -11,14 +11,14 @@ function profileController($scope,
                            User,
                            CATEGORY_WORDS,
                            md5) {
-  
-  var user = $localStorage.user || $scope.user;
-  console.log($scope.user);
-  console.log($localStorage.user);
+
+
+  var user = $scope.user;
   console.log(user);
   if (typeof(user.interest_list) === 'object') {
     user.interest_list = user.interest_list.join(', ')
   }
+
 
   $scope.selectAvatar = function () {
     console.log('getting avatar picker');
@@ -172,13 +172,13 @@ function profileController($scope,
   }
 
   setInterestList = function () {
-    var list = []
+    var list = [];
     for (var i = 0; i <= 10; i++) {
       if ($scope.user.interest_list_booleans[i] === true) {
         list.push(CATEGORY_WORDS[i])
       }
     }
-    console.log(list)
+    console.log(list);
     return list
   }
 
