@@ -1,5 +1,5 @@
 angular.module('adventureMap.mapService', [])
-  .service('MapService', function () {
+  .service('MapService', function ($http) {
     var watchOptions = {
       maximumAge: 30000,
       timeout: 5000,
@@ -38,6 +38,7 @@ angular.module('adventureMap.mapService', [])
       function onError(err) {
         console.log(err);
       }
+
       return route;
     };
 
@@ -62,7 +63,7 @@ angular.module('adventureMap.mapService', [])
       }).addTo(map);
     };
 
-    var clearRouteFunction = function (map){
+    var clearRouteFunction = function (map) {
       clearLines(map);
       map.removeLayer(markers[0]);
       markers.splice(0, 1);
@@ -99,10 +100,94 @@ angular.module('adventureMap.mapService', [])
       }
     }
 
+    function addClustersFunction(map) {
+      var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
+
+      var clusterOptions = {
+        showCoverageOnHover: false,
+        removeOutsideVisibleBounds: true,
+        maxClusterRadius: 100, // could preferably be set by screen dpi or current zoomlevel
+        animate: true
+      };
+
+      // add layers and layer control
+      var baseMaps = {
+        blackwhite: L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
+        combined_sweden: L.tileLayer.wms(mapproxyUrl,
+          {
+            layers: 'combined_sweden',
+            transparent: true,
+            format: 'image/png'
+          }).addTo(map)
+      };
+      var overlayMaps = {
+        badplatserWfs: L.markerClusterGroup(clusterOptions).addTo(map),
+        vindskyddWfs: L.markerClusterGroup(clusterOptions).addTo(map),
+      };
+      L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+      // define marker options
+      var badplatsIcon = L.icon({
+        iconUrl: 'img/marker-flag-green.png',
+        iconAnchor: [16, 16]
+      });
+      var vindskyddIcon = L.icon({
+        iconUrl: 'img/marker-flag-blue.png',
+        iconAnchor: [16, 16]
+      })
+      var badplatsMarker = {
+        icon: badplatsIcon
+      };
+      var vindskyddMarker = {
+        icon: vindskyddIcon
+      };
+
+      loadWfsPoints('adventuremap:badplatser', overlayMaps.badplatserWfs, badplatsMarker);
+      loadWfsPoints('adventuremap:vindskydd', overlayMaps.vindskyddWfs, vindskyddMarker);
+    }
+
+    // Load geoJson from WFS with jQuery, add the points to the provided cluster
+    function loadWfsPoints(layerName, clusterLayer, markerOptions) {
+      var owsrootUrl = 'https://lacunaserver.se/geoserver/ows';
+
+      var defaultParameters = {
+        service: 'WFS',
+        version: '2.0',
+        request: 'GetFeature',
+        typeName: layerName,
+        outputFormat: 'text/javascript',
+        format_options: 'callback:JSON_CALLBACK',
+        SrsName: 'EPSG:4326'
+      };
+      var customParameters = {
+        bbox: map.getBounds().toBBoxString(), // for some reason this doesn't seem to do anything... would be preferable to only load items in view
+      }
+      var parameters = L.Util.extend(defaultParameters);
+      var URL = owsrootUrl + L.Util.getParamString(parameters);
+      console.log(URL);
+      var WFSLayer = null;
+
+
+      $http.jsonp(URL, {jsonpCallbackParam: 'parseResponse'}).success(function (response) {
+        debugger;
+
+        console.log(response);
+        var point = L.geoJson(response, {
+          pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, markerOptions);
+          }
+        });
+        clusterLayer.addLayer(point);
+      });
+    }
+
+
     return {
       startTracking: startTrackingFunction,
       stopTracking: stopTrackingFunction,
       addToMap: addToMapFunction,
-      clearRoute: clearRouteFunction
+      clearRoute: clearRouteFunction,
+      addClusters: addClustersFunction
+
     };
   });

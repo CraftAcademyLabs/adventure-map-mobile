@@ -10,6 +10,8 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
     bounds: L.bounds([-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
   });
 
+
+
   $scope.inProgress = false;
   $scope.currentRoute = [];
   $scope.hasRecording = false;
@@ -30,6 +32,7 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
 
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
 
+
     $ionicLoading.show({
       template: 'Loading current location...'
     });
@@ -41,9 +44,14 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
       console.log(lat + ', ' + long);
       map.setView([lat, long], 16);
       MapService.addToMap(lat, long, map);
-      $ionicLoading.hide();
+      $ionicLoading.hide().then(function(){
+        console.log('hidden dragon');
+        MapService.addClusters(map)
+      });
     }, function (err) {
-      console.log(err);
+      $ionicLoading.hide().then(function(){
+        console.log(err);
+      });
     });
   });
 
