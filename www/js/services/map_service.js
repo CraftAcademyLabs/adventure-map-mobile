@@ -10,8 +10,6 @@ angular.module('adventureMap.mapService', [])
     var markers = [];
 
     var wmtsUrl = 'https://lacunaserver.se/mapproxy/wmts/combined_sweden/grid_sweden/{z}/{x}/{y}.png';
-    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
-
 
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
@@ -40,7 +38,6 @@ angular.module('adventureMap.mapService', [])
       function onError(err) {
         console.log(err);
       }
-
       return route;
     };
 
@@ -51,69 +48,28 @@ angular.module('adventureMap.mapService', [])
     };
 
     var addToMapFunction = function (lat, long, map) {
-      new L.TileLayer(wmtsUrl, {
-        continuousWorld: true,
-      }).addTo(map);
       markers.push(L.marker([lat, long]).addTo(map));
 
-      //var baseMaps = {
-      //  blackwhite: L.tileLayer.provider('OpenStreetMap.BlackAndWhite'),
-      //  combined_sweden: L.tileLayer.wms(mapproxyUrl,
-      //    {
-      //      layers: 'combined_sweden',
-      //      transparent: true,
-      //      format: 'image/png'
-      //    }).addTo(map)
-      //};
-
-
-      //L.control.layers(baseMaps).addTo(map);
+      //new L.TileLayer(wmtsUrl, {
+      //  maxZoom: 9,
+      //  minZoom: 0,
+      //  continuousWorld: true,
+      //  attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
+      //}).addTo(map);
 
       L.control.scale({
         imperial: false
       }).addTo(map);
-
-      new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
     };
 
-    var clearRouteFunction = function (map) {
+    var clearRouteFunction = function (map){
       clearLines(map);
       map.removeLayer(markers[0]);
       markers.splice(0, 1);
     };
 
-    // Support methods
-    function drawLine(lat, long, old_lat, old_long, map) {
-      var polOptions = {
-        color: 'blue',
-        weight: 3,
-        opacity: 0.5,
-        smoothFactor: 1
-      };
-      var pointA = new L.LatLng(old_lat, old_long);
-      var pointB = new L.LatLng(lat, long);
-      var pointList = [pointA, pointB];
+    var addClustersFunction = function (map) {
 
-      var polyline = new L.polyline(pointList, polOptions);
-      polyline.addTo(map);
-      map.setView([lat, long], 9);
-
-    }
-
-    function clearLines(map) {
-      for (i in map._layers) {
-        if (map._layers[i]._path != undefined) {
-          try {
-            map.removeLayer(map._layers[i]);
-          }
-          catch (e) {
-            console.log("problem with " + e + map._layers[i]);
-          }
-        }
-      }
-    }
-
-    function addClustersFunction(map) {
       var clusterOptions = {
         showCoverageOnHover: false,
         removeOutsideVisibleBounds: true,
@@ -125,9 +81,8 @@ angular.module('adventureMap.mapService', [])
 
       var overlayMaps = {
         badplatserWfs: L.markerClusterGroup(clusterOptions).addTo(map),
-        vindskyddWfs: L.markerClusterGroup(clusterOptions).addTo(map),
+        vindskyddWfs: L.markerClusterGroup(clusterOptions).addTo(map)
       };
-      //L.control.layers(overlayMaps).addTo(map);
 
       // define marker options
       var badplatsIcon = L.icon({
@@ -147,6 +102,40 @@ angular.module('adventureMap.mapService', [])
 
       loadWfsPoints('adventuremap:badplatser', overlayMaps.badplatserWfs, badplatsMarker);
       loadWfsPoints('adventuremap:vindskydd', overlayMaps.vindskyddWfs, vindskyddMarker);
+    };
+
+    // Support methods
+
+    // Draw reoute
+    function drawLine(lat, long, old_lat, old_long, map) {
+      var polOptions = {
+        color: 'blue',
+        weight: 3,
+        opacity: 0.5,
+        smoothFactor: 1
+      };
+      var pointA = new L.LatLng(old_lat, old_long);
+      var pointB = new L.LatLng(lat, long);
+      var pointList = [pointA, pointB];
+
+      var polyline = new L.polyline(pointList, polOptions);
+      polyline.addTo(map);
+      map.setView([lat, long], 13);
+
+    }
+
+    // Clear route
+    function clearLines(map) {
+      for (i in map._layers) {
+        if (map._layers[i]._path != undefined) {
+          try {
+            map.removeLayer(map._layers[i]);
+          }
+          catch (e) {
+            console.log("problem with " + e + map._layers[i]);
+          }
+        }
+      }
     }
 
     // Load geoJson from WFS and add the points to the provided cluster
