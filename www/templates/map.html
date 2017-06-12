@@ -3,7 +3,8 @@
     <div class="bar bar-header item-input-inset" ng-if="hasFilters">
       <label class="item-input-wrapper textbox-search" style="margin-top: -10px !important;">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="{{ 'SEARCH' | translate }}">
+        <input type="search" placeholder="{{ 'SEARCH' | translate }}" ng-model="search.term"
+               ng-change="performSearch(search.term)">
       </label>
 
     </div>
@@ -16,7 +17,16 @@
     <a data-tap-disabled="true" class=" button button-icon icon positive" ng-click="openFilters(hasFilters);"
        ng-class="{'ion-ios-search':!hasFilters,'ion-ios-close-outline':hasFilters}"></a>
   </ion-nav-buttons>
+
   <div id="map-container"></div>
+  <div id="search-results" ng-show="entries.length >= 0">
+    <div>
+
+      <ul ng-repeat="location in entries">
+        <li>{{ location.display_name }}</li>
+      </ul>
+    </div>
+  </div>
   <div id="over-map">
     <div class="filter-btn">
       <button class="button button-clear button-small" ng-click="startTracking()"

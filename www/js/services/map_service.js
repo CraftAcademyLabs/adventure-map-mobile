@@ -9,8 +9,6 @@ angular.module('adventureMap.mapService', [])
     var watch = null;
     var markers = [];
 
-    var wmtsUrl = 'https://lacunaserver.se/mapproxy/wmts/combined_sweden/grid_sweden/{z}/{x}/{y}.png';
-
     // Service methods
     var startTrackingFunction = function (lat, long, map) {
       clearLines(map);
@@ -49,13 +47,6 @@ angular.module('adventureMap.mapService', [])
 
     var addToMapFunction = function (lat, long, map) {
       markers.push(L.marker([lat, long]).addTo(map));
-
-      //new L.TileLayer(wmtsUrl, {
-      //  maxZoom: 9,
-      //  minZoom: 0,
-      //  continuousWorld: true,
-      //  attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
-      //}).addTo(map);
 
       L.control.scale({
         imperial: false

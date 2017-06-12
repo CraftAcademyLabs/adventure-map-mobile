@@ -1,4 +1,10 @@
-function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatform, MapService, FileService) {
+function mapController($scope,
+                       $http,
+                       $cordovaGeolocation,
+                       $ionicLoading,
+                       $ionicPlatform,
+                       MapService,
+                       FileService) {
   var lat, long;
 
   $scope.inProgress = false;
@@ -6,9 +12,20 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
   $scope.hasRecording = false;
   $scope.hasFilters = false;
 
-  $scope.openFilters = function(value) {
+  $scope.openFilters = function (value) {
     $scope.hasFilters = value === false;
+    $scope.entries = null === false;
   };
+
+  $scope.performSearch = function (term) {
+    if (term.length >= 3) {
+      $http.get('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + term).then(function (result) {
+        $scope.entries = result.data;
+        console.log($scope.entries);
+      });
+    }
+  };
+
 
   $ionicPlatform.ready(function () {
     // called when ready
