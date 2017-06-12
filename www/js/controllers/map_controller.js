@@ -4,9 +4,10 @@ function mapController($scope, $cordovaGeolocation, $ionicLoading, $ionicPlatfor
   $scope.inProgress = false;
   $scope.currentRoute = [];
   $scope.hasRecording = false;
+  $scope.hasFilters = false;
 
-  $scope.toggleLeft = function() {
-    $ionicSideMenuDelegate.toggleLeft();
+  $scope.openFilters = function(value) {
+    $scope.hasFilters = value === false;
   };
 
   $ionicPlatform.ready(function () {
