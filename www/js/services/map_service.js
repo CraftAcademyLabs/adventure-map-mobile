@@ -30,7 +30,7 @@ angular.module('adventureMap.mapService', [])
           altitude: position.coords.altitude
         });
         drawLine(lat, long, old_lat, old_long, map);
-        console.log(route);
+        //console.log(route);
       }
 
       function onError(err) {
@@ -47,10 +47,6 @@ angular.module('adventureMap.mapService', [])
 
     var addToMapFunction = function (lat, long, map) {
       markers.push(L.marker([lat, long]).addTo(map));
-
-      L.control.scale({
-        imperial: false
-      }).addTo(map);
     };
 
     var clearRouteFunction = function (map){

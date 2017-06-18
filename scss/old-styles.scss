@@ -439,3 +439,21 @@ div.arrow-div {
   background-position:center;
   background-image: url('../img/icons/map-marker.svg');
 }
+
+// Custom select
+
+.results > li {
+  width: 80%;
+  background: #eee;
+  line-height: 1.5rem;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.results > li:hover {
+  background: #aaa;
+}
+
+.hidden {
+  display:none;
+}

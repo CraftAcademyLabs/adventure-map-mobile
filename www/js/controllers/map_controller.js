@@ -21,7 +21,7 @@ function mapController($scope,
     if (term.length >= 3) {
       $http.get('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + term).then(function (result) {
         $scope.entries = result.data;
-        console.log($scope.entries);
+        angular.element(document.getElementsByClassName("results")).removeClass('hidden')
       });
     }
   };
@@ -50,6 +50,11 @@ function mapController($scope,
           attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
         }).addTo(map)
     };
+
+
+    L.control.scale({
+      imperial: false
+    }).addTo(map);
 
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
 
@@ -116,6 +121,12 @@ function mapController($scope,
     if (window.cordova) {
       FileService.saveToFile($scope.currentLocation.timestamp, $scope.currentLocation.coords, 'Waypoint');
     }
+  };
+
+  $scope.navigateTo = function(coords){
+    map.panTo([coords.lat, coords.long], {animate: true, duration: 1.5});
+    MapService.addToMap(coords.lat, coords.long, map);
+    angular.element(document.getElementsByClassName("results")).addClass('hidden')
   };
 
   function setCurrentLocation(position) {
