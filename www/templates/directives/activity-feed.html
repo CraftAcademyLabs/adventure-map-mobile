@@ -6,6 +6,11 @@
       <h2 class="activity_title">{{activity.user.name}}</h2>
       <p>{{activity.created_at}}</p>
     </div>
+    <div class="buttons">
+      <button class="button ion-ios-arrow-up" ng-controller="activitiesController" onclick="window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Facebook (with errcallback)>
+      </button>
+
+    </div>
 
     <div ng-click="navigateToActivity(activity)">
       <display-first-image images_for="{{activity}}"></display-first-image>

@@ -5,6 +5,7 @@ function activitiesController($scope,
                               $auth,
                               $ionicModal,
                               $ionicPopup,
+                              $ionicPopover,
                               $cordovaGeolocation,
                               Activity,
                               ActivityDetail,
@@ -14,7 +15,8 @@ function activitiesController($scope,
                               Utilities,
                               DIFFICULTY_WORDS,
                               CATEGORY_ICONS,
-                              CATEGORY_WORDS) {
+                              CATEGORY_WORDS,
+                              $cordovaSocialSharing) {
 
   setState();
   $scope.activity = {};
@@ -41,6 +43,33 @@ function activitiesController($scope,
   }).then(function (modal) {
     $scope.filesModal = modal;
   });
+
+  $ionicPopover.fromTemplateUrl('templates/activities/social_sharing.html', {
+    scope: $scope,
+  }).then(function (popover) {
+    $scope.sharingPopover = popover;
+  });
+
+    $cordovaSocialSharing
+      .shareViaFacebook(message, image, link)
+      .then(function(result) {
+        // Success!
+        debugger;
+
+      }, function(err) {
+        // An error occurred. Show a message to the user
+        debugger;
+
+      });
+
+ /* $scope.demo = 'ios';
+  $scope.setPlatform = function(p) {
+    document.body.classList.remove('platform-ios');
+    document.body.classList.remove('platform-android');
+    document.body.classList.add('platform-' + p);
+    $scope.demo = p;
+  }*/
+
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     if (states.stateName === "app.activities") {
