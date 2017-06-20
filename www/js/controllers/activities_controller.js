@@ -44,44 +44,15 @@ function activitiesController($scope,
     $scope.filesModal = modal;
   });
 
-  $ionicPopover.fromTemplateUrl('templates/activities/social_sharing.html', {
-    scope: $scope,
-  }).then(function (popover) {
-    $scope.sharingPopover = popover;
-  });
-
   $scope.shareUsingFacebook = function (message, image, link) {
-    debugger;
     $cordovaSocialSharing
       .shareViaFacebook(message, image, link)
       .then(function (result) {
         // Success!
-        debugger;
-
       }, function (err) {
         // An error occurred. Show a message to the user
-        debugger;
-
       });
-
-    //
-    //window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function () {
-    //  console.log('share ok')
-    //}, function (errormsg) {
-    //  alert(errormsg)
-    //})
-
   }
-
-
-  /* $scope.demo = 'ios';
-   $scope.setPlatform = function(p) {
-   document.body.classList.remove('platform-ios');
-   document.body.classList.remove('platform-android');
-   document.body.classList.add('platform-' + p);
-   $scope.demo = p;
-   }*/
-
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     if (states.stateName === "app.activities") {
