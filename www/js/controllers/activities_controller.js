@@ -50,25 +50,37 @@ function activitiesController($scope,
     $scope.sharingPopover = popover;
   });
 
+  $scope.shareUsingFacebook = function (message, image, link) {
+    debugger;
     $cordovaSocialSharing
       .shareViaFacebook(message, image, link)
-      .then(function(result) {
+      .then(function (result) {
         // Success!
         debugger;
 
-      }, function(err) {
+      }, function (err) {
         // An error occurred. Show a message to the user
         debugger;
 
       });
 
- /* $scope.demo = 'ios';
-  $scope.setPlatform = function(p) {
-    document.body.classList.remove('platform-ios');
-    document.body.classList.remove('platform-android');
-    document.body.classList.add('platform-' + p);
-    $scope.demo = p;
-  }*/
+    //
+    //window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function () {
+    //  console.log('share ok')
+    //}, function (errormsg) {
+    //  alert(errormsg)
+    //})
+
+  }
+
+
+  /* $scope.demo = 'ios';
+   $scope.setPlatform = function(p) {
+   document.body.classList.remove('platform-ios');
+   document.body.classList.remove('platform-android');
+   document.body.classList.add('platform-' + p);
+   $scope.demo = p;
+   }*/
 
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
@@ -123,7 +135,7 @@ function activitiesController($scope,
       // Sort by date
       $scope.activityData.activityList = response.data;
 
-      $scope.activityData.activityList.forEach(function(activity){
+      $scope.activityData.activityList.forEach(function (activity) {
         var index = $scope.activityData.activityList.indexOf(activity);
         $scope.activityData.activityList[index].images = Utilities.sanitizeArrayFromNullObjects(activity.images);
       });
@@ -251,7 +263,7 @@ function activitiesController($scope,
     }, options);
   };
 
-  $scope.setLocation = function(){
+  $scope.setLocation = function () {
     var posOptions = {
       maximumAge: 30000,
       timeout: 5000,
