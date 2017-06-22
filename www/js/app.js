@@ -88,7 +88,7 @@ angular.module('adventureMap', [
 
   })
 
-  .run(function ($ionicPlatform, $rootScope, $state) {
+  .run(function ($ionicPlatform, $rootScope, $state, ConnectivityMonitor) {
     $rootScope.$state = $state;
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -114,6 +114,8 @@ angular.module('adventureMap', [
         return true;
       }
     }
+
+    ConnectivityMonitor.startWatching();
   })
 
   .config(function($translateProvider){

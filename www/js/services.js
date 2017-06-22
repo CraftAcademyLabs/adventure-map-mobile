@@ -226,7 +226,6 @@ angular.module('adventureMap.services', [])
           $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
             console.log("went offline");
           });
-        debugger
         }
         else {
 
