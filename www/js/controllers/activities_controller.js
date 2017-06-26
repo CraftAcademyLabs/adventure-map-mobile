@@ -45,6 +45,7 @@ function activitiesController($scope,
   });
 
   $scope.shareUsingFacebook = function (message, image, link) {
+    console.log(">>>>>>>>>>>>>>>>MMMMMMMMMM<<<<<<<<<<<<<<<<<<<<<<<");
     console.log(message)
     $cordovaSocialSharing
       .shareViaFacebook(message, image, link)
