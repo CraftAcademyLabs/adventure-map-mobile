@@ -7,10 +7,8 @@
       <p>{{activity.created_at}}</p>
     </div>
     <div class="buttons">
-      <button class="button ion-ios-arrow-up" ng-controller="activitiesController"
-              ng-click="shareUsingFacebook(activity.body, activity.images[0], null)">
+      <button class="button ion-ios-arrow-up" ng-click="shareUsingFacebook(activity)">
       </button>
-
     </div>
 
     <div ng-click="navigateToActivity(activity)">

@@ -15,8 +15,7 @@ function activitiesController($scope,
                               Utilities,
                               DIFFICULTY_WORDS,
                               CATEGORY_ICONS,
-                              CATEGORY_WORDS,
-                              $cordovaSocialSharing) {
+                              CATEGORY_WORDS) {
 
   setState();
   $scope.activity = {};
@@ -43,18 +42,6 @@ function activitiesController($scope,
   }).then(function (modal) {
     $scope.filesModal = modal;
   });
-
-  $scope.shareUsingFacebook = function (message, image, link) {
-    console.log(">>>>>>>>>>>>>>>>MMMMMMMMMM<<<<<<<<<<<<<<<<<<<<<<<");
-    console.log(message)
-    $cordovaSocialSharing
-      .shareViaFacebook(message, image, link)
-      .then(function (result) {
-        // Success!
-      }, function (err) {
-        // An error occurred. Show a message to the user
-      });
-  }
 
   $scope.$on("$ionicView.enter", function (scopes, states) {
     if (states.stateName === "app.activities") {
