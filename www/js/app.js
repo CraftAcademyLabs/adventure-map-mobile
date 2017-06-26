@@ -15,6 +15,7 @@ angular.module('adventureMap', [
     'ngCordova', 'ng-token-auth',
     'ngResource',
     'ngStorage',
+    'ionic-toast',
     'ionic.contrib.ui.hscrollcards',
     'pascalprecht.translate'
   ])

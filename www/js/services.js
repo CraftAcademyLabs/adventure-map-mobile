@@ -199,7 +199,7 @@ angular.module('adventureMap.services', [])
     };
   })
 
-  .factory('ConnectivityMonitor', function($rootScope, $cordovaNetwork){
+  .factory('ConnectivityMonitor', function($rootScope, $cordovaNetwork, ionicToast){
 
     return {
       isOnline: function(){
@@ -220,21 +220,25 @@ angular.module('adventureMap.services', [])
         if(ionic.Platform.isWebView()){
 
           $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
-            console.log("went online");
+            console.log("went online cordova");
+            ionicToast.show('Back online', 'middle', false, 2500);
           });
 
           $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
-            console.log("went offline");
+            console.log("went offline cordova");
+            ionicToast.show('No internet connection', 'middle', false, 5000);
           });
         }
         else {
 
           window.addEventListener("online", function(e) {
             console.log("went online");
+            /*ionicToast.show('Went online', 'bottom', false, 2500);*/
           }, false);
 
           window.addEventListener("offline", function(e) {
             console.log("went offline");
+            /*ionicToast.show('went offline', 'bottom', false, 2500);*/
           }, false);
         }
       }

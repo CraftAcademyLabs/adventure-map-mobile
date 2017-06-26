@@ -22,6 +22,7 @@ function activitiesController($scope,
   $scope.uploadedImages = [];
   $scope.uploadedFiles = [];
 
+
   $ionicModal.fromTemplateUrl('templates/activities/filter_modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
