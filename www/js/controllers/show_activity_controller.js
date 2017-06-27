@@ -44,7 +44,7 @@ function showActivityController($scope,
     console.log(">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<");
     console.log(activity.body);
     $cordovaSocialSharing
-      .shareViaFacebook("Testing if this will show up", null, null)
+      .shareViaFacebook(activity.body, activity.images, null)
       .then(function (result) {
         // Success!
       }, function (err) {
