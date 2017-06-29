@@ -126,6 +126,27 @@ angular.module('adventureMap.services', [])
     })
   })
 
+ /* .factory('Users', function($resource, API_URL) {
+    return $resource(API_URL + '/:id', {id: '@id'}, {
+      get: {method: 'GET'}
+    })
+  })*/
+
+    .factory('Users', function() {
+      user = {
+        "id": 1,
+        "email":"amber5@email.com",
+        "provider":"email",
+        "uid": "amber5@email.com",
+        "name":"Amber",
+        "nickname":"Ambie",
+        "image":"image.png"
+      };
+
+      return user;
+    })
+
+
   .factory('Filters', function ($localStorage) {
     return {
       applyFilters: function ($scope) {

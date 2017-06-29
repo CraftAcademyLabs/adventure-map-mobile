@@ -18,6 +18,7 @@ function profileController($scope,
   if (typeof(user.interest_list) === 'object') {
     user.interest_list = user.interest_list.join(', ')
   }
+  var users = $scope.users;
 
 
   $scope.selectAvatar = function () {

@@ -39,6 +39,12 @@ function showActivityController($scope,
     }
   };
 
+  $scope.navigateToUser = function (user) {
+    // switch ($state.current.name) {
+      $state.go('app.users-profile', {id: user.id});
+    // }
+  };
+
   $scope.carouselOptions = {
     carouselId    : 'image-carousel',
     align         : 'right',
