@@ -246,7 +246,8 @@ angular.module('adventureMap', [
         }
       })
       .state('app.profile', {
-        url: '/profile/',
+        url: '/profile',
+          cache: false,
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile.html',
