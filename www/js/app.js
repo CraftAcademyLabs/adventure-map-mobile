@@ -259,7 +259,7 @@ angular.module('adventureMap', [
         views: {
           'tab-activities-view': {
             templateUrl: 'templates/profile/users-profile.html',
-            controller: 'profileController'
+            controller: 'usersProfileController'
           }
         }
       })
