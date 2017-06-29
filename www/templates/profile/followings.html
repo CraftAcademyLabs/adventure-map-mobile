@@ -13,7 +13,7 @@
       <ion-list class="profile-list">
         <div ng-repeat="follow in myFollow">
           <div class="item item-divider smaller-profile-divider"></div>
-          <ion-item class="item item-icon-right list-item height-50" ui-sref="user.show">
+          <ion-item class="item item-icon-right list-item height-50" ui-sref="user.show" ng-click="navigateToUser(activity.user)">
             <!-- should link to user's profile page -->
             <span class="main-text">{{follow.name}}
             <span class="badge icon-badge">
