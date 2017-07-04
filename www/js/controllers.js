@@ -5,4 +5,5 @@ angular
   .controller('showActivityController', showActivityController)
   .controller('mapController', mapController)
   .controller('userController', userController)
-  .controller('profileController', profileController);
+  .controller('profileController', profileController)
+  .controller('usersProfileController', usersProfileController);

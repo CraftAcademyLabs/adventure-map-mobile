@@ -1,0 +1,49 @@
+<ion-view cache-view="false" can-swipe-back="true" class="profile-view">
+
+  <ion-content scroll="false">
+    <div class="row row-no-padding">
+      <div class="col user-col">
+        <div class="user-image-container" ng-controller="usersProfileController" ng-repeat="users in user">
+         <!-- <pre-img ratio="_1_1" helper-class="avatar-image">
+            <img ng-src="{{profileImage()}}" spinner-on-load>
+          </pre-img>-->
+        </div>
+        <h2 class="user-name">{{users.name}}</h2>
+        <a ui-sref="main.profile">
+          <h5 class="username">@{{users.nickname}}</h5>
+        </a>
+        <p class="user-social" ng-if="users.description">
+          {{users.description}}
+        </p>
+        <p class="user-social">
+          <i class="ion-heart"></i>
+          <span>74</span> &nbsp;
+          <i class="ion-location"></i>
+          <span>{{users.city}}</span>
+        </p>
+        <div class="row">
+          <div class="col">
+            <p class="user-bio">{{users.interest_list}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ion-list class="profile-list">
+      <ion-item class="item item-icon-right list-item" ui-sref="app.my-saved-activities">
+        <span class="main-text">{{users.name}}'s Saved Activities</span>
+        <span class="badge">{{users.counts.my_saved_activities}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.my-activities">
+        <span class="main-text">{{users.name}}'s Activities</span>
+        <span class="badge">{{users.counts.my_activities}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-icon-right list-item" ui-sref="app.followings">
+        <span class="main-text">{{users.name}}'s Connections</span>
+        <span class="badge">{{users.counts.followings}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+
+  </ion-content>
+</ion-view>

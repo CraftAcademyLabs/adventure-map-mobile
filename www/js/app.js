@@ -250,11 +250,20 @@ angular.module('adventureMap', [
       })
       .state('app.profile', {
         url: '/profile',
-        cache: false,
+          cache: false,
         views: {
           'tab-profile-view': {
             templateUrl: 'templates/profile.html',
             controller: 'userController'
+          }
+        }
+      })
+      .state('app.users-profile', {
+        url: '/users/:id',
+        views: {
+          'tab-activities-view': {
+            templateUrl: 'templates/profile/users-profile.html',
+            controller: 'usersProfileController'
           }
         }
       })
