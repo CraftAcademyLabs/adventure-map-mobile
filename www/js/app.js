@@ -15,10 +15,11 @@ angular.module('adventureMap', [
     'ngCordova', 'ng-token-auth',
     'ngResource',
     'ngStorage',
+    'ionic-toast',
     'ionic.contrib.ui.hscrollcards',
     'pascalprecht.translate'
   ])
-  //.constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
+  // .constant('API_URL', 'https://adventuremap-dev.herokuapp.com/api/v1')
   .constant('API_URL', 'http://adventuremap-dev.craftacademylabs.com/api/v1')
   //.constant('API_URL', 'http://localhost:3000/api/v1')//
 
@@ -88,7 +89,7 @@ angular.module('adventureMap', [
 
   })
 
-  .run(function ($ionicPlatform, $rootScope, $state) {
+  .run(function ($ionicPlatform, $rootScope, $state, ConnectivityMonitor) {
     $rootScope.$state = $state;
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -114,6 +115,8 @@ angular.module('adventureMap', [
         return true;
       }
     }
+
+    ConnectivityMonitor.startWatching();
   })
 
   .config(function($translateProvider){

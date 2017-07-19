@@ -6,6 +6,7 @@ function showActivityController($scope,
                                 $ionicSlideBoxDelegate,
                                 $ionicPopup,
                                 $http,
+                                $cordovaSocialSharing,
                                 Activity,
                                 Comment,
                                 Follow,
@@ -39,12 +40,23 @@ function showActivityController($scope,
     }
   };
 
+  $scope.shareUsingFacebook = function (activity) {
+    console.log(activity.body);
+    $cordovaSocialSharing
+      .shareViaFacebook(activity.body, activity.images, null)
+      .then(function (result) {
+        // Success!
+      }, function (err) {
+        // An error occurred. Show a message to the user
+      });
+  }
+
   $scope.carouselOptions = {
-    carouselId: 'image-carousel',
-    align: 'right',
-    selectFirst: true,
+    carouselId    : 'image-carousel',
+    align         : 'right',
+    selectFirst   : true,
     centerOnSelect: true,
-    template: 'templates/partials/image-carousel.html'
+    template      : 'templates/partials/image-carousel.html'
   };
 
   $scope.closeCommentModal = function () {
@@ -128,30 +140,24 @@ function showActivityController($scope,
 
   function showSmallMap(lat, lng) {
     //var lat, long;
-    var posOptions = {
-      maximumAge: 30000,
-      timeout: 5000,
-      enableHighAccuracy: true
-    };
+    var srs_code = 'EPSG:3006';
+    var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
+    var crs = new L.Proj.CRS(srs_code, proj4def, {
+      resolutions: [
+        4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4
+      ],
+      origin: [-1200000.000000, 8500000.000000],
+      bounds: L.bounds([-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
+    });
 
-    map = new L.Map('small-map', {
+    var map = new L.Map('small-map', {
+      crs: crs,
       continuousWorld: true,
       zoomControl: false
     });
-
-    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
-    baseMaps = {
-      combined_sweden: L.tileLayer.wms(mapproxyUrl,
-        {
-          layers: 'combined_sweden',
-          transparent: true,
-          format: 'image/png',
-          attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
-        }).addTo(map)
-    };
     //noinspection JSValidateTypes
     if (typeof lat !== null && lng !== null) {
-      map.setView([lat, lng], 12);
+      map.setView([lat, lng], 13);
       MapService.addToMap(lat, lng, map);
     }
     console.log($scope.activity);
@@ -168,7 +174,7 @@ function showActivityController($scope,
         var routeInfo = response;
 
         console.log(routeInfo);
-        map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 12);
+        map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 32);
         var polOptions = {
           color: 'blue',
           weight: 3,
@@ -202,7 +208,7 @@ function showActivityController($scope,
   function showWaypoint(activity, map) {
     $http.get(activity.waypoints[0].file_attachment).success(function (response) {
         var waypointInfo = response;
-        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 12);
+        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 32);
 
         MapService.addToMap(waypointInfo.route[0].lat, waypointInfo.route[0].long, map);
       }
