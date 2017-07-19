@@ -1,0 +1,26 @@
+.bar.bar-positive {
+  background-color: $bggrey;
+  .title,
+  * {
+    color: $black;
+    &:hover {
+      color: $black;
+    }
+  }
+  .button.button-clear {
+    color: $black;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  .ion-ios-settings-strong {
+    color: $inactive;
+    &:before {
+      font-size: 26px;
+    }
+  }
+  .ion-ios-plus {
+    color:$green;
+    
+  }
+}
