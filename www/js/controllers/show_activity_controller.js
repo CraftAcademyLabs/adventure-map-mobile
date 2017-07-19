@@ -40,11 +40,11 @@ function showActivityController($scope,
   };
 
   $scope.carouselOptions = {
-    carouselId    : 'image-carousel',
-    align         : 'right',
-    selectFirst   : true,
+    carouselId: 'image-carousel',
+    align: 'right',
+    selectFirst: true,
     centerOnSelect: true,
-    template      : 'templates/partials/image-carousel.html'
+    template: 'templates/partials/image-carousel.html'
   };
 
   $scope.closeCommentModal = function () {
@@ -151,7 +151,7 @@ function showActivityController($scope,
     };
     //noinspection JSValidateTypes
     if (typeof lat !== null && lng !== null) {
-      map.setView([lat, lng], 13);
+      map.setView([lat, lng], 12);
       MapService.addToMap(lat, lng, map);
     }
     console.log($scope.activity);
@@ -168,7 +168,7 @@ function showActivityController($scope,
         var routeInfo = response;
 
         console.log(routeInfo);
-        map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 32);
+        map.setView([routeInfo.route[0].lat, routeInfo.route[0].long], 12);
         var polOptions = {
           color: 'blue',
           weight: 3,
@@ -202,7 +202,7 @@ function showActivityController($scope,
   function showWaypoint(activity, map) {
     $http.get(activity.waypoints[0].file_attachment).success(function (response) {
         var waypointInfo = response;
-        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 32);
+        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 12);
 
         MapService.addToMap(waypointInfo.route[0].lat, waypointInfo.route[0].long, map);
       }
