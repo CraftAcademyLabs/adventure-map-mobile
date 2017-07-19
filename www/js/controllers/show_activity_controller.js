@@ -145,23 +145,7 @@ function showActivityController($scope,
   }
 
   function showSmallMap(lat, lng) {
-    map = new L.Map('small-map', {
-      attribution: false,
-      tileSize: 512,
-      continuousWorld: true,
-      zoomControl: false
-    });
-
-    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
-    baseMaps = {
-      combined_sweden: L.tileLayer.wms(mapproxyUrl,
-        {
-          layers: 'combined_sweden',
-          transparent: true,
-          format: 'image/png',
-          attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
-        }).addTo(map)
-    };
+    MapService.initiateMap('small-map');
 
     MapService.addToMap(lat, lng, map);
     map.setView([lat, lng], 12);

@@ -35,28 +35,8 @@ function mapController($scope,
       enableHighAccuracy: true
     };
 
-    map = new L.Map('map-container', {
-      attribution: false,
-      tileSize: 512,
-      continuousWorld: true,
-      zoomControl: false
-    });
+    MapService.initiateMap('map-container');
 
-    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
-    baseMaps = {
-      combined_sweden: L.tileLayer.wms(mapproxyUrl,
-        {
-          layers: 'combined_sweden',
-          transparent: true,
-          format: 'image/png',
-          attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
-        }).addTo(map)
-    };
-
-
-    L.control.scale({
-      imperial: false
-    }).addTo(map);
 
     const geolocation = $cordovaGeolocation.getCurrentPosition(posOptions);
 
