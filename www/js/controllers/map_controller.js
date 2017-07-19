@@ -36,6 +36,8 @@ function mapController($scope,
     };
 
     map = new L.Map('map-container', {
+      attribution: false,
+      tileSize: 512,
       continuousWorld: true,
       zoomControl: false
     });
@@ -67,7 +69,9 @@ function mapController($scope,
       var lat = $scope.currentLocation.coords.lat;
       var long = $scope.currentLocation.coords.long;
       console.log(lat + ', ' + long);
-      map.setView([lat, long], 12);
+      map.setView([lat, long], 12, {
+        reset: true
+      });
       MapService.addToMap(lat, long, map);
       MapService.addClusters(map);
       $ionicLoading.hide();
@@ -123,7 +127,7 @@ function mapController($scope,
     }
   };
 
-  $scope.navigateTo = function(coords){
+  $scope.navigateTo = function (coords) {
     map.panTo([coords.lat, coords.long], {animate: true, duration: 1.5});
     MapService.addToMap(coords.lat, coords.long, map);
     angular.element(document.getElementsByClassName("results")).addClass('hidden')

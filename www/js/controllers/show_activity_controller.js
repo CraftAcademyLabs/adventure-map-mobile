@@ -20,10 +20,16 @@ function showActivityController($scope,
   var activityId;
 
   $scope.$on("$ionicView.enter", function () {
+    showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
+  });
+
+  $scope.$on('$ionicView.loaded', function () {
+    //do something
     if ($stateParams.id) {
       activityId = $stateParams.id;
       getActivity(activityId);
     }
+
   });
 
   $scope.navigateToActivity = function (activity) {
@@ -52,11 +58,11 @@ function showActivityController($scope,
   }
 
   $scope.carouselOptions = {
-    carouselId    : 'image-carousel',
-    align         : 'right',
-    selectFirst   : true,
+    carouselId: 'image-carousel',
+    align: 'right',
+    selectFirst: true,
     centerOnSelect: true,
-    template      : 'templates/partials/image-carousel.html'
+    template: 'templates/partials/image-carousel.html'
   };
 
   $scope.closeCommentModal = function () {
@@ -139,27 +145,26 @@ function showActivityController($scope,
   }
 
   function showSmallMap(lat, lng) {
-    //var lat, long;
-    var srs_code = 'EPSG:3006';
-    var proj4def = '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
-    var crs = new L.Proj.CRS(srs_code, proj4def, {
-      resolutions: [
-        4096, 2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4
-      ],
-      origin: [-1200000.000000, 8500000.000000],
-      bounds: L.bounds([-1200000.000000, 8500000.000000], [4305696.000000, 2994304.000000])
-    });
-
-    var map = new L.Map('small-map', {
-      crs: crs,
+    map = new L.Map('small-map', {
+      attribution: false,
+      tileSize: 512,
       continuousWorld: true,
       zoomControl: false
     });
-    //noinspection JSValidateTypes
-    if (typeof lat !== null && lng !== null) {
-      map.setView([lat, lng], 13);
-      MapService.addToMap(lat, lng, map);
-    }
+
+    var mapproxyUrl = 'https://lacunaserver.se/mapproxy/service?';
+    baseMaps = {
+      combined_sweden: L.tileLayer.wms(mapproxyUrl,
+        {
+          layers: 'combined_sweden',
+          transparent: true,
+          format: 'image/png',
+          attribution: "<a href='http://adventuremap.se'>AdventureMap</a>"
+        }).addTo(map)
+    };
+
+    MapService.addToMap(lat, lng, map);
+    map.setView([lat, lng], 12);
     console.log($scope.activity);
     if ($scope.activity.routes.length !== 0) {
       showRoute($scope.activity, map);
@@ -223,9 +228,6 @@ function showActivityController($scope,
       $scope.activity.waypoints = Utilities.sanitizeArrayFromNullObjects($scope.activity.waypoints);
       prepareComments();
       console.log($scope.activity);
-      showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
-
-
     });
   }
 
