@@ -18,13 +18,7 @@ function showActivityController($scope,
                                 MapService) {
 
   var activityId;
-
-  $scope.$on("$ionicView.enter", function () {
-    showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
-  });
-
   $scope.$on('$ionicView.loaded', function () {
-    //do something
     if ($stateParams.id) {
       activityId = $stateParams.id;
       getActivity(activityId);
@@ -49,12 +43,27 @@ function showActivityController($scope,
   $scope.shareUsingFacebook = function (activity) {
     console.log(activity.body);
     $cordovaSocialSharing
-      .shareViaFacebook(activity.body, activity.images, null)
-      .then(function (result) {
-        // Success!
-      }, function (err) {
-        // An error occurred. Show a message to the user
+      .shareVia('com.apple.social.facebook', activity.body, 'AdventureMap', getImage(activity), 'Message via AM', function () {
+        console.log('share ok')
+      }, function (msg) {
+        console.log('error: ' + msg)
       });
+    //.shareVia('com.apple.social.facebook', activity.body, getImage(activity), null)
+    //.then(function (result) {
+    //  // Success!
+    //}, function (err) {
+    //  // An error occurred. Show a message to the user
+    //  //$cordovaSocialSharing
+    //  //  .shareViaFacebook(activity.body, getImage(activity), null)
+    //});
+  };
+
+  function getImage(activity) {
+    if (activity.images.length != 0) {
+      return activity.images[0].file_attachment;
+    } else {
+      return null;
+    }
   }
 
   $scope.carouselOptions = {
@@ -187,7 +196,7 @@ function showActivityController($scope,
           var polyline = new L.polyline(pointList, polOptions);
           polyline.addTo(map);
 
-        })
+        });
         MapService.addToMap(routeInfo.route[0].lat, routeInfo.route[0].long, map);
       }
     );
@@ -197,7 +206,7 @@ function showActivityController($scope,
   function showWaypoint(activity, map) {
     $http.get(activity.waypoints[0].file_attachment).success(function (response) {
         var waypointInfo = response;
-        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 32);
+        map.setView([waypointInfo.route[0].lat, waypointInfo.route[0].long], 16);
 
         MapService.addToMap(waypointInfo.route[0].lat, waypointInfo.route[0].long, map);
       }
@@ -211,7 +220,7 @@ function showActivityController($scope,
       $scope.activity.routes = Utilities.sanitizeArrayFromNullObjects($scope.activity.routes);
       $scope.activity.waypoints = Utilities.sanitizeArrayFromNullObjects($scope.activity.waypoints);
       prepareComments();
-      console.log($scope.activity);
+      showSmallMap($scope.activity.coords.lat, $scope.activity.coords.lng);
     });
   }
 
