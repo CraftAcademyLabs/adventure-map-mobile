@@ -42,7 +42,6 @@ function showActivityController($scope,
   };
 
   $scope.shareUsingFacebook = function (activity) {
-    debugger;
     var user = $scope.user || $localStorage.user;
     $cordovaSocialSharing
       .shareVia('com.apple.social.facebook', composeShareContent(), 'AdventureMap', getImage(activity), null, function () {

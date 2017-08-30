@@ -30,5 +30,12 @@
   "PRIVACY_POLICY": "Privacy Policy",
   "COOKIE_POLICY": "Cookie Policy",
   "DISCLAIMER": "Ansvarsbegränsning",
-  "AND": "och"
+  "AND": "och",
+  "CHANGE_LOCATION": "Ändra plats",
+  "FILTER_ACTIVITIES": "Filtrera flödet",
+  "APPLY": "Applicera",
+  "CANCEL": "Avbryt",
+  "CATEGORIES": "Välj kategorier",
+  "SET_AS_DEFAULT": "Spara inställningar",
+  "USERS_I_FOLLOW": "Only from show users I follow"
 }

@@ -30,6 +30,13 @@
   "PRIVACY_POLICY": "Privacy Policy",
   "COOKIE_POLICY": "Cookie Policy",
   "DISCLAIMER": "Disclaimer",
-  "AND": "and"
+  "AND": "and",
+  "CHANGE_LOCATION": "Change Location",
+  "FILTER_ACTIVITIES": "Filter Activities",
+  "APPLY": "Apply",
+  "CANCEL": "Cancel",
+  "CATEGORIES": "Choose categories",
+  "SET_AS_DEFAULT": "Save settings",
+  "USERS_I_FOLLOW": "Only from show users I follow"
 
 }
