@@ -77,22 +77,20 @@ ion-spinner.spinner-on-load {
 }
 
 .success-message {
-  color: $balanced;
+  color: $green;
   word-wrap: break-word;
+  font-family: $font-script;
+  font-size: 30px;
+  line-height: 130%;
 }
 
 .no-margin {
   margin: 0 !important;
 }
 
-.share-button {
-  z-index: 99;
-  position: absolute;
-  left: 0.5rem;
-  top: 4rem;
-  margin: auto;
+.full-width {
+  width: 100%;
 }
-
 
 
 
