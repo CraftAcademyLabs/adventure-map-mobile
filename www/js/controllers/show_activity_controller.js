@@ -6,6 +6,7 @@ function showActivityController($scope,
                                 $ionicSlideBoxDelegate,
                                 $ionicPopup,
                                 $http,
+                                $localStorage,
                                 $cordovaSocialSharing,
                                 Activity,
                                 Comment,
@@ -22,8 +23,8 @@ function showActivityController($scope,
     if ($stateParams.id) {
       activityId = $stateParams.id;
       getActivity(activityId);
-    }
 
+    }
   });
 
   $scope.navigateToActivity = function (activity) {
@@ -41,30 +42,35 @@ function showActivityController($scope,
   };
 
   $scope.shareUsingFacebook = function (activity) {
-    console.log(activity.body);
+    debugger;
+    var user = $scope.user || $localStorage.user;
     $cordovaSocialSharing
-      .shareVia('com.apple.social.facebook', activity.body, 'AdventureMap', getImage(activity), 'Message via AM', function () {
+      .shareVia('com.apple.social.facebook', composeShareContent(), 'AdventureMap', getImage(activity), null, function () {
         console.log('share ok')
       }, function (msg) {
         console.log('error: ' + msg)
       });
-    //.shareVia('com.apple.social.facebook', activity.body, getImage(activity), null)
-    //.then(function (result) {
-    //  // Success!
-    //}, function (err) {
-    //  // An error occurred. Show a message to the user
-    //  //$cordovaSocialSharing
-    //  //  .shareViaFacebook(activity.body, getImage(activity), null)
-    //});
+
+    function composeShareContent() {
+      var content;
+      content = activity.title + ' - ' + activity.body;
+      if ( user.id == activity.user.id ) {
+        return content;
+      } else {
+        return content.replace (/^/, 'By ' + activity.user.name + ': ');
+      }
+    }
+
+    function getImage() {
+      if (activity.images.length != 0) {
+        return activity.images[0].file_attachment;
+      } else {
+        return null;
+      }
+    }
   };
 
-  function getImage(activity) {
-    if (activity.images.length != 0) {
-      return activity.images[0].file_attachment;
-    } else {
-      return null;
-    }
-  }
+
 
   $scope.carouselOptions = {
     carouselId: 'image-carousel',
