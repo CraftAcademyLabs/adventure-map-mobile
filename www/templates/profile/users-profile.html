@@ -5,8 +5,8 @@
       <div class="col user-col">
         <div class="user-image-container" ng-controller="usersProfileController">
           <pre-img ratio="_1_1" helper-class="avatar-image">
-             <img ng-src="{{profileImage()}}" spinner-on-load>
-           </pre-img>
+            <img ng-src="{{profileImage()}}" spinner-on-load>
+          </pre-img>
         </div>
         <h2 class="user-name">{{user.name}}</h2>
         <a ui-sref="main.profile">
@@ -29,21 +29,9 @@
       </div>
     </div>
     <ion-list class="profile-list">
-      <ion-item class="item item-icon-right list-item" ui-sref="app.my-saved-activities">
-        <span class="main-text">{{user.name}}'s Saved Activities</span>
-        <span class="badge">{{user.counts.my_saved_activities}}</span>
-        <i class="icon ion-ios-arrow-right"></i>
+      <ion-item>
+        Test
       </ion-item>
-      <ion-item class="item item-icon-right list-item" ui-sref="app.my-activities">
-        <span class="main-text">{{user.name}}'s Activities</span>
-        <span class="badge">{{user.counts.my_activities}}</span>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-      <ion-item class="item item-icon-right list-item" ui-sref="app.followings">
-        <span class="main-text">{{user.name}}'s Connections</span>
-        <span class="badge">{{user.counts.followings}}</span>
-        <i class="icon ion-ios-arrow-right"></i>
-      </ion-item>
-
+    </ion-list>
   </ion-content>
 </ion-view>
