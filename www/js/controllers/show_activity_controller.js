@@ -41,6 +41,10 @@ function showActivityController($scope,
     }
   };
 
+  $scope.navigateToUser = function (user) {
+    $state.go('app.users-profile', {id: user.id});
+  };
+
   $scope.shareUsingFacebook = function (activity) {
     var user = $scope.user || $localStorage.user;
     $cordovaSocialSharing
