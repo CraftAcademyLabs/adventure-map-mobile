@@ -8,40 +8,40 @@
              <img ng-src="{{profileImage()}}" spinner-on-load>
            </pre-img>
         </div>
-        <h2 class="user-name">{{users.name}}</h2>
+        <h2 class="user-name">{{user.name}}</h2>
         <a ui-sref="main.profile">
-          <h5 class="username">@{{users.nickname}}</h5>
+          <h5 class="username">@{{user.nickname}}</h5>
         </a>
-        <p class="user-social" ng-if="users.description">
-          {{users.description}}
+        <p class="user-social" ng-if="user.description">
+          {{user.description}}
         </p>
         <p class="user-social">
           <i class="ion-heart"></i>
           <span>74</span> &nbsp;
           <i class="ion-location"></i>
-          <span>{{users.city}}</span>
+          <span>{{user.city}}</span>
         </p>
         <div class="row">
           <div class="col">
-            <p class="user-bio">{{users.interest_list}}</p>
+            <p class="user-bio">{{user.interest_list}}</p>
           </div>
         </div>
       </div>
     </div>
     <ion-list class="profile-list">
       <ion-item class="item item-icon-right list-item" ui-sref="app.my-saved-activities">
-        <span class="main-text">{{users.name}}'s Saved Activities</span>
-        <span class="badge">{{users.counts.my_saved_activities}}</span>
+        <span class="main-text">{{user.name}}'s Saved Activities</span>
+        <span class="badge">{{user.counts.my_saved_activities}}</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
       <ion-item class="item item-icon-right list-item" ui-sref="app.my-activities">
-        <span class="main-text">{{users.name}}'s Activities</span>
-        <span class="badge">{{users.counts.my_activities}}</span>
+        <span class="main-text">{{user.name}}'s Activities</span>
+        <span class="badge">{{user.counts.my_activities}}</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
       <ion-item class="item item-icon-right list-item" ui-sref="app.followings">
-        <span class="main-text">{{users.name}}'s Connections</span>
-        <span class="badge">{{users.counts.followings}}</span>
+        <span class="main-text">{{user.name}}'s Connections</span>
+        <span class="badge">{{user.counts.followings}}</span>
         <i class="icon ion-ios-arrow-right"></i>
       </ion-item>
 

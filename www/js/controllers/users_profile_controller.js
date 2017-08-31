@@ -11,6 +11,19 @@ function usersProfileController($scope,
     $scope.user = response.user;
   });
 
+  $scope.profileImage = function () {
+    if ($scope.user.id !== undefined) {
+      if ($scope.user.image) {
+        return $scope.user.image;
+      } else {
+        var options = {size: 128, format: 'svg'};
+
+        var hashedEmail = md5.createHash($scope.user.email);
+        return 'data:image/svg+xml;base64,' + new Identicon(hashedEmail, options).toString();
+      }
+    }
+  };
+
   showMyActivities = function () {
     console.log(user);
     $ionicLoading.show({
