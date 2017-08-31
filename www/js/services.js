@@ -133,7 +133,7 @@ angular.module('adventureMap.services', [])
     })
   })
 
-  .factory('Filters', function ($localStorage) {
+  .factory('Filters', function ($localStorage, $translate) {
     return {
       applyFilters: function ($scope) {
         console.log($scope.activityData.filters);
@@ -197,7 +197,10 @@ angular.module('adventureMap.services', [])
 
         // Show users a message instead of a blank screen if there are no activities that match their search.
         if ($scope.activityData.activityList.length === 0) {
-          $scope.activityData.message = 'Your search returned no results. Try adding some categories';
+          $translate("MAIN.NOT_FOUND").then(function (translation) {
+            $scope.activityData.message = translation;
+          });
+
         }
 
         //console.log('activities: ' + $scope.activityData.activityList.length);
