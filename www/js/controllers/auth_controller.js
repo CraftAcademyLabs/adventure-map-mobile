@@ -102,6 +102,7 @@ function authController($scope,
         tempArray.push(CATEGORY_WORDS[index]);
       }
     });
+    debugger;
     $scope.signupForm.interest_list = tempArray.join(', ');
   };
 
@@ -109,16 +110,20 @@ function authController($scope,
     translateActivityArray();
     console.log($scope.signupForm.interest_list);
     $localStorage.user.interest_list = $scope.signupForm.interest_list;
-    $scope.user.interest_list = $scope.signupForm.interest_list.split(', ');
-    storeUser();
-    // Put interest list to server.
-    User.update($scope.user, function (resp) {
-      if (resp.status === 'success') {
-        console.log(resp)
-        $state.go('app.activities');
-        $scope.activitiesModal.hide()
-      }
-    })
+    $scope.user.interest_list = $scope.signupForm.interest_list;
+    storeUser().then(function(){
+      debugger;
+
+      // Put interest list to server.
+      User.update($scope.user, function (resp) {
+        if (resp.status === 'success') {
+          console.log(resp);
+          $state.go('app.activities');
+          $scope.activitiesModal.hide()
+        }
+      })
+    });
+
   };
 
 
@@ -148,7 +153,7 @@ function authController($scope,
 
   $scope.signOut = function () {
     $ionicLoading.show({
-      template: 'Signing out...'
+      template: $translate('PROFILE.SIGNING_OUT')
     });
     $auth.signOut()
       .then(function (response) {

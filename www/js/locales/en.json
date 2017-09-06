@@ -54,7 +54,8 @@
     "MY_CONNECTIONS": "My Connections",
     "MY_RECORDINGS": "My Recordings",
     "ACTIVITIES": "activities",
-    "EDIT": "Edit"
+    "EDIT": "Edit",
+    "UPDATE_PROFILE": "Edit profile"
   },
   "MAIN": {
     "GETTING_ACTIVITIES": "Getting activities...",
@@ -67,6 +68,10 @@
     "FINISH_SIGN_UP": "Finish registration",
     "SIGN_UP": "Sign up",
     "SIGNING_UP": "Creating account...",
-    "REQUESTING_PASSWORD": "Requesting new password..."
+    "REQUESTING_PASSWORD": "Requesting new password...",
+    "SIGNING_OUT": "Signing out..."
+  },
+  "ELEMENTS": {
+    "CANCEL": "Cancel"
   }
 }
