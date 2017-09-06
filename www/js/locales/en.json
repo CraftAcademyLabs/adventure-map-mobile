@@ -55,11 +55,19 @@
     "MY_RECORDINGS": "My Recordings",
     "ACTIVITIES": "activities",
     "EDIT": "Edit",
-    "UPDATE_PROFILE": "Edit profile"
+    "UPDATE_PROFILE": "Edit profile",
+    "NICKNAME": "Nickname",
+    "EMAIL": "Email",
+    "DESCRIPTION": "About me",
+    "CITY": "City",
+    "GENDER": "Gender",
+    "BIRTHDATE": "Birthday",
+    "INTERESTS": "Interests"
   },
   "MAIN": {
     "GETTING_ACTIVITIES": "Getting activities...",
-    "NOT_FOUND": "No results.... Redefine your search..."
+    "NOT_FOUND": "No results.... Redefine your search...",
+    "SAVING": "Saving..."
   },
   "MAP": {
     "LOADING_LOCATION": "Loading current location..."

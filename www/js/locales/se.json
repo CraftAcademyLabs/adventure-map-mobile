@@ -56,11 +56,19 @@
     "MY_RECORDINGS": "Sparade inselningar",
     "ACTIVITIES": "aktiviteter",
     "EDIT": "Redigera",
-    "UPDATE_PROFILE": "Redigera profil"
+    "UPDATE_PROFILE": "Redigera profil",
+    "NICKNAME": "Användarnamn",
+    "EMAIL": "Mailadress",
+    "DESCRIPTION": "Om mig",
+    "CITY": "Stad",
+    "GENDER": "Kön",
+    "BIRTHDATE": "Födelsedag",
+    "INTERESTS": "Intressen"
   },
   "MAIN": {
     "GETTING_ACTIVITIES": "Hämtar aktiviteter...",
-    "NOT_FOUND": "Hittade inget... Bredda gärna sökningen..."
+    "NOT_FOUND": "Hittade inget... Bredda gärna sökningen...",
+    "SAVING": "Sparar..."
   },
   "MAP": {
     "LOADING_LOCATION": "Laddar din nuvarande position..."
