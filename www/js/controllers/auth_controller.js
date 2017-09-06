@@ -10,13 +10,19 @@ function authController($scope,
                         $ionicModal,
                         $ionicPopup,
                         $translate) {
-  $scope.credentials = {};
-  $scope.signupForm = {};
 
-  $scope.errorMessage = null;
-  if (!$localStorage.defaultFilter) {
-    $localStorage.defaultFilter = {};
-  }
+  $scope.$on('$ionicView.enter', function () {
+    $scope.credentials = {};
+    $scope.signupForm = {};
+    $scope.category_words = CATEGORY_WORDS;
+    $scope.signupForm.category = [false, false, false, false, false, false, false, false, false, false];
+    $scope.activity_images = ['img/activity_images/hiking.png', 'img/activity_images/cross_country_skiing.png', 'img/activity_images/back_country_skiing.png', 'img/activity_images/paddling.png', 'img/activity_images/mountain_biking.png', 'img/activity_images/horse_riding.png', 'img/activity_images/climbing.png', 'img/activity_images/snow_mobiling.png', 'img/activity_images/cross_country_ice_skating.png', 'img/activity_images/foraging.png'];
+    $scope.errorMessage = null;
+    if (!$localStorage.defaultFilter) {
+      $localStorage.defaultFilter = {};
+    }
+  });
+
 
   $scope.skipIntro = function () {
     $state.go('intro.login');
@@ -44,6 +50,8 @@ function authController($scope,
   };
 
   $scope.signup = function () {
+    debugger;
+
     translateActivityArray();
     storeUser();
     // The server expects a string and returns a string (instead of an array)
@@ -55,6 +63,7 @@ function authController($scope,
 
     $auth.submitRegistration($scope.signupForm)
       .then(function (response) {
+        debugger;
         $scope.activitiesModal.hide();
         $state.go('app.activities');
         $ionicLoading.hide();
@@ -77,9 +86,6 @@ function authController($scope,
     $scope.activitiesModal = modal;
   });
 
-  $scope.category_words = CATEGORY_WORDS;
-  $scope.signupForm.category = [false, false, false, false, false, false, false, false, false, false];
-  $scope.activity_images = ['img/activity_images/hiking.png', 'img/activity_images/cross_country_skiing.png', 'img/activity_images/back_country_skiing.png', 'img/activity_images/paddling.png', 'img/activity_images/mountain_biking.png', 'img/activity_images/horse_riding.png', 'img/activity_images/climbing.png', 'img/activity_images/snow_mobiling.png', 'img/activity_images/cross_country_ice_skating.png', 'img/activity_images/foraging.png'];
 
   $scope.getActivitySelection = function () {
     $scope.activitiesModal.show();
