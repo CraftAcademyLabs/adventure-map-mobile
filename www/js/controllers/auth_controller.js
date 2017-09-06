@@ -35,7 +35,7 @@ function authController($scope,
   $scope.login = function () {
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
-      template: 'Logging in...'
+      template: $translate('LOGGING_IN')
     });
     $auth.submitLogin($scope.credentials)
       .then(function (response) {
@@ -50,20 +50,17 @@ function authController($scope,
   };
 
   $scope.signup = function () {
-    debugger;
-
     translateActivityArray();
     storeUser();
     // The server expects a string and returns a string (instead of an array)
     console.dir($scope.signupForm);
     $auth.getConfig().apiUrl = API_URL;
     $ionicLoading.show({
-      template: 'Signing up...'
+      template: $translate('SIGNING_UP')
     });
 
     $auth.submitRegistration($scope.signupForm)
       .then(function (response) {
-        debugger;
         $scope.activitiesModal.hide();
         $state.go('app.activities');
         $ionicLoading.hide();
@@ -72,7 +69,7 @@ function authController($scope,
         console.log(response);
         $ionicPopup.alert({
           title: response.data.errors.full_messages
-        })
+        });
         $ionicLoading.hide();
         $scope.activitiesModal.hide();
         $scope.errorMessage = response.data.errors.full_messages.toString();
@@ -127,15 +124,12 @@ function authController($scope,
     $auth.signOut();
     $auth.getConfig().apiUrl = API_URL.replace(/^https:\/\//i, 'http://');
     $ionicLoading.show({
-      template: 'Logging in with Facebook...'
+      template: $translate('LOGGING_IN_FACEBOOK')
     });
 
     $auth.authenticate('facebook')
       .then(function (response) {
         storeUser();
-        //$auth.validateUser().then(function (resp) {
-        //
-        //});
         if ($scope.user.interest_list === undefined || $scope.user.interest_list === []) {
           $scope.getActivitySelection();
         } else {
@@ -144,7 +138,6 @@ function authController($scope,
         $ionicLoading.hide();
       })
       .catch(function (ev, response) {
-        // handle errors
         console.log(ev);
         console.log(response);
         $ionicLoading.hide();
@@ -192,7 +185,7 @@ function authController($scope,
     $scope.errorMessage = '';
     $scope.successMessage = '';
     $ionicLoading.show({
-      template: 'Requesting new password...'
+      template: $translate('ACCOUNT.REQUESTING_PASSWORD')
     });
     $auth.requestPasswordReset($scope.credentials)
       .then(function (response) {

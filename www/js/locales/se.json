@@ -8,6 +8,8 @@
   "LOG_OUT": "Logga ut",
   "FORGOT_PASSWORD": "Glömt lösenord?",
   "LOG_IN": "Logga in",
+  "LOGGING_IN": "Loggar in...",
+  "LOGGING_IN_FACEBOOK": "Loggar in med Facebook...",
   "NAME": "Namn",
   "EMAIL": "Mailadress",
   "PASSWORD": "Lösenord",
@@ -61,5 +63,11 @@
   },
   "MAP": {
     "LOADING_LOCATION": "Laddar din nuvarande position..."
+  },
+  "ACCOUNT": {
+    "FINISH_SIGN_UP": "Slutför registrering",
+    "SIGN_UP": "Skapa konto",
+    "SIGNING_UP": "Skapar konto...",
+    "REQUESTING_PASSWORD": "Skickar begäran..."
   }
 }

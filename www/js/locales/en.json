@@ -8,6 +8,8 @@
   "LOG_OUT": "Log out",
   "FORGOT_PASSWORD": "Forgot password?",
   "LOG_IN": "Login",
+  "LOGGING_IN": "Logging in...",
+  "LOGGING_IN_FACEBOOK": "Logging in with Facebook...",
   "NAME": "Name",
   "EMAIL": "Email",
   "PASSWORD": "Password",
@@ -41,7 +43,6 @@
   "SET_AS_DEFAULT": "Save settings",
   "USERS_I_FOLLOW": "Only from show users I follow",
   "SELECT_FAVORITES": "Select your favourite activities",
-  "FINISH_SIGN_UP": "FINISH SIGN UP",
   "LANGUAGES": {
     "SWEDISH": "Swedish",
     "ENGLISH": "English"
@@ -61,5 +62,11 @@
   },
   "MAP": {
     "LOADING_LOCATION": "Loading current location..."
+  },
+  "ACCOUNT": {
+    "FINISH_SIGN_UP": "Finish registration",
+    "SIGN_UP": "Sign up",
+    "SIGNING_UP": "Creating account...",
+    "REQUESTING_PASSWORD": "Requesting new password..."
   }
 }
