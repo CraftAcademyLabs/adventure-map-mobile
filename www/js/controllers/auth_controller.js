@@ -9,7 +9,8 @@ function authController($scope,
                         $ionicHistory,
                         $ionicModal,
                         $ionicPopup,
-                        $translate) {
+                        $translate,
+                        $q) {
 
   $scope.$on('$ionicView.enter', function () {
     $scope.credentials = {};
@@ -120,21 +121,22 @@ function authController($scope,
     })
   };
 
+
   $scope.facebookSignIn = function () {
     $auth.signOut();
     $auth.getConfig().apiUrl = API_URL.replace(/^https:\/\//i, 'http://');
     $ionicLoading.show({
       template: $translate('LOGGING_IN_FACEBOOK')
     });
-
     $auth.authenticate('facebook')
       .then(function (response) {
-        storeUser();
-        if ($scope.user.interest_list === undefined || $scope.user.interest_list === []) {
-          $scope.getActivitySelection();
-        } else {
-          $state.go('app.activities');
-        }
+        storeUser().then(function () {
+          if ($scope.user.interest_list === "undefined" || $scope.user.interest_list.length === 0) {
+            $scope.getActivitySelection();
+          } else {
+            $state.go('app.activities');
+          }
+        });
         $ionicLoading.hide();
       })
       .catch(function (ev, response) {
@@ -166,6 +168,9 @@ function authController($scope,
   };
 
   storeUser = function () {
+
+    var deferred = $q.defer();
+
     $localStorage.user = $scope.user;
     console.log('storing user');
     console.log($localStorage.user);
@@ -178,6 +183,9 @@ function authController($scope,
     $localStorage.defaultFilter.difficulty3 = true;
     $localStorage.defaultFilter.follow = true;
 
+    deferred.resolve();
+
+    return deferred.promise;
   };
 
 
