@@ -18,7 +18,6 @@ function activitiesController($scope,
                               CATEGORY_ICONS,
                               CATEGORY_WORDS) {
 
-
   setState();
   $scope.activity = {};
   $scope.uploadedImages = [];
